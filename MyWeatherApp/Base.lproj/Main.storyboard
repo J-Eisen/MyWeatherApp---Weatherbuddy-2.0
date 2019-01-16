@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,15 +13,113 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MyWeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zipcode" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pTF-ua-MWn">
+                                <rect key="frame" x="120" y="180" width="135" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="postal-code"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="q5l-zp-cY2"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUS-go-prU" userLabel="TempLabel">
+                                <rect key="frame" x="166.5" y="392" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TempStyle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dc-0a-ZPQ" userLabel="TempStyle">
+                                <rect key="frame" x="153.5" y="421" width="68" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="202-QF-HYQ" userLabel="PrecipLabel">
+                                <rect key="frame" x="166.5" y="478" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Precipitation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FU5-1c-wEk" userLabel="PreciptationTitle">
+                                <rect key="frame" x="146.5" y="507" width="82" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="System" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jq-Qz-YfJ" userLabel="SystemLabel">
+                                <rect key="frame" x="159" y="580" width="57" height="21"/>
+                                <gestureRecognizers/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jn9-Qd-CXq" userLabel="TimeLabel">
+                                <rect key="frame" x="166.5" y="306" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRB-aL-n4u" userLabel="Time">
+                                <rect key="frame" x="171.5" y="335" width="32" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="pTF-ua-MWn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1SJ-Vn-ZHC"/>
+                            <constraint firstItem="aRB-aL-n4u" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4Aq-j5-K93"/>
+                            <constraint firstItem="1Jq-Qz-YfJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4ae-gm-CHZ"/>
+                            <constraint firstItem="202-QF-HYQ" firstAttribute="top" secondItem="0dc-0a-ZPQ" secondAttribute="bottom" constant="40" id="4eG-gN-peD"/>
+                            <constraint firstItem="dUS-go-prU" firstAttribute="top" secondItem="aRB-aL-n4u" secondAttribute="bottom" constant="40" id="6xR-hV-hwF"/>
+                            <constraint firstItem="202-QF-HYQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9Mx-MQ-Pf5"/>
+                            <constraint firstItem="jn9-Qd-CXq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BkU-c4-z9x"/>
+                            <constraint firstItem="dUS-go-prU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DJl-Mf-l1c"/>
+                            <constraint firstItem="1Jq-Qz-YfJ" firstAttribute="top" secondItem="FU5-1c-wEk" secondAttribute="bottom" constant="56" id="E6J-8m-3Ec"/>
+                            <constraint firstItem="aRB-aL-n4u" firstAttribute="top" secondItem="jn9-Qd-CXq" secondAttribute="bottom" constant="8" id="PzK-Yo-xdv"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pTF-ua-MWn" secondAttribute="trailing" constant="120" id="QNc-sk-8wi"/>
+                            <constraint firstItem="jn9-Qd-CXq" firstAttribute="top" secondItem="pTF-ua-MWn" secondAttribute="bottom" constant="96" id="aQk-cY-0Nt"/>
+                            <constraint firstItem="pTF-ua-MWn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="120" id="cjO-MD-gM8"/>
+                            <constraint firstItem="pTF-ua-MWn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="160" id="eTy-ef-MDD"/>
+                            <constraint firstItem="FU5-1c-wEk" firstAttribute="top" secondItem="202-QF-HYQ" secondAttribute="bottom" constant="8" id="fVp-BU-Xb4"/>
+                            <constraint firstItem="0dc-0a-ZPQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fwN-nO-NXs"/>
+                            <constraint firstItem="FU5-1c-wEk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jw3-8t-Td1"/>
+                            <constraint firstItem="0dc-0a-ZPQ" firstAttribute="top" secondItem="dUS-go-prU" secondAttribute="bottom" constant="8" id="pDc-sS-YhA"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="oY8-T2-Prd" appends="YES" id="uT9-sP-TXs"/>
+                            <outletCollection property="gestureRecognizers" destination="Sw2-9o-WqC" appends="YES" id="KQi-sq-95c"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="precipLabel" destination="202-QF-HYQ" id="GvI-ND-Smm"/>
+                        <outlet property="preciptationTitleLabel" destination="FU5-1c-wEk" id="1fM-My-Wkd"/>
+                        <outlet property="systemLabel" destination="1Jq-Qz-YfJ" id="5Dc-vr-CvB"/>
+                        <outlet property="tempLabel" destination="dUS-go-prU" id="Yc2-mF-wxK"/>
+                        <outlet property="tempStyle" destination="0dc-0a-ZPQ" id="fEQ-4d-RL0"/>
+                        <outlet property="timeLabel" destination="jn9-Qd-CXq" id="aBq-LD-6ux"/>
+                        <outlet property="zipcodeField" destination="pTF-ua-MWn" id="ZIK-yh-cMh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="oY8-T2-Prd">
+                    <connections>
+                        <action selector="panHandler:" destination="BYZ-38-t0r" id="m6I-Th-C5z"/>
+                    </connections>
+                </panGestureRecognizer>
+                <tapGestureRecognizer id="Sw2-9o-WqC">
+                    <connections>
+                        <action selector="handleTapWithRecognizer:" destination="BYZ-38-t0r" id="FK8-f3-YNq"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
         </scene>
     </scenes>
