@@ -10,21 +10,23 @@ import UIKit
 
 let defaultLocation = 11221
 
-class ViewController: UIViewController {
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var tempLabel: UILabel!
-    @IBOutlet weak var tempStyle: UILabel!
-    @IBOutlet weak var precipLabel: UILabel!
+class MainViewController: UIViewController {
+    
+    @IBOutlet weak var outfitLabel: UILabel!
+    @IBOutlet weak var sunglassesLabel: UILabel!
+    @IBOutlet weak var umbrellaLabel: UILabel!
+    @IBOutlet weak var bootsLabel: UILabel!
+    
     @IBOutlet weak var systemLabel: UILabel!
     
-    @IBOutlet weak var preciptationTitleLabel: UILabel!
     @IBOutlet weak var zipcodeField: UITextField!
     
-    var location = defaultLocation
+    var location: Int = defaultLocation
     var testMode = false
     var weather: [Weather] = []
     var selectedTime = 0
     var lastTime = 0
+    var buddy: Buddy = Buddy.init(location: defaultLocation, lastHour: "0")
     
     // infoSwitch:
     //      tempStyle      tempLabel/systemLabel/rain/snow
@@ -36,6 +38,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        sunglassesLabel.text = "Sunglasses"
+        umbrellaLabel.text = "Umbrella"
+        print("Reloading View After Fetch Running...")
         reloadViewAfterFetch()
     }
     
@@ -52,24 +57,10 @@ class ViewController: UIViewController {
                 } else {
                     infoSwitch[1] = 0
                 }
-            } else if tapCheck(tap: tapPoint, targetY1: preciptationTitleLabel.frame, targetY2: precipLabel.frame) {
-                updateSwitch[2] = true
-                if infoSwitch[2] == 2 {
-                    infoSwitch[2] = 0
-                } else {
-                    infoSwitch[2] += 1
-                }
-            } else if tapCheck(tap: tapPoint, targetY1: tempLabel.frame, targetY2: tempStyle.frame) {
-                updateSwitch[0] = true
-                if infoSwitch[0] == 0 {
-                    infoSwitch[0] = 1
-                } else {
-                    infoSwitch[0] = 0
-                }
             }
-            guard weather.count > 0 else { return }
-            updateLabels(weatherData: weather[selectedTime], infoSwitch: infoSwitch)
         }
+        guard weather.count > 0 else { return }
+        updateLabels(buddy: self.buddy)
     }
     
     @IBAction func panHandler(_ recognizer: UIPanGestureRecognizer) {
@@ -92,12 +83,12 @@ class ViewController: UIViewController {
                 }
             }
             guard weather.count > 0 else { return }
-            updateLabels(weatherData: weather[selectedTime], infoSwitch: infoSwitch)
+            updateLabels(buddy: self.buddy)
         }
     }
 }
 
-extension ViewController {
+extension MainViewController {
     func tapCheck(tap: CGPoint, target: CGRect) -> Bool {
         var result = false
         if tap.x > target.minX && tap.x < target.maxX
@@ -116,14 +107,14 @@ extension ViewController {
         var minPoint: CGPoint = CGPoint.init(x: targetY2.minX, y: targetY2.minY)
         var maxPoint: CGPoint = CGPoint.init(x: targetY2.maxX, y: targetY2.maxY)
         
-        // Checking if X updated needed
+        // Checking if X update needed
         if targetY1.maxX > targetY2.maxX {
           maxPoint.x = targetY1.maxX
         }
         if targetY1.minX > targetY2.minX {
             minPoint.x = targetY1.minX
         }
-        // Checking if Y updated needed
+        // Checking if Y update needed
         if targetY1.maxY > targetY2.maxY {
             maxPoint.y = targetY1.maxY
         }
@@ -138,23 +129,43 @@ extension ViewController {
     }
 }
 
-extension ViewController {
+extension MainViewController {
     func reloadViewAfterFetch(){
+        print("fetching...")
         fetch(location: location, testMode: testMode) {
             newWeather in
             self.weather.append(contentsOf: newWeather!)
             DispatchQueue.main.async {
-                self.updateLabels(weatherData: self.weather[self.selectedTime], infoSwitch: self.infoSwitch)
+                self.updateLabels(buddy: self.buddy)
             }
         }
+        print("fetch complete!")
     }
     
-    func updateLabels(weatherData: Weather, infoSwitch: [Int]){
-        let timeInt: Int? = Int(weatherData.hour)
-        let timeChange = Bool.init(timeInt != lastTime)
-        lastTime = timeInt!
+    func updateLabels(buddy: Buddy){
+        print("Updating Labels...")
+        for clothingItem in buddy.clothing {
+            if clothingItem.key == "Hot Outfit" ||
+                clothingItem.key == "Medium Outfit" ||
+                clothingItem.key == "Heavy Coat" ||
+                clothingItem.key == "Light Coat" && clothingItem.value == true {
+                    outfitLabel.text = clothingItem.key
+            } else if clothingItem.key == "Sunglasses" {
+                sunglassesLabel.isHidden = !clothingItem.value
+            } else if clothingItem.key == "Umbrella" {
+                umbrellaLabel.isHidden = !clothingItem.value
+            } else if clothingItem.key == "Rainboots" ||
+                clothingItem.key == "Snowboots" && clothingItem.value == true {
+                    bootsLabel.text = clothingItem.key
+                    bootsLabel.isHidden = false
+            } else {
+                bootsLabel.isHidden = true
+            }
+        }
+        print(buddy.clothing)
+    }
         
-        if infoSwitch[2] == 0 && updateSwitch[2] {
+        /*if infoSwitch[2] == 0 && updateSwitch[2] {
             precipLabel.text = "\(weatherData.precipitation) %"
             preciptationTitleLabel.text = "Precipitation (%)"
         }
@@ -212,11 +223,10 @@ extension ViewController {
             }
         for index in 0...updateSwitch.count-1 {
             updateSwitch[index] = false
-        }
-    }
+        }*/
 }
 
-extension ViewController: UITextFieldDelegate {
+extension MainViewController: UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         textField.returnKeyType = .done

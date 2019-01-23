@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MyWeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="MainViewController" customModule="MyWeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -27,47 +27,47 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="q5l-zp-cY2"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUS-go-prU" userLabel="TempLabel">
-                                <rect key="frame" x="166.5" y="392" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TempStyle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dc-0a-ZPQ" userLabel="TempStyle">
-                                <rect key="frame" x="153.5" y="421" width="68" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="202-QF-HYQ" userLabel="PrecipLabel">
-                                <rect key="frame" x="166.5" y="478" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Precipitation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FU5-1c-wEk" userLabel="PreciptationTitle">
-                                <rect key="frame" x="146.5" y="507" width="82" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="System" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jq-Qz-YfJ" userLabel="SystemLabel">
-                                <rect key="frame" x="159" y="580" width="57" height="21"/>
+                                <rect key="frame" x="159" y="566" width="57" height="21"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jn9-Qd-CXq" userLabel="TimeLabel">
-                                <rect key="frame" x="166.5" y="306" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WeatherBuddy says..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhD-uh-o5l">
+                                <rect key="frame" x="104" y="250" width="167" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRB-aL-n4u" userLabel="Time">
-                                <rect key="frame" x="171.5" y="335" width="32" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't Forget Your:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SvW-g4-pqv">
+                                <rect key="frame" x="118" y="279" width="139" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6h-9W-RYy" userLabel="Outfit">
+                                <rect key="frame" x="166.5" y="356" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOl-xU-2Kw" userLabel="Sunglasses">
+                                <rect key="frame" x="166.5" y="409" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EoE-zQ-qfL" userLabel="Umbrella">
+                                <rect key="frame" x="166.5" y="462" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="svw-IL-twG" userLabel="Boots">
+                                <rect key="frame" x="166.5" y="515" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -75,37 +75,37 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="pTF-ua-MWn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1SJ-Vn-ZHC"/>
-                            <constraint firstItem="aRB-aL-n4u" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4Aq-j5-K93"/>
+                            <constraint firstItem="svw-IL-twG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3SI-rT-Hhb"/>
                             <constraint firstItem="1Jq-Qz-YfJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4ae-gm-CHZ"/>
-                            <constraint firstItem="202-QF-HYQ" firstAttribute="top" secondItem="0dc-0a-ZPQ" secondAttribute="bottom" constant="40" id="4eG-gN-peD"/>
-                            <constraint firstItem="dUS-go-prU" firstAttribute="top" secondItem="aRB-aL-n4u" secondAttribute="bottom" constant="40" id="6xR-hV-hwF"/>
-                            <constraint firstItem="202-QF-HYQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9Mx-MQ-Pf5"/>
-                            <constraint firstItem="jn9-Qd-CXq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BkU-c4-z9x"/>
-                            <constraint firstItem="dUS-go-prU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DJl-Mf-l1c"/>
-                            <constraint firstItem="1Jq-Qz-YfJ" firstAttribute="top" secondItem="FU5-1c-wEk" secondAttribute="bottom" constant="56" id="E6J-8m-3Ec"/>
-                            <constraint firstItem="aRB-aL-n4u" firstAttribute="top" secondItem="jn9-Qd-CXq" secondAttribute="bottom" constant="8" id="PzK-Yo-xdv"/>
+                            <constraint firstItem="a6h-9W-RYy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5lf-p6-CIZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="1Jq-Qz-YfJ" secondAttribute="bottom" constant="80" id="6yC-Cj-RBX"/>
+                            <constraint firstItem="SvW-g4-pqv" firstAttribute="top" secondItem="uhD-uh-o5l" secondAttribute="bottom" constant="8" id="GMU-Yn-sC0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pTF-ua-MWn" secondAttribute="trailing" constant="120" id="QNc-sk-8wi"/>
-                            <constraint firstItem="jn9-Qd-CXq" firstAttribute="top" secondItem="pTF-ua-MWn" secondAttribute="bottom" constant="96" id="aQk-cY-0Nt"/>
+                            <constraint firstItem="svw-IL-twG" firstAttribute="top" secondItem="EoE-zQ-qfL" secondAttribute="bottom" constant="32" id="TrA-h5-Dqd"/>
+                            <constraint firstItem="uhD-uh-o5l" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Uc8-6o-xIT"/>
+                            <constraint firstItem="EoE-zQ-qfL" firstAttribute="top" secondItem="qOl-xU-2Kw" secondAttribute="bottom" constant="32" id="W99-uZ-MmJ"/>
+                            <constraint firstItem="qOl-xU-2Kw" firstAttribute="top" secondItem="a6h-9W-RYy" secondAttribute="bottom" constant="32" id="YYQ-l7-9ph"/>
+                            <constraint firstItem="uhD-uh-o5l" firstAttribute="top" secondItem="pTF-ua-MWn" secondAttribute="bottom" constant="40" id="ZY5-U8-btF"/>
+                            <constraint firstItem="a6h-9W-RYy" firstAttribute="top" secondItem="SvW-g4-pqv" secondAttribute="bottom" constant="56" id="brW-V5-HZD"/>
                             <constraint firstItem="pTF-ua-MWn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="120" id="cjO-MD-gM8"/>
                             <constraint firstItem="pTF-ua-MWn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="160" id="eTy-ef-MDD"/>
-                            <constraint firstItem="FU5-1c-wEk" firstAttribute="top" secondItem="202-QF-HYQ" secondAttribute="bottom" constant="8" id="fVp-BU-Xb4"/>
-                            <constraint firstItem="0dc-0a-ZPQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fwN-nO-NXs"/>
-                            <constraint firstItem="FU5-1c-wEk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jw3-8t-Td1"/>
-                            <constraint firstItem="0dc-0a-ZPQ" firstAttribute="top" secondItem="dUS-go-prU" secondAttribute="bottom" constant="8" id="pDc-sS-YhA"/>
+                            <constraint firstItem="EoE-zQ-qfL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qUa-et-i6s"/>
+                            <constraint firstItem="qOl-xU-2Kw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="r0U-jx-2oN"/>
+                            <constraint firstItem="SvW-g4-pqv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zD8-NC-yAe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="oY8-T2-Prd" appends="YES" id="uT9-sP-TXs"/>
                             <outletCollection property="gestureRecognizers" destination="Sw2-9o-WqC" appends="YES" id="KQi-sq-95c"/>
+                            <outletCollection property="gestureRecognizers" destination="jwI-N8-OrS" appends="YES" id="UN8-Bg-jcJ"/>
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="precipLabel" destination="202-QF-HYQ" id="GvI-ND-Smm"/>
-                        <outlet property="preciptationTitleLabel" destination="FU5-1c-wEk" id="1fM-My-Wkd"/>
+                        <outlet property="bootsLabel" destination="svw-IL-twG" id="4ZB-Al-hh2"/>
+                        <outlet property="outfitLabel" destination="a6h-9W-RYy" id="arM-rE-uqH"/>
+                        <outlet property="sunglassesLabel" destination="qOl-xU-2Kw" id="0ba-dR-7nx"/>
                         <outlet property="systemLabel" destination="1Jq-Qz-YfJ" id="5Dc-vr-CvB"/>
-                        <outlet property="tempLabel" destination="dUS-go-prU" id="Yc2-mF-wxK"/>
-                        <outlet property="tempStyle" destination="0dc-0a-ZPQ" id="fEQ-4d-RL0"/>
-                        <outlet property="timeLabel" destination="jn9-Qd-CXq" id="aBq-LD-6ux"/>
+                        <outlet property="umbrellaLabel" destination="EoE-zQ-qfL" id="ROZ-OV-YW5"/>
                         <outlet property="zipcodeField" destination="pTF-ua-MWn" id="ZIK-yh-cMh"/>
                     </connections>
                 </viewController>
@@ -120,6 +120,9 @@
                         <action selector="handleTapWithRecognizer:" destination="BYZ-38-t0r" id="FK8-f3-YNq"/>
                     </connections>
                 </tapGestureRecognizer>
+                <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="jwI-N8-OrS">
+                    <rectEdge key="edges" right="YES"/>
+                </screenEdgePanGestureRecognizer>
             </objects>
         </scene>
     </scenes>
