@@ -9,7 +9,7 @@
 import XCTest
 @testable import MyWeatherApp
 
-class MyWeatherAppTests: XCTestCase {
+class MainTests: XCTestCase {
     
     var preFetchedWeatherData: [Weather] = []
     var labelNames: [String] = []

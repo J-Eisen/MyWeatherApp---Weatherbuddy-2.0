@@ -12,18 +12,18 @@ struct Buddy {
     var location: Int
     var clothing: [String: Bool]
     var rawData: RawData
-    var settings: RawData 
+    var settings: Settings
     var lastHour: String
     
     struct RawData {
         var english: WeatherData = WeatherData.init()
         var metric: WeatherData = WeatherData.init()
-        var percip: Float
+        var precip: Float
         var uvIndex: Float
         
         init(englishHighTemp: Float, englishLowTemp: Float, englishRain: Float, englishSnow: Float,
          metricHighTemp: Float, metricLowTemp: Float, metricRain: Float, metricSnow: Float,
-         percip: Float, uvIndex: Float) {
+         precip: Float, uvIndex: Float) {
             self.english.highTemp = englishHighTemp
             self.english.lowTemp = englishLowTemp
             self.english.rain = englishRain
@@ -32,11 +32,11 @@ struct Buddy {
             self.metric.lowTemp = metricLowTemp
             self.metric.rain = metricRain
             self.metric.snow = metricSnow
-            self.percip = percip
+            self.precip = precip
             self.uvIndex = uvIndex
         }
         
-        init(highTemp: Float, lowTemp: Float, rain: Float, snow: Float, percip: Float, uvIndex: Float) {
+        init(highTemp: Float, lowTemp: Float, rain: Float, snow: Float, precip: Float, uvIndex: Float) {
             self.english.highTemp = highTemp
             self.english.lowTemp = lowTemp
             self.english.rain = rain
@@ -45,7 +45,7 @@ struct Buddy {
             self.metric.lowTemp = fahrenheitToCelsius(fromF: lowTemp)
             self.metric.rain = inchToCm(inch: rain)
             self.metric.snow = inchToCm(inch: snow)
-            self.percip = percip
+            self.precip = precip
             self.uvIndex = uvIndex
         }
         
@@ -75,9 +75,9 @@ struct Buddy {
 extension Buddy {
     init(location: Int, lastHour: String) {
         self.location = location
-        self.rawData = RawData.init(highTemp: 0, lowTemp: 0, rain: 0, snow: 0, percip: 0, uvIndex: 0)
+        self.rawData = RawData.init(highTemp: 0, lowTemp: 0, rain: 0, snow: 0, precip: 0, uvIndex: 0)
         self.lastHour = lastHour
-        self.settings = RawData.init(highTemp: 80, lowTemp: 40, rain: 2, snow: 1, percip: 40, uvIndex: 4)
+        self.settings = Settings.init()
         self.clothing = staticClothing
         print("Buddy Init Complete!")
     }
@@ -87,8 +87,8 @@ extension Buddy {
 extension Buddy {
     mutating func updateBuddy(newWeatherData: Weather){
         print("Updating Buddy...")
-        if Float(newWeatherData.precipitation)! > rawData.percip {
-            rawData.percip = Float(newWeatherData.precipitation)!
+        if Float(newWeatherData.precipitation)! > rawData.precip {
+            rawData.precip = Float(newWeatherData.precipitation)!
         }
         if Float(newWeatherData.rainEnglish)! > rawData.english.rain {
             rawData.english.rain = Float(newWeatherData.rainEnglish)!
@@ -112,7 +112,7 @@ extension Buddy {
         clothingUpdate()
         print("Buddy Update Complete!")
         print("Raw Data Check")
-        print(self.rawData.percip)
+        print(self.rawData.precip)
         print(self.rawData.english)
         print(self.rawData.metric)
         print(self.rawData.uvIndex)
@@ -136,7 +136,7 @@ extension Buddy {
         if rawData.uvIndex >= settings.uvIndex {
             clothing["Sunglasses"] = true
         }
-        if rawData.percip >= settings.percip {
+        if rawData.precip >= settings.precip {
             clothing["Umbrella"] = true
         }
         if rawData.english.rain >= settings.english.rain {

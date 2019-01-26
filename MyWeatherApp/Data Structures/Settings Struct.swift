@@ -13,9 +13,11 @@ struct Settings {
     var metric: WeatherData = WeatherData.init(
         highTemp: fahrenheitToCelsius(fromF: 80),
         lowTemp: fahrenheitToCelsius(fromF: 40),
-        rain: inchToCm(inch: 2.0), snow: inchToCm(inch: 1.0))
-    var percip: Float = 40
+        rain: (inchToCm(inch: 2.0)*10).rounded()/10, snow: (inchToCm(inch: 1.0)*10).rounded()/10)
+    var precip: Float = 40
     var uvIndex: Float = 4
+    var systemType = 0  // 0: Imperial/English | 1: Metric
+    var tempType = 0    // 0: ºF | 1: ºC
     
     struct WeatherData {
         var highTemp: Float = 0.0

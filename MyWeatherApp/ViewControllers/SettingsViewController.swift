@@ -9,22 +9,135 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
-
+    var settings: Settings = Settings.init()
+    
+    @IBOutlet weak var maxTempLabel: UILabel!
+    @IBOutlet weak var minTempLabel: UILabel!
+    
+    @IBOutlet weak var precipLabel: UILabel!
+    
+    @IBOutlet weak var highTempSlider: UISlider!
+    @IBOutlet weak var lowTempSlider: UISlider!
+    @IBOutlet weak var precipitationSlider: UISlider!
+    
+    @IBOutlet weak var rainPicker: UIPickerView!
+    @IBOutlet weak var snowPicker: UIPickerView!
+    @IBOutlet var unitLabels: [UILabel]!
+    
+    @IBOutlet weak var systemSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var tempSegmentedControl: UISegmentedControl!
+    
+    let pickerDataSource = [[0,1,2,3,4,5,6,7,8,9,10],[0,1,2,3,4,5,6,7,8,9]]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        initView()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func segmentedControlUpdate(_ sender: UISegmentedControl) {
+        if sender.restorationIdentifier == "systemSegmentedControl" {
+            settings.systemType = sender.selectedSegmentIndex
+            initPickers()
+        } else {
+            settings.tempType = sender.selectedSegmentIndex
+            initSliders()
+        }
+        updateLables()
     }
-    */
+    
+    @IBAction func sliderUpdate(_ sender: UISlider) {
+        
+        let updateResult = updateSliderHelper(slider: sender, settings: settings)
+        settings = updateResult.0
+        
+        if sender.restorationIdentifier == "lowTempSlider" {
+            minTempLabel.text = updateResult.1
+            let tempCheckResult = tempCheck(senderSlider: sender, highSlider: highTempSlider, highLabel: maxTempLabel, settings: settings)
+            if tempCheckResult.0 != nil { settings = tempCheckResult.0! }
+            if tempCheckResult.1 != nil { highTempSlider = tempCheckResult.1 }
+            if tempCheckResult.2 != nil { maxTempLabel = tempCheckResult.2 }
+        } else if sender.restorationIdentifier == "highTempSlider" {
+            maxTempLabel.text = updateResult.1
+            let tempCheckResult = tempCheck(senderSlider: sender, lowSlider: lowTempSlider, lowLabel: minTempLabel, settings: settings)
+            if tempCheckResult.0 != nil { settings = tempCheckResult.0! }
+            if tempCheckResult.1 != nil { lowTempSlider = tempCheckResult.1 }
+            if tempCheckResult.2 != nil { minTempLabel = tempCheckResult.2 }
+        } else {
+            precipLabel.text = updateResult.1
+        }
+    }
 
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is MainViewController {
+            let vc = segue.destination as! MainViewController
+            vc.buddy.settings = settings
+        }
+    }
+
+}
+
+extension SettingsViewController {
+    func initView(){
+        initSliders()
+        initPickers()
+        initSegmentedControls()
+        updateLables()
+    }
+    
+    func initPickers(){
+        rainPicker.dataSource = self
+        rainPicker.delegate = self
+        snowPicker.dataSource = self
+        snowPicker.delegate = self
+        rainPicker = initPickerHelper(picker: rainPicker, settings: settings)
+        snowPicker = initPickerHelper(picker: snowPicker, settings: settings)
+        unitLabels = initPickerLabelsHelper(labels: unitLabels, settings: settings)
+    }
+    
+    func initSliders(){
+        highTempSlider = initSliderHelper(slider: highTempSlider!, settings: settings)
+        lowTempSlider = initSliderHelper(slider: lowTempSlider!, settings: settings)
+        precipitationSlider = initSliderHelper(slider: precipitationSlider!, settings: settings)
+    }
+    
+    func initSegmentedControls(){
+        systemSegmentedControl.selectedSegmentIndex = settings.systemType
+        tempSegmentedControl.selectedSegmentIndex = settings.tempType
+    }
+}
+
+extension SettingsViewController {
+    func updateLables(){
+        if settings.tempType == 0 {
+            maxTempLabel.text = "\(Int(settings.english.highTemp)) ºF"
+            minTempLabel.text = "\(Int(settings.english.lowTemp)) ºF"
+        } else {
+            maxTempLabel.text = celsiusDisplay(value: settings.metric.highTemp)
+            minTempLabel.text = celsiusDisplay(value: settings.metric.lowTemp)
+        }
+        precipLabel.text = "\(Int(settings.precip)) %"
+    }
+}
+
+extension SettingsViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 10
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        settings = updatePickerHelper(pickerView: pickerView, settings: settings, row: row, component: component)
+        print("Rain: \(settings.english.rain) in")
+        print("Snow: \(settings.english.snow) in")
+        print("Rain: \(settings.metric.rain) cm")
+        print("Snow: \(settings.metric.snow) cm")
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(pickerDataSource[component][row])"
+    }
 }
