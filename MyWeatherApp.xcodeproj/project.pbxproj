@@ -113,6 +113,7 @@
 			children = (
 				14254A0B21FBCE3B007B416C /* BuddyFunctions.swift */,
 				142C996B21FA5F9000476759 /* SettingsFunctions.swift */,
+				14C0152321E3CC6F00826B79 /* JSON Fetcher.swift */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -190,7 +191,6 @@
 		14C0152221E3C9FE00826B79 /* Data Structures */ = {
 			isa = PBXGroup;
 			children = (
-				14C0152321E3CC6F00826B79 /* JSON Fetcher.swift */,
 				14C0152521E3CC7F00826B79 /* JSON Struct.swift */,
 				147E667721EEF59E0054FF5E /* Buddy Struct.swift */,
 				147E667921EEFE9B0054FF5E /* Conversion Functions.swift */,
