@@ -22,6 +22,8 @@
 		147E667821EEF59E0054FF5E /* Buddy Struct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147E667721EEF59E0054FF5E /* Buddy Struct.swift */; };
 		147E667A21EEFE9B0054FF5E /* Conversion Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147E667921EEFE9B0054FF5E /* Conversion Functions.swift */; };
 		147E667C21EF0B3E0054FF5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147E667B21EF0B3E0054FF5E /* Constants.swift */; };
+		148CE70D2203B54500A9BFD6 /* CoreDataFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148CE70C2203B54500A9BFD6 /* CoreDataFunctions.swift */; };
+		148CE70F2203B55700A9BFD6 /* CoreLocationFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148CE70E2203B55700A9BFD6 /* CoreLocationFunctions.swift */; };
 		14C014F121E3C94F00826B79 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C014F021E3C94F00826B79 /* AppDelegate.swift */; };
 		14C014F321E3C94F00826B79 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C014F221E3C94F00826B79 /* MainViewController.swift */; };
 		14C014F621E3C94F00826B79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14C014F421E3C94F00826B79 /* Main.storyboard */; };
@@ -65,6 +67,8 @@
 		147E667721EEF59E0054FF5E /* Buddy Struct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Buddy Struct.swift"; sourceTree = "<group>"; };
 		147E667921EEFE9B0054FF5E /* Conversion Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Conversion Functions.swift"; sourceTree = "<group>"; };
 		147E667B21EF0B3E0054FF5E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		148CE70C2203B54500A9BFD6 /* CoreDataFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFunctions.swift; sourceTree = "<group>"; };
+		148CE70E2203B55700A9BFD6 /* CoreLocationFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationFunctions.swift; sourceTree = "<group>"; };
 		14C014ED21E3C94F00826B79 /* MyWeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14C014F021E3C94F00826B79 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14C014F221E3C94F00826B79 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +118,9 @@
 				14254A0B21FBCE3B007B416C /* BuddyFunctions.swift */,
 				142C996B21FA5F9000476759 /* SettingsFunctions.swift */,
 				14C0152321E3CC6F00826B79 /* JSON Fetcher.swift */,
+				147E667921EEFE9B0054FF5E /* Conversion Functions.swift */,
+				148CE70C2203B54500A9BFD6 /* CoreDataFunctions.swift */,
+				148CE70E2203B55700A9BFD6 /* CoreLocationFunctions.swift */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -191,10 +198,9 @@
 		14C0152221E3C9FE00826B79 /* Data Structures */ = {
 			isa = PBXGroup;
 			children = (
-				14C0152521E3CC7F00826B79 /* JSON Struct.swift */,
 				147E667721EEF59E0054FF5E /* Buddy Struct.swift */,
-				147E667921EEFE9B0054FF5E /* Conversion Functions.swift */,
 				14364E9721F0DF58002F6647 /* Settings Struct.swift */,
+				14C0152521E3CC7F00826B79 /* JSON Struct.swift */,
 			);
 			path = "Data Structures";
 			sourceTree = "<group>";
@@ -340,6 +346,8 @@
 				147E667A21EEFE9B0054FF5E /* Conversion Functions.swift in Sources */,
 				14C014F921E3C94F00826B79 /* MyWeatherApp.xcdatamodeld in Sources */,
 				14364E9821F0DF58002F6647 /* Settings Struct.swift in Sources */,
+				148CE70D2203B54500A9BFD6 /* CoreDataFunctions.swift in Sources */,
+				148CE70F2203B55700A9BFD6 /* CoreLocationFunctions.swift in Sources */,
 				14C0152621E3CC7F00826B79 /* JSON Struct.swift in Sources */,
 				14C014F121E3C94F00826B79 /* AppDelegate.swift in Sources */,
 				142C996C21FA5F9000476759 /* SettingsFunctions.swift in Sources */,

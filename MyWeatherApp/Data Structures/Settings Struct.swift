@@ -16,6 +16,7 @@ struct Settings {
         rain: (inchToCm(inch: 2.0)*10).rounded()/10, snow: (inchToCm(inch: 1.0)*10).rounded()/10)
     var precip: Float = 40
     var uvIndex: Float = 4
+    var locationAuthorization: Int = 0
     var systemType = 0  // 0: Imperial/English | 1: Metric
     var tempType = 0    // 0: ºF | 1: ºC
     
@@ -31,5 +32,25 @@ struct Settings {
             self.rain = rain
             self.snow = snow
         }
+    }
+}
+
+extension Settings {
+    init(highTemp: Float, lowTemp: Float, rain: Float, snow: Float, precipitation: Float, uvIndex: Float, locationAuth: Int, systemType: Int, tempType: Int){
+        self.english = WeatherData.init(
+            highTemp: highTemp,
+            lowTemp: lowTemp,
+            rain: rain,
+            snow: snow)
+        self.metric = WeatherData.init(
+            highTemp: fahrenheitToCelsius(fromF: highTemp),
+            lowTemp: fahrenheitToCelsius(fromF: lowTemp),
+            rain: (inchToCm(inch: rain)*10).rounded()/10,
+            snow: (inchToCm(inch: snow)*10).rounded()/10)
+        self.precip = precipitation
+        self.uvIndex = uvIndex
+        self.locationAuthorization = locationAuth
+        self.systemType = systemType
+        self.tempType = tempType
     }
 }

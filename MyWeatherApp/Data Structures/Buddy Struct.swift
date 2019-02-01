@@ -9,7 +9,7 @@
 import Foundation
 
 struct Buddy {
-    var location: Int
+    var location: (Double, Double)
     var clothing: [String: Bool]
     var rawData: RawData
     var settings: Settings
@@ -57,7 +57,7 @@ struct Buddy {
             
             init() {
                 self.highTemp = 0.0
-                self.lowTemp = 0.0
+                self.lowTemp = 100.0
                 self.rain = 0.0
                 self.snow = 0.0
             }
@@ -73,12 +73,21 @@ struct Buddy {
 }
 
 extension Buddy {
-    init(location: Int, lastHour: String) {
-        self.location = location
-        self.rawData = RawData.init(highTemp: 0, lowTemp: 0, rain: 0, snow: 0, precip: 0, uvIndex: 0)
+    init(location: Double, lastHour: String) {
+        self.location = (location, 0)
+        self.rawData = RawData.init(highTemp: 0, lowTemp: 100, rain: 0, snow: 0, precip: 0, uvIndex: 0)
         self.lastHour = lastHour
         self.settings = Settings.init()
         self.clothing = staticClothing
+        print("Buddy Init Complete!")
+    }
+    
+    init(latitude: Double, longitude: Double, highTemp: Float, lowTemp: Float, rain: Float, snow: Float, precip: Float, uvIndex: Float, settings: Settings, lastHour: String) {
+        self.location = (latitude, longitude)
+        self.rawData = RawData.init(highTemp: highTemp, lowTemp: lowTemp, rain: rain, snow: snow, precip: precip, uvIndex:uvIndex)
+        self.settings = settings
+        self.clothing = staticClothing
+        self.lastHour = lastHour
         print("Buddy Init Complete!")
     }
 }

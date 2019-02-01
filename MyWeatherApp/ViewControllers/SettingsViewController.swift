@@ -9,7 +9,7 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
-    var settings: Settings = Settings.init()
+    var settings: Settings!
     
     @IBOutlet weak var maxTempLabel: UILabel!
     @IBOutlet weak var minTempLabel: UILabel!
@@ -32,6 +32,9 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
+        if settings == nil {
+            settings = loadSettings()
+        }
     }
     
     @IBAction func segmentedControlUpdate(_ sender: UISegmentedControl) {
@@ -70,6 +73,7 @@ class SettingsViewController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is MainViewController {
+            saveSettings(settings: settings)
             let vc = segue.destination as! MainViewController
             vc.buddy.settings = settings
         }

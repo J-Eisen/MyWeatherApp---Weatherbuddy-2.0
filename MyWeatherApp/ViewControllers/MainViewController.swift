@@ -8,7 +8,7 @@
 
 import UIKit
 
-let defaultLocation = 11221
+let defaultLocation: Double = 11221
 
 class MainViewController: UIViewController {
     
@@ -19,18 +19,17 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var systemLabel: UILabel!
     
-    @IBOutlet weak var zipcodeField: UITextField!
-    
-    var location: Int = defaultLocation
+    var location = defaultLocation
     var testMode = false
     var weather: [Weather] = []
     var selectedTime = 0
     var lastTime = 0
-    var buddy: Buddy = Buddy.init(location: defaultLocation, lastHour: "0")
+    var buddy: Buddy!
     var labelArray: [UILabel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        buddy = loadBuddy()
         sunglassesLabel.text = "Sunglasses"
         umbrellaLabel.text = "Umbrella"
         labelArray.append(contentsOf: [outfitLabel, sunglassesLabel, umbrellaLabel, bootsLabel])
@@ -74,7 +73,7 @@ class MainViewController: UIViewController {
 extension MainViewController {
     func reloadViewAfterFetch(){
         print("fetching...")
-        fetch(location: location, testMode: testMode) {
+        fetch(location: (location, 0), testMode: testMode) {
             newWeather in
             self.weather.append(contentsOf: newWeather!)
             DispatchQueue.main.async {
@@ -84,30 +83,8 @@ extension MainViewController {
         print("fetch complete!")
     }
     
-//    func updateLabels(buddy: Buddy){
-//        print("Updating Labels...")
-//        for clothingItem in buddy.clothing {
-//            if clothingItem.key == "Hot Outfit" ||
-//                clothingItem.key == "Medium Outfit" ||
-//                clothingItem.key == "Heavy Coat" ||
-//                clothingItem.key == "Light Coat" && clothingItem.value == true {
-//                    outfitLabel.text = clothingItem.key
-//            } else if clothingItem.key == "Sunglasses" {
-//                sunglassesLabel.isHidden = !clothingItem.value
-//            } else if clothingItem.key == "Umbrella" {
-//                umbrellaLabel.isHidden = !clothingItem.value
-//            } else if clothingItem.key == "Rainboots" ||
-//                clothingItem.key == "Snowboots" && clothingItem.value == true {
-//                    bootsLabel.text = clothingItem.key
-//                    bootsLabel.isHidden = false
-//            } else {
-//                bootsLabel.isHidden = true
-//            }
-//        }
-//        print(buddy.clothing)
-//    }
 }
-
+/*
 extension MainViewController: UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -121,4 +98,4 @@ extension MainViewController: UITextFieldDelegate {
         reloadViewAfterFetch()
         return true
     }
-}
+}*/
