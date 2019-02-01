@@ -75,7 +75,7 @@ class SettingsViewController: UIViewController {
         if segue.destination is MainViewController {
             saveSettings(settings: settings)
             let vc = segue.destination as! MainViewController
-            vc.buddy.settings = settings
+            vc.tempSettings = settings
         }
     }
 

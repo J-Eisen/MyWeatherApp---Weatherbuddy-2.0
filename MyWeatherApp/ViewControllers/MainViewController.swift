@@ -25,6 +25,7 @@ class MainViewController: UIViewController {
     var selectedTime = 0
     var lastTime = 0
     var buddy: Buddy!
+    var tempSettings: Settings!
     var labelArray: [UILabel] = []
     
     override func viewDidLoad() {
@@ -35,6 +36,12 @@ class MainViewController: UIViewController {
         labelArray.append(contentsOf: [outfitLabel, sunglassesLabel, umbrellaLabel, bootsLabel])
         print("Reloading View After Fetch Running...")
         reloadViewAfterFetch()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if tempSettings != nil {
+            buddy.settings = tempSettings
+        }
     }
     
     // MARK: - Navigation

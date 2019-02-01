@@ -82,7 +82,7 @@ extension Buddy {
         print("Buddy Init Complete!")
     }
     
-    init(latitude: Double, longitude: Double, highTemp: Float, lowTemp: Float, rain: Float, snow: Float, precip: Float, uvIndex: Float, settings: Settings, lastHour: String) {
+    init(latitude: Double, longitude: Double, highTemp: Float, lowTemp: Float, rain: Float, snow: Float, precip: Float, uvIndex: Float, lastHour: String, settings: Settings) {
         self.location = (latitude, longitude)
         self.rawData = RawData.init(highTemp: highTemp, lowTemp: lowTemp, rain: rain, snow: snow, precip: precip, uvIndex:uvIndex)
         self.settings = settings

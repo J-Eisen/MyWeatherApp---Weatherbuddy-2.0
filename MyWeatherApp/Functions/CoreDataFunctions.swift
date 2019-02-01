@@ -13,32 +13,30 @@ let buddyEntityString = "BuddySave"
 let settingsEntityString = "SettingsSave"
 
 func saveBuddy(buddy: Buddy){
+    print("Saving Buddy...")
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
         else { return }
     
     let managedContext = appDelegate.persistentContainer.viewContext
     let entity = NSEntityDescription.entity(forEntityName: buddyEntityString, in: managedContext)!
-    let buddySave = NSManagedObject(entity: entity, insertInto: managedContext)
-    buddySave.setValue(buddy.location.0 , forKeyPath: "latitude")
-    buddySave.setValue(buddy.location.1 , forKeyPath: "longitude")
-    buddySave.setValue(buddy.rawData.english.highTemp, forKeyPath: "eHighTemp")
-    buddySave.setValue(buddy.rawData.english.lowTemp, forKeyPath: "eLowTemp")
-    buddySave.setValue(buddy.rawData.english.rain, forKeyPath: "eRain")
-    buddySave.setValue(buddy.rawData.english.snow, forKeyPath: "eSnow")
-    buddySave.setValue(buddy.rawData.precip, forKeyPath: "precipitation")
-    buddySave.setValue(buddy.rawData.uvIndex, forKeyPath: "uvIndex")
-    buddySave.setValue(buddy.lastHour, forKeyPath: "lastHour")
+    let savedBuddy = NSManagedObject(entity: entity, insertInto: managedContext)
+    savedBuddy.setValue(buddy.location.0, forKeyPath: "latitude")
+    savedBuddy.setValue(buddy.location.1, forKeyPath: "longitude")
+    savedBuddy.setValue(buddy.rawData.english.highTemp, forKeyPath: "eHighTemp")
+    savedBuddy.setValue(buddy.rawData.english.lowTemp, forKeyPath: "eLowTemp")
+    savedBuddy.setValue(buddy.rawData.english.rain, forKeyPath: "eRain")
+    savedBuddy.setValue(buddy.rawData.english.snow, forKeyPath: "eSnow")
+    savedBuddy.setValue(buddy.rawData.precip, forKeyPath: "precipitation")
+    savedBuddy.setValue(buddy.rawData.uvIndex, forKeyPath: "uvIndex")
+    savedBuddy.setValue(buddy.lastHour, forKeyPath: "lastHour")
     
     saveSettings(settings: buddy.settings)
     
-    do {
-        try managedContext.save()
-    } catch let error as NSError {
-        print("Could not save. \(error), \(error.userInfo)")
-    }
+    appDelegate.saveContext()
 }
 
 func saveSettings(settings: Settings){
+    print("Saving Settings...")
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
         else { return }
     
@@ -56,59 +54,59 @@ func saveSettings(settings: Settings){
     settingsSave.setValue(settings.precip, forKeyPath: "precipitation")
     settingsSave.setValue(settings.uvIndex, forKeyPath: "uvIndex")
     
-    do {
-        try managedContext.save()
-    } catch let error as NSError {
-        print("Saving Error. \(error), \(error.userInfo)")
-    }
+    appDelegate.saveContext()
+    print("Save Complete!")
 }
 
-func loadBuddy() -> Buddy? {
-    let loadedBuddy: Buddy!
-    let loadedSettings: Settings!
+func loadBuddy() -> Buddy {
+    print("Loading Buddy...")
+    var loadedBuddy = Buddy.init(location: defaultLocation, lastHour: "0")
+    let loadedSettings = loadSettings()
     
-    guard let fetchedData = fetchData(entityString: buddyEntityString)?.first
-        else { return nil }
-    if loadSettings() != nil {
-       loadedSettings = loadSettings()
-    } else {
-        loadedSettings = Settings.init()
-    }
+    guard let fetchedBuddies = fetchData(entityString: buddyEntityString)
+        else { return loadedBuddy  }
+    
+    let fetchedBuddy = fetchedBuddies.last!
+    
     loadedBuddy = Buddy.init(
-        latitude: fetchedData.value(forKeyPath: "latitude") as? Double ?? 10017,
-        longitude: fetchedData.value(forKeyPath: "longitude") as? Double ?? 0,
-        highTemp: fetchedData.value(forKeyPath: "eHighTemp") as? Float ?? 0,
-        lowTemp: fetchedData.value(forKeyPath: "eLowTemp") as? Float ?? 100,
-        rain: fetchedData.value(forKeyPath: "eRain") as? Float ?? 0,
-        snow: fetchedData.value(forKeyPath: "eSnow") as? Float ?? 0,
-        precip: fetchedData.value(forKeyPath: "precip") as? Float ?? 0,
-        uvIndex: fetchedData.value(forKeyPath: "uvIndex") as? Float ?? 0,
-        settings: loadedSettings,
-        lastHour: fetchedData.value(forKeyPath: "lastHour") as? String ?? "0")
+        latitude: fetchedBuddy.value(forKey: "latitude") as? Double ?? 10017,
+        longitude: fetchedBuddy.value(forKey: "longitude") as? Double ?? 0,
+        highTemp: fetchedBuddy.value(forKey: "eHighTemp") as? Float ?? 0,
+        lowTemp: fetchedBuddy.value(forKey: "eLowTemp") as? Float ?? 100,
+        rain: fetchedBuddy.value(forKey: "eRain") as? Float ?? 0,
+        snow: fetchedBuddy.value(forKey: "eSnow") as? Float ?? 0,
+        precip: fetchedBuddy.value(forKey: "precipitation") as? Float ?? 0,
+        uvIndex: fetchedBuddy.value(forKey: "uvIndex") as? Float ?? 0,
+        lastHour: fetchedBuddy.value(forKey: "lastHour") as? String ?? "0",
+        settings: loadedSettings)
     
+    print("Load Complete!")
     return loadedBuddy
 }
 
-func loadSettings() -> Settings? {
+func loadSettings() -> Settings {
+    print("Loading Settings...")
     let loadedSettings: Settings!
-    guard let fetchedData = fetchData(entityString: settingsEntityString)?.first
-        else { return nil }
+    guard let fetchedSettings = fetchData(entityString: settingsEntityString)?.last
+        else { return Settings.init() }
     
     loadedSettings = Settings.init(
-        highTemp: fetchedData.value(forKeyPath: "eHighTemp") as? Float ?? 80,
-        lowTemp: fetchedData.value(forKeyPath: "eLowTemp") as? Float ?? 60,
-        rain: fetchedData.value(forKeyPath: "eRain") as? Float ?? 1.0,
-        snow: fetchedData.value(forKeyPath: "eSnow") as? Float ?? 1.0,
-        precipitation: fetchedData.value(forKeyPath: "precipitation") as? Float ?? 40,
-        uvIndex: fetchedData.value(forKeyPath: "uvIndex") as? Float ?? 2,
-        locationAuth: fetchedData.value(forKeyPath: "authorization") as? Int ?? 0,
-        systemType: fetchedData.value(forKeyPath: "system") as? Int ?? 0,
-        tempType: fetchedData.value(forKeyPath: "temperature") as? Int ?? 0)
+        highTemp: fetchedSettings.value(forKey: "eHighTemp") as? Float ?? 80,
+        lowTemp: fetchedSettings.value(forKey: "eLowTemp") as? Float ?? 60,
+        rain: fetchedSettings.value(forKey: "eRain") as? Float ?? 1.0,
+        snow: fetchedSettings.value(forKey: "eSnow") as? Float ?? 1.0,
+        precipitation: fetchedSettings.value(forKey: "precipitation") as? Float ?? 40,
+        uvIndex: fetchedSettings.value(forKey: "uvIndex") as? Float ?? 2,
+        locationAuth: fetchedSettings.value(forKey: "authorization") as? Int ?? 0,
+        systemType: fetchedSettings.value(forKey: "system") as? Int ?? 0,
+        tempType: fetchedSettings.value(forKey: "temperature") as? Int ?? 0)
     
+    print("Load Complete!")
     return loadedSettings
 }
 
 func fetchData(entityString: String) -> [NSManagedObject]? {
+    print("Fetching CoreData...")
     var fetchedData: [NSManagedObject] = []
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
         else { return nil }
@@ -120,5 +118,6 @@ func fetchData(entityString: String) -> [NSManagedObject]? {
     } catch let error as NSError {
         print("Fetching Error. \(error), \(error.userInfo)")
     }
+    print("CoreData Fetch Complete!")
     return fetchedData
 }

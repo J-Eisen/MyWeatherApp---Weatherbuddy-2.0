@@ -21,10 +21,10 @@ struct Settings {
     var tempType = 0    // 0: ºF | 1: ºC
     
     struct WeatherData {
-        var highTemp: Float = 0.0
-        var lowTemp: Float = 0.0
-        var rain: Float = 0.0
-        var snow: Float = 0.0
+        var highTemp: Float
+        var lowTemp: Float
+        var rain: Float
+        var snow: Float
         
         init(highTemp: Float, lowTemp: Float, rain: Float, snow: Float) {
             self.highTemp = highTemp
@@ -36,6 +36,7 @@ struct Settings {
 }
 
 extension Settings {
+    
     init(highTemp: Float, lowTemp: Float, rain: Float, snow: Float, precipitation: Float, uvIndex: Float, locationAuth: Int, systemType: Int, tempType: Int){
         self.english = WeatherData.init(
             highTemp: highTemp,
