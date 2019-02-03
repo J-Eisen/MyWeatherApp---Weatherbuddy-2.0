@@ -27,8 +27,6 @@ func saveBuddy(buddy: Buddy){
     savedBuddy.setValue(buddy.rawData.english.rain, forKeyPath: "eRain")
     savedBuddy.setValue(buddy.rawData.english.snow, forKeyPath: "eSnow")
     savedBuddy.setValue(buddy.rawData.precip, forKeyPath: "precipitation")
-    savedBuddy.setValue(buddy.rawData.uvIndex, forKeyPath: "uvIndex")
-    savedBuddy.setValue(buddy.lastHour, forKeyPath: "lastHour")
     
     saveSettings(settings: buddy.settings)
     
@@ -45,6 +43,8 @@ func saveSettings(settings: Settings){
     let settingsSave = NSManagedObject(entity: entity, insertInto: managedContext)
     
     settingsSave.setValue(settings.locationAuthorization, forKeyPath: "authorization")
+    settingsSave.setValue(settings.locationPreferences[0], forKeyPath: "swGPS")
+    settingsSave.setValue(settings.locationPreferences[1], forKeyPath: "swZipcode")
     settingsSave.setValue(settings.systemType, forKeyPath: "system")
     settingsSave.setValue(settings.tempType, forKeyPath: "temperature")
     settingsSave.setValue(settings.english.highTemp, forKeyPath: "eHighTemp")
@@ -53,6 +53,8 @@ func saveSettings(settings: Settings){
     settingsSave.setValue(settings.english.snow, forKeyPath: "eSnow")
     settingsSave.setValue(settings.precip, forKeyPath: "precipitation")
     settingsSave.setValue(settings.uvIndex, forKeyPath: "uvIndex")
+    settingsSave.setValue(settings.dayStart, forKeyPath: "dStart")
+    settingsSave.setValue(settings.dayEnd, forKeyPath: "dEnd")
     
     appDelegate.saveContext()
     print("Save Complete!")
@@ -60,7 +62,7 @@ func saveSettings(settings: Settings){
 
 func loadBuddy() -> Buddy {
     print("Loading Buddy...")
-    var loadedBuddy = Buddy.init(location: defaultLocation, lastHour: "0")
+    var loadedBuddy = Buddy.init(location: defaultLocation)
     let loadedSettings = loadSettings()
     
     guard let fetchedBuddies = fetchData(entityString: buddyEntityString)
@@ -77,7 +79,6 @@ func loadBuddy() -> Buddy {
         snow: fetchedBuddy.value(forKey: "eSnow") as? Float ?? 0,
         precip: fetchedBuddy.value(forKey: "precipitation") as? Float ?? 0,
         uvIndex: fetchedBuddy.value(forKey: "uvIndex") as? Float ?? 0,
-        lastHour: fetchedBuddy.value(forKey: "lastHour") as? String ?? "0",
         settings: loadedSettings)
     
     print("Load Complete!")
@@ -98,8 +99,12 @@ func loadSettings() -> Settings {
         precipitation: fetchedSettings.value(forKey: "precipitation") as? Float ?? 40,
         uvIndex: fetchedSettings.value(forKey: "uvIndex") as? Float ?? 2,
         locationAuth: fetchedSettings.value(forKey: "authorization") as? Int ?? 0,
+        gpsSwitch: fetchedSettings.value(forKey: "swGPS") as? Bool ?? true,
+        zipcodeSwitch: fetchedSettings.value(forKey: "swZipcode") as? Bool ?? true,
         systemType: fetchedSettings.value(forKey: "system") as? Int ?? 0,
-        tempType: fetchedSettings.value(forKey: "temperature") as? Int ?? 0)
+        tempType: fetchedSettings.value(forKey: "temperature") as? Int ?? 0,
+        dayStart: fetchedSettings.value(forKey: "dEnd") as? Int ?? 8,
+        dayEnd: fetchedSettings.value(forKey: "dStart") as? Int ?? 19)
     
     print("Load Complete!")
     return loadedSettings

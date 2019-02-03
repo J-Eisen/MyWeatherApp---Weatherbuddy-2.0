@@ -8,6 +8,8 @@
 
 import CoreLocation
 
+
+
 func getUserLocation(){
     
 }
@@ -16,4 +18,7 @@ func getAuthorization(){
     
 }
 
+func checkAuthoriztion(){
+    
+}
 

@@ -17,8 +17,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var umbrellaLabel: UILabel!
     @IBOutlet weak var bootsLabel: UILabel!
     
-    @IBOutlet weak var systemLabel: UILabel!
-    
     var location = defaultLocation
     var testMode = false
     var weather: [Weather] = []
@@ -80,16 +78,16 @@ class MainViewController: UIViewController {
 extension MainViewController {
     func reloadViewAfterFetch(){
         print("fetching...")
-        fetch(location: (location, 0), testMode: testMode) {
+        fetch(location: buddy.location, testMode: testMode) {
             newWeather in
             self.weather.append(contentsOf: newWeather!)
             DispatchQueue.main.async {
+                self.buddy.updateBuddy(newWeatherArray: self.weather)
                 self.labelArray = updateBuddyLabels(buddy: self.buddy, labels: self.labelArray)
             }
         }
         print("fetch complete!")
     }
-    
 }
 /*
 extension MainViewController: UITextFieldDelegate {

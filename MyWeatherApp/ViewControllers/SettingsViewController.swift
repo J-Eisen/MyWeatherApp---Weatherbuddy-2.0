@@ -27,6 +27,10 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var systemSegmentedControl: UISegmentedControl!
     @IBOutlet weak var tempSegmentedControl: UISegmentedControl!
     
+    @IBOutlet weak var gpsSwitch: UISwitch!
+    @IBOutlet weak var zipcodeSwitch: UISwitch!
+    @IBOutlet weak var zipcodeTextField: UITextField!
+    
     let pickerDataSource = [[0,1,2,3,4,5,6,7,8,9,10],[0,1,2,3,4,5,6,7,8,9]]
     
     override func viewDidLoad() {
@@ -70,6 +74,20 @@ class SettingsViewController: UIViewController {
         }
     }
 
+    @IBAction func locationSwitchUpdate(_ sender: UISwitch) {
+        if sender.accessibilityIdentifier == "zipcodeSwitch" {
+                zipcodeTextField.isEnabled = sender.isOn
+                zipcodeTextField.isOpaque = sender.isOn
+                settings.locationPreferences[1] = sender.isOn
+        } else {
+            if settings.locationAuthorization != 1 ||
+                settings.locationAuthorization != 2 {
+                
+            }
+            settings.locationPreferences[0] = sender.isOn
+        }
+    }
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is MainViewController {
@@ -86,6 +104,7 @@ extension SettingsViewController {
         initSliders()
         initPickers()
         initSegmentedControls()
+        initSwitches()
         updateLables()
     }
     
@@ -108,6 +127,11 @@ extension SettingsViewController {
     func initSegmentedControls(){
         systemSegmentedControl.selectedSegmentIndex = settings.systemType
         tempSegmentedControl.selectedSegmentIndex = settings.tempType
+    }
+    
+    func initSwitches(){
+        gpsSwitch.isOn = settings.locationPreferences[0]
+        zipcodeSwitch.isOn = settings.locationPreferences[1]
     }
 }
 

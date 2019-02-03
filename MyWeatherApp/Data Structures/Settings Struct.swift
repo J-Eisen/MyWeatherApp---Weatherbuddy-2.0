@@ -16,7 +16,10 @@ struct Settings {
         rain: (inchToCm(inch: 2.0)*10).rounded()/10, snow: (inchToCm(inch: 1.0)*10).rounded()/10)
     var precip: Float = 40
     var uvIndex: Float = 4
+    var dayEnd: Int = 8
+    var dayStart: Int = 19
     var locationAuthorization: Int = 0
+    var locationPreferences: [Bool] = [true, true]
     var systemType = 0  // 0: Imperial/English | 1: Metric
     var tempType = 0    // 0: ºF | 1: ºC
     
@@ -36,8 +39,7 @@ struct Settings {
 }
 
 extension Settings {
-    
-    init(highTemp: Float, lowTemp: Float, rain: Float, snow: Float, precipitation: Float, uvIndex: Float, locationAuth: Int, systemType: Int, tempType: Int){
+    init(highTemp: Float, lowTemp: Float, rain: Float, snow: Float, precipitation: Float, uvIndex: Float, locationAuth: Int, gpsSwitch: Bool, zipcodeSwitch: Bool, systemType: Int, tempType: Int, dayStart: Int, dayEnd: Int){
         self.english = WeatherData.init(
             highTemp: highTemp,
             lowTemp: lowTemp,
@@ -53,5 +55,9 @@ extension Settings {
         self.locationAuthorization = locationAuth
         self.systemType = systemType
         self.tempType = tempType
+        self.dayStart = dayStart
+        self.dayEnd = dayEnd
+        self.locationPreferences[0] = gpsSwitch
+        self.locationPreferences[1] = zipcodeSwitch
     }
 }

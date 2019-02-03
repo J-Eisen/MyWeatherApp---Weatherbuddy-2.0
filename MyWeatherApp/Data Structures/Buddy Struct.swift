@@ -13,7 +13,6 @@ struct Buddy {
     var clothing: [String: Bool]
     var rawData: RawData
     var settings: Settings
-    var lastHour: String
     
     struct RawData {
         var english: WeatherData = WeatherData.init()
@@ -73,29 +72,52 @@ struct Buddy {
 }
 
 extension Buddy {
-    init(location: Double, lastHour: String) {
+    init(location: Double) {
         self.location = (location, 0)
         self.rawData = RawData.init(highTemp: 0, lowTemp: 100, rain: 0, snow: 0, precip: 0, uvIndex: 0)
-        self.lastHour = lastHour
         self.settings = Settings.init()
         self.clothing = staticClothing
         print("Buddy Init Complete!")
     }
     
-    init(latitude: Double, longitude: Double, highTemp: Float, lowTemp: Float, rain: Float, snow: Float, precip: Float, uvIndex: Float, lastHour: String, settings: Settings) {
+    init(latitude: Double, longitude: Double, highTemp: Float, lowTemp: Float, rain: Float, snow: Float, precip: Float, uvIndex: Float, settings: Settings) {
         self.location = (latitude, longitude)
         self.rawData = RawData.init(highTemp: highTemp, lowTemp: lowTemp, rain: rain, snow: snow, precip: precip, uvIndex:uvIndex)
         self.settings = settings
         self.clothing = staticClothing
-        self.lastHour = lastHour
         print("Buddy Init Complete!")
     }
 }
 
 
 extension Buddy {
-    mutating func updateBuddy(newWeatherData: Weather){
+    mutating func updateBuddy(newWeatherArray: [Weather]){
         print("Updating Buddy...")
+        var outOfBounds = false
+        var index = 0
+        if Int(newWeatherArray[index].hour)! >= settings.dayEnd ||
+           Int(newWeatherArray[index].hour)! <= settings.dayStart {
+            outOfBounds = true
+        }
+        repeat{
+            if Int(newWeatherArray[index].hour)! <= settings.dayStart
+                && Int(newWeatherArray[index].hour)! >= settings.dayEnd
+                && outOfBounds {
+                outOfBounds = false
+            }
+            rawWeatherUpdate(newWeatherData: newWeatherArray[index])
+            index += 1
+        }while(outOfBounds && Int(newWeatherArray[index].hour)! <= settings.dayEnd)
+        clothingUpdate()
+        print("Buddy Update Complete!")
+        print("Raw Data Check")
+        print(self.rawData.precip)
+        print(self.rawData.english)
+        print(self.rawData.metric)
+        print(self.rawData.uvIndex)
+    }
+    
+    mutating func rawWeatherUpdate(newWeatherData: Weather){
         if Float(newWeatherData.precipitation)! > rawData.precip {
             rawData.precip = Float(newWeatherData.precipitation)!
         }
@@ -118,13 +140,6 @@ extension Buddy {
         if Float(newWeatherData.uvIndex)! > rawData.uvIndex {
             rawData.uvIndex = Float(newWeatherData.uvIndex)!
         }
-        clothingUpdate()
-        print("Buddy Update Complete!")
-        print("Raw Data Check")
-        print(self.rawData.precip)
-        print(self.rawData.english)
-        print(self.rawData.metric)
-        print(self.rawData.uvIndex)
     }
     
     mutating func clothingUpdate(){
