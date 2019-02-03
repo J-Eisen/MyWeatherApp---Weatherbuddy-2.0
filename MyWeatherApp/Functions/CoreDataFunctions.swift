@@ -45,6 +45,7 @@ func saveSettings(settings: Settings){
     settingsSave.setValue(settings.locationAuthorization, forKeyPath: "authorization")
     settingsSave.setValue(settings.locationPreferences[0], forKeyPath: "swGPS")
     settingsSave.setValue(settings.locationPreferences[1], forKeyPath: "swZipcode")
+    settingsSave.setValue(settings.zipcode, forKeyPath: "zipcode")
     settingsSave.setValue(settings.systemType, forKeyPath: "system")
     settingsSave.setValue(settings.tempType, forKeyPath: "temperature")
     settingsSave.setValue(settings.english.highTemp, forKeyPath: "eHighTemp")
@@ -98,6 +99,7 @@ func loadSettings() -> Settings {
         snow: fetchedSettings.value(forKey: "eSnow") as? Float ?? 1.0,
         precipitation: fetchedSettings.value(forKey: "precipitation") as? Float ?? 40,
         uvIndex: fetchedSettings.value(forKey: "uvIndex") as? Float ?? 2,
+        zipcode: fetchedSettings.value(forKey: "zipcode") as? Double ?? 10007,
         locationAuth: fetchedSettings.value(forKey: "authorization") as? Int ?? 0,
         gpsSwitch: fetchedSettings.value(forKey: "swGPS") as? Bool ?? true,
         zipcodeSwitch: fetchedSettings.value(forKey: "swZipcode") as? Bool ?? true,

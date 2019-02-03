@@ -21,9 +21,9 @@ func fetch(location: (Double, Double), testMode: Bool, completionHandler: @escap
     else {
         urlString.append("\(apiKeyString)/hourly/q/")
         if location.1 == 0 {
-            urlString.append("\(location.0).json")
+            urlString.append("\(round(location.0)).json")
         } else {
-            urlString.append("\(location.0),\(location.1).json")
+            urlString.append("\(round((location.0)*10)/10),\(round((location.1)*10)/10).json")
         }
     }
     
@@ -33,10 +33,10 @@ func fetch(location: (Double, Double), testMode: Bool, completionHandler: @escap
     }
     let urlRequest = URLRequest(url: url)
     
-    // session set up
+    // Session set up
     let session = URLSession.shared
     
-    //make the request
+    // Make the request
     
     let task = session.dataTask(with: urlRequest) { (data, response, error) in
         guard error == nil else {

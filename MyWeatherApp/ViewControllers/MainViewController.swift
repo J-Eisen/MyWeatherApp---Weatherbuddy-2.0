@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 let defaultLocation: Double = 11221
 
@@ -32,6 +33,12 @@ class MainViewController: UIViewController {
         sunglassesLabel.text = "Sunglasses"
         umbrellaLabel.text = "Umbrella"
         labelArray.append(contentsOf: [outfitLabel, sunglassesLabel, umbrellaLabel, bootsLabel])
+        print("Getting user location")
+        getLocation()
+        print(buddy.location)
+        if !buddy.settings.locationPreferences[0] || buddy.location.1 == 0.0 {
+            buddy.location = (buddy.settings.zipcode, 0.0)
+        }
         print("Reloading View After Fetch Running...")
         reloadViewAfterFetch()
     }
@@ -89,18 +96,51 @@ extension MainViewController {
         print("fetch complete!")
     }
 }
-/*
-extension MainViewController: UITextFieldDelegate {
+
+extension MainViewController: CLLocationManagerDelegate {
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        textField.returnKeyType = .done
-        return true
+    func getLocation() {
+        let locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+        locationManager.distanceFilter = 1000.0
+        locationManager.delegate = self
+        guard checkAuthoriztion(locationManager: locationManager) else { return }
+        locationManager.requestLocation()
     }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        location = Int(textField.text!)!
-        textField.text = ""
-        weather = []
-        reloadViewAfterFetch()
-        return true
+    
+    func checkAuthoriztion(locationManager: CLLocationManager) -> Bool {
+        var authorization: Bool = false
+            switch CLLocationManager.authorizationStatus() {
+            case .authorizedAlways, .authorizedWhenInUse:
+                authorization = true
+                break
+            case .notDetermined:
+                locationManager.requestWhenInUseAuthorization()
+                break
+            default:
+                authorization = false
+            }
+        return authorization
     }
-}*/
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let coordinates = locations.last!.coordinate
+        buddy.location = (coordinates.latitude.binade, coordinates.longitude.binade)
+        print(buddy.location)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        if let clError = error as? CLError {
+            switch clError {
+            case CLError.locationUnknown:
+                print("Location Unknown \(clError)")
+            case CLError.denied:
+                print("Denied \(clError)")
+            default:
+                print("Core Location Error \(clError)")
+            }
+        } else {
+            print("Other Error:", error.localizedDescription)
+        }
+    }
+}

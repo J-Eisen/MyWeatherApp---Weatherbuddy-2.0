@@ -169,3 +169,17 @@ extension SettingsViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         return "\(pickerDataSource[component][row])"
     }
 }
+
+extension SettingsViewController: UITextFieldDelegate {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField.returnKeyType = .done
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        settings.zipcode = Double(textField.text!)!
+        textField.text = ""
+        return true
+    }
+}
