@@ -26,6 +26,7 @@ class MainViewController: UIViewController {
     var buddy: Buddy!
     var tempSettings: Settings!
     var labelArray: [UILabel] = []
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +35,12 @@ class MainViewController: UIViewController {
         umbrellaLabel.text = "Umbrella"
         labelArray.append(contentsOf: [outfitLabel, sunglassesLabel, umbrellaLabel, bootsLabel])
         print("Getting user location")
-        getLocation()
-        print(buddy.location)
-        if !buddy.settings.locationPreferences[0] || buddy.location.1 == 0.0 {
+        if buddy.settings.locationPreferences[0] {
+            getLocation()
+        } else {
+            buddy.location = (buddy.settings.zipcode, 0.0)
+        }
+        if buddy.location.1 == 0.0 {
             buddy.location = (buddy.settings.zipcode, 0.0)
         }
         print("Reloading View After Fetch Running...")
@@ -100,7 +104,6 @@ extension MainViewController {
 extension MainViewController: CLLocationManagerDelegate {
     
     func getLocation() {
-        let locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
         locationManager.distanceFilter = 1000.0
         locationManager.delegate = self

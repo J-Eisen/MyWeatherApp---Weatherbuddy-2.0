@@ -28,7 +28,7 @@ struct Weather: Decodable {
     let rainMetric: String
     let snowEnglish: String
     let snowMetric: String
-
+    
     enum HourlyForecastKeys: String, CodingKey {
         case time = "FCTTIME"
         case temp
@@ -59,7 +59,7 @@ struct Weather: Decodable {
     }
     
     init(from decoder: Decoder) throws {
-//        let values = try decoder.container(keyedBy: CodingKeys.self)
+        //        let values = try decoder.container(keyedBy: CodingKeys.self)
         
         let hourlyForecast = try decoder.container(keyedBy: HourlyForecastKeys.self)
         uvIndex = try hourlyForecast.decode(String.self, forKey: .uvIndex)

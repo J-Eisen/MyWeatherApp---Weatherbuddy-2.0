@@ -54,22 +54,15 @@ func tapCheck(tap: CGPoint, targetY1: CGRect, targetY2: CGRect) -> Bool {
 /////////////
 func updateBuddyLabels(buddy: Buddy, labels: [UILabel]) -> [UILabel] {
     print("Updating Labels...")
-    for clothingItem in buddy.clothing {
-        if clothingItem.key == "Hot Outfit" ||
-            clothingItem.key == "Medium Outfit" ||
-            clothingItem.key == "Heavy Coat" ||
-            clothingItem.key == "Light Coat" && clothingItem.value == true {
-            labels[0].text = clothingItem.key
-        } else if clothingItem.key == "Sunglasses" {
-            labels[1].isHidden = !clothingItem.value
-        } else if clothingItem.key == "Umbrella" {
-            labels[2].isHidden = !clothingItem.value
-        } else if clothingItem.key == "Rainboots" ||
-            clothingItem.key == "Snowboots" && clothingItem.value == true {
-            labels[3].text = clothingItem.key
+    labels[3].isHidden = true
+    for index in 0...(orderedClothing.count-1) {
+        if index < 4 && buddy.clothing[orderedClothing[index]]!{
+            labels[0].text = orderedClothing[index]
+        } else if index > 5 && buddy.clothing[orderedClothing[index]]!{
+            labels[3].text = orderedClothing[index]
             labels[3].isHidden = false
-        } else {
-            labels[3].isHidden = true
+        } else if orderedClothing[index] == "Sunscreen" || orderedClothing[index] == "Umbrella" {
+            labels[index-3].isHidden = !buddy.clothing[orderedClothing[index]]!
         }
     }
     print(buddy.clothing)

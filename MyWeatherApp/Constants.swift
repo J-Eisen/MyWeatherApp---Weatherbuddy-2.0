@@ -8,7 +8,7 @@
 
 import Foundation
 
-let staticClothing = ["Sunglasses": false,
+let staticClothing = ["Sunscreen": false,
                  "Umbrella": false,
                  "Heavy Coat": false,
                  "Light Coat": false,
@@ -16,3 +16,9 @@ let staticClothing = ["Sunglasses": false,
                  "Hot Outfit": false,
                  "Rainboots": false,
                  "Snowboots":false]
+
+let orderedClothing = ["Heavy Coat",
+                       "Light Coat",
+                       "Medium Outfit",
+                       "Hot Outfit", "Umbrella", "Sunscreen",
+                       "Rainboots", "Snowboots"]

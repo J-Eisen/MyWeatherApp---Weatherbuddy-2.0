@@ -10,7 +10,7 @@ import Foundation
 
 let apiKeyString = "fb2d4e978c2c2a11"
 let testString = "://MyWeatherApp/MyWeatherAppTests/MockJSON.JSON"
-var testMode = false;
+var testMode = false
 var urlString = "https://api.wunderground.com/api/"
 
 func fetch(location: (Double, Double), testMode: Bool, completionHandler: @escaping ([Weather]?) -> Void) {
@@ -20,7 +20,10 @@ func fetch(location: (Double, Double), testMode: Bool, completionHandler: @escap
     }
     else {
         urlString.append("\(apiKeyString)/hourly/q/")
-        if location.1 == 0 {
+        if location.0 == 0 && location.1 == 0 {
+            urlString.append("\(defaultLocation).json")
+            print("Error: No location found")
+        } else if location.1 == 0 {
             urlString.append("\(round(location.0)).json")
         } else {
             urlString.append("\(round((location.0)*10)/10),\(round((location.1)*10)/10).json")

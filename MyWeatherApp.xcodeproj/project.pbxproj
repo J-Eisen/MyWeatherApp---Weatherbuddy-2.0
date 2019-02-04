@@ -24,6 +24,8 @@
 		147E667C21EF0B3E0054FF5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147E667B21EF0B3E0054FF5E /* Constants.swift */; };
 		148CE70D2203B54500A9BFD6 /* CoreDataFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148CE70C2203B54500A9BFD6 /* CoreDataFunctions.swift */; };
 		148CE70F2203B55700A9BFD6 /* CoreLocationFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148CE70E2203B55700A9BFD6 /* CoreLocationFunctions.swift */; };
+		149939BE2208D9A100B9AB0F /* CoreLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149939BD2208D9A100B9AB0F /* CoreLocationTests.swift */; };
+		149939C02208D9B100B9AB0F /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149939BF2208D9B100B9AB0F /* CoreDataTests.swift */; };
 		14C014F121E3C94F00826B79 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C014F021E3C94F00826B79 /* AppDelegate.swift */; };
 		14C014F321E3C94F00826B79 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C014F221E3C94F00826B79 /* MainViewController.swift */; };
 		14C014F621E3C94F00826B79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14C014F421E3C94F00826B79 /* Main.storyboard */; };
@@ -69,6 +71,8 @@
 		147E667B21EF0B3E0054FF5E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		148CE70C2203B54500A9BFD6 /* CoreDataFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFunctions.swift; sourceTree = "<group>"; };
 		148CE70E2203B55700A9BFD6 /* CoreLocationFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationFunctions.swift; sourceTree = "<group>"; };
+		149939BD2208D9A100B9AB0F /* CoreLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationTests.swift; sourceTree = "<group>"; };
+		149939BF2208D9B100B9AB0F /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
 		14C014ED21E3C94F00826B79 /* MyWeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14C014F021E3C94F00826B79 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14C014F221E3C94F00826B79 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -180,6 +184,8 @@
 				144441F221EE666800A8DD0F /* Mock Weather Struct.swift */,
 				144441F721EE709300A8DD0F /* Constants.swift */,
 				14C0150A21E3C95300826B79 /* Info.plist */,
+				149939BF2208D9B100B9AB0F /* CoreDataTests.swift */,
+				149939BD2208D9A100B9AB0F /* CoreLocationTests.swift */,
 			);
 			path = MyWeatherAppTests;
 			sourceTree = "<group>";
@@ -361,7 +367,9 @@
 			files = (
 				14C0150921E3C95300826B79 /* DataStructureTests.swift in Sources */,
 				144441F321EE666800A8DD0F /* Mock Weather Struct.swift in Sources */,
+				149939C02208D9B100B9AB0F /* CoreDataTests.swift in Sources */,
 				142C996921FA18F100476759 /* SettingsTests.swift in Sources */,
+				149939BE2208D9A100B9AB0F /* CoreLocationTests.swift in Sources */,
 				144441F821EE709300A8DD0F /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

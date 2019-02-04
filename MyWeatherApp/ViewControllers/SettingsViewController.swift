@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class SettingsViewController: UIViewController {
     var settings: Settings!
@@ -32,6 +33,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var zipcodeTextField: UITextField!
     
     let pickerDataSource = [[0,1,2,3,4,5,6,7,8,9,10],[0,1,2,3,4,5,6,7,8,9]]
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +84,7 @@ class SettingsViewController: UIViewController {
         } else {
             if settings.locationAuthorization != 1 ||
                 settings.locationAuthorization != 2 {
-                
+                locationManager.requestWhenInUseAuthorization()
             }
             settings.locationPreferences[0] = sender.isOn
         }
@@ -124,7 +126,7 @@ extension SettingsViewController {
         precipitationSlider = initSliderHelper(slider: precipitationSlider!, settings: settings)
     }
     
-    func initSegmentedControls(){
+    func initSegmentedControls() {
         systemSegmentedControl.selectedSegmentIndex = settings.systemType
         tempSegmentedControl.selectedSegmentIndex = settings.tempType
     }
@@ -145,6 +147,10 @@ extension SettingsViewController {
             minTempLabel.text = celsiusDisplay(value: settings.metric.lowTemp)
         }
         precipLabel.text = "\(Int(settings.precip)) %"
+    }
+    
+    func resetSettings() -> Settings{
+        return Settings.init()
     }
 }
 
