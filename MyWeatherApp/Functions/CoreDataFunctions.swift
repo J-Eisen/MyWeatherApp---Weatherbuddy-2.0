@@ -69,6 +69,9 @@ func loadBuddy() -> Buddy {
     guard let fetchedBuddies = fetchData(entityString: buddyEntityString)
         else { return loadedBuddy  }
     
+    guard fetchedBuddies.last != nil
+        else { return loadedBuddy }
+    
     let fetchedBuddy = fetchedBuddies.last!
     
     loadedBuddy = Buddy.init(

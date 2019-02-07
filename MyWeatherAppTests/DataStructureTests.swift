@@ -52,17 +52,4 @@ class MainTests: XCTestCase {
             }
         }
     }
-    
-    /*func test_InfoSwitchStates() {
-        let viewDelegate = UIViewController.init() as! ViewController
-        for i in 0...2 {
-            for j in 0...1 {
-                for k in 0...1 {
-                    let infoSwitch = [k,j,i]
-                    viewDelegate.updateSwitch = [true,true,true]
-                    viewDelegate.updateLabels(weatherData: preFetchedWeatherData[0], infoSwitch: infoSwitch)
-                }
-            }
-        }
-    }*/
 }

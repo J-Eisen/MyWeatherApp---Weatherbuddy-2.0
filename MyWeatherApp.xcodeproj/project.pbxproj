@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		14254A0C21FBCE3B007B416C /* BuddyFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14254A0B21FBCE3B007B416C /* BuddyFunctions.swift */; };
-		142C996921FA18F100476759 /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142C996821FA18F100476759 /* SettingsTests.swift */; };
+		142C996921FA18F100476759 /* SettingsVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142C996821FA18F100476759 /* SettingsVCTests.swift */; };
 		142C996C21FA5F9000476759 /* SettingsFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142C996B21FA5F9000476759 /* SettingsFunctions.swift */; };
 		14364E9821F0DF58002F6647 /* Settings Struct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14364E9721F0DF58002F6647 /* Settings Struct.swift */; };
 		14364E9B21F11020002F6647 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14364E9A21F11020002F6647 /* SettingsViewController.swift */; };
@@ -26,11 +26,11 @@
 		148CE70F2203B55700A9BFD6 /* CoreLocationFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148CE70E2203B55700A9BFD6 /* CoreLocationFunctions.swift */; };
 		149939BE2208D9A100B9AB0F /* CoreLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149939BD2208D9A100B9AB0F /* CoreLocationTests.swift */; };
 		149939C02208D9B100B9AB0F /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149939BF2208D9B100B9AB0F /* CoreDataTests.swift */; };
+		149939C22208EE2100B9AB0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 149939C12208EE2100B9AB0F /* Assets.xcassets */; };
 		14C014F121E3C94F00826B79 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C014F021E3C94F00826B79 /* AppDelegate.swift */; };
 		14C014F321E3C94F00826B79 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C014F221E3C94F00826B79 /* MainViewController.swift */; };
 		14C014F621E3C94F00826B79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14C014F421E3C94F00826B79 /* Main.storyboard */; };
 		14C014F921E3C94F00826B79 /* MyWeatherApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 14C014F721E3C94F00826B79 /* MyWeatherApp.xcdatamodeld */; };
-		14C014FB21E3C95200826B79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14C014FA21E3C95200826B79 /* Assets.xcassets */; };
 		14C014FE21E3C95200826B79 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14C014FC21E3C95200826B79 /* LaunchScreen.storyboard */; };
 		14C0150921E3C95300826B79 /* DataStructureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C0150821E3C95300826B79 /* DataStructureTests.swift */; };
 		14C0151421E3C95300826B79 /* GeneralUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C0151321E3C95300826B79 /* GeneralUITests.swift */; };
@@ -57,7 +57,7 @@
 
 /* Begin PBXFileReference section */
 		14254A0B21FBCE3B007B416C /* BuddyFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyFunctions.swift; sourceTree = "<group>"; };
-		142C996821FA18F100476759 /* SettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
+		142C996821FA18F100476759 /* SettingsVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVCTests.swift; sourceTree = "<group>"; };
 		142C996B21FA5F9000476759 /* SettingsFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFunctions.swift; sourceTree = "<group>"; };
 		14364E9721F0DF58002F6647 /* Settings Struct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings Struct.swift"; sourceTree = "<group>"; };
 		14364E9A21F11020002F6647 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -73,12 +73,12 @@
 		148CE70E2203B55700A9BFD6 /* CoreLocationFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationFunctions.swift; sourceTree = "<group>"; };
 		149939BD2208D9A100B9AB0F /* CoreLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationTests.swift; sourceTree = "<group>"; };
 		149939BF2208D9B100B9AB0F /* CoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTests.swift; sourceTree = "<group>"; };
+		149939C12208EE2100B9AB0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14C014ED21E3C94F00826B79 /* MyWeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14C014F021E3C94F00826B79 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14C014F221E3C94F00826B79 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		14C014F521E3C94F00826B79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		14C014F821E3C94F00826B79 /* MyWeatherApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyWeatherApp.xcdatamodel; sourceTree = "<group>"; };
-		14C014FA21E3C95200826B79 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14C014FD21E3C95200826B79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		14C014FF21E3C95200826B79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14C0150421E3C95300826B79 /* MyWeatherAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyWeatherAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,11 +166,11 @@
 				14364E9921F10F6A002F6647 /* ViewControllers */,
 				14C014F021E3C94F00826B79 /* AppDelegate.swift */,
 				14C014F421E3C94F00826B79 /* Main.storyboard */,
-				14C014FA21E3C95200826B79 /* Assets.xcassets */,
 				14C014FC21E3C95200826B79 /* LaunchScreen.storyboard */,
 				14C014FF21E3C95200826B79 /* Info.plist */,
 				14C014F721E3C94F00826B79 /* MyWeatherApp.xcdatamodeld */,
 				147E667B21EF0B3E0054FF5E /* Constants.swift */,
+				149939C12208EE2100B9AB0F /* Assets.xcassets */,
 			);
 			path = MyWeatherApp;
 			sourceTree = "<group>";
@@ -179,7 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				14C0150821E3C95300826B79 /* DataStructureTests.swift */,
-				142C996821FA18F100476759 /* SettingsTests.swift */,
+				142C996821FA18F100476759 /* SettingsVCTests.swift */,
 				144441EF21EE60A900A8DD0F /* MockJSON.JSON */,
 				144441F221EE666800A8DD0F /* Mock Weather Struct.swift */,
 				144441F721EE709300A8DD0F /* Constants.swift */,
@@ -316,7 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14C014FE21E3C95200826B79 /* LaunchScreen.storyboard in Resources */,
-				14C014FB21E3C95200826B79 /* Assets.xcassets in Resources */,
+				149939C22208EE2100B9AB0F /* Assets.xcassets in Resources */,
 				14C014F621E3C94F00826B79 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -368,7 +368,7 @@
 				14C0150921E3C95300826B79 /* DataStructureTests.swift in Sources */,
 				144441F321EE666800A8DD0F /* Mock Weather Struct.swift in Sources */,
 				149939C02208D9B100B9AB0F /* CoreDataTests.swift in Sources */,
-				142C996921FA18F100476759 /* SettingsTests.swift in Sources */,
+				142C996921FA18F100476759 /* SettingsVCTests.swift in Sources */,
 				149939BE2208D9A100B9AB0F /* CoreLocationTests.swift in Sources */,
 				144441F821EE709300A8DD0F /* Constants.swift in Sources */,
 			);
@@ -541,12 +541,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XY2NNC43DQ;
 				INFOPLIST_FILE = MyWeatherApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jonaheisenstock.MyWeatherApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jonaheisenstock.WeatherBuddy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -558,12 +559,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XY2NNC43DQ;
 				INFOPLIST_FILE = MyWeatherApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jonaheisenstock.MyWeatherApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jonaheisenstock.WeatherBuddy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -576,6 +578,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XY2NNC43DQ;
 				INFOPLIST_FILE = MyWeatherAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -596,6 +599,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XY2NNC43DQ;
 				INFOPLIST_FILE = MyWeatherAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -615,6 +619,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XY2NNC43DQ;
 				INFOPLIST_FILE = MyWeatherAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -634,6 +639,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XY2NNC43DQ;
 				INFOPLIST_FILE = MyWeatherAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
