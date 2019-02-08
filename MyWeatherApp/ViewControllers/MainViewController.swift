@@ -13,10 +13,12 @@ let defaultLocation: Double = 11221
 
 class MainViewController: UIViewController {
     
+    @IBOutlet weak var weatherBuddySaysLabel: UILabel!
     @IBOutlet weak var outfitLabel: UILabel!
     @IBOutlet weak var sunglassesLabel: UILabel!
     @IBOutlet weak var umbrellaLabel: UILabel!
     @IBOutlet weak var bootsLabel: UILabel!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     var location = defaultLocation
     var testMode = false
@@ -27,13 +29,19 @@ class MainViewController: UIViewController {
     var tempSettings: Settings!
     var labelArray: [UILabel] = []
     let locationManager = CLLocationManager()
+    var initalLocation: CGPoint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initalLocation = super.view.center
         buddy = loadBuddy()
         sunglassesLabel.text = "Sunglasses"
         umbrellaLabel.text = "Umbrella"
         labelArray.append(contentsOf: [outfitLabel, sunglassesLabel, umbrellaLabel, bootsLabel])
+        for label in labelArray {
+            label.isHidden = true
+        }
+        loadingIndicator.isHidden = false
         print("Getting user location")
         if buddy.settings.locationPreferences[0] {
             getLocation()
@@ -58,42 +66,38 @@ class MainViewController: UIViewController {
         if segue.destination is SettingsViewController {
             let vc = segue.destination as! SettingsViewController
             vc.settings = buddy.settings
+            vc.initialSettings = buddy.settings
         }
     }
-    /*
+    
     @IBAction func panHandler(_ recognizer: UIPanGestureRecognizer) {
         guard recognizer.view != nil else { return }
         
-        if recognizer.state == .ended {
-            if abs(recognizer.velocity(in: super.view).y) < 1 {
-                if recognizer.velocity(in: super.view).x < 0 {          // Pan Left
-                    if selectedTime == weather.count - 1 {
-                        selectedTime = 0
-                    } else {
-                        selectedTime += 1
-                    }
-                } else if recognizer.velocity(in: super.view).x > 0 {   // Pan Right
-                    if selectedTime == 0 {
-                        selectedTime = weather.count - 1
-                    } else {
-                        selectedTime -= 1
-                    }
+        if recognizer.state == .changed {
+            if recognizer.location(in: super.view).y > initalLocation.y { // Down Drag
+                let translateY = recognizer.translation(in: super.view).y
+                super.view.center.y += translateY
+                if super.view.center.y > initalLocation.y + 100 {
+                    super.view.center.y = initalLocation.y + 100
                 }
+                reloadViewAfterFetch()
             }
-            guard weather.count > 0 else { return }
-            labelArray = updateBuddyLabels(buddy: self.buddy, labels: labelArray)
+        } else if recognizer.state == .ended {
+            super.view.center = initalLocation
         }
-    }*/
+    }
 }
 
 extension MainViewController {
     func reloadViewAfterFetch(){
         print("fetching...")
+        loadingIndicator.isHidden = false
         fetch(location: buddy.location, testMode: testMode) {
             newWeather in
             self.weather.append(contentsOf: newWeather!)
             DispatchQueue.main.async {
                 self.buddy.updateBuddy(newWeatherArray: self.weather)
+                self.loadingIndicator.isHidden = true
                 self.labelArray = updateBuddyLabels(buddy: self.buddy, labels: self.labelArray)
             }
         }

@@ -53,11 +53,15 @@ func tapCheck(tap: CGPoint, targetY1: CGRect, targetY2: CGRect) -> Bool {
 
 /////////////
 func updateBuddyLabels(buddy: Buddy, labels: [UILabel]) -> [UILabel] {
+    for label in labels {
+        label.isHidden = true
+    }
     print("Updating Labels...")
     labels[3].isHidden = true
     for index in 0...(orderedClothing.count-1) {
         if index < 4 && buddy.clothing[orderedClothing[index]]!{
             labels[0].text = orderedClothing[index]
+            labels[0].isHidden = false
         } else if index > 5 && buddy.clothing[orderedClothing[index]]!{
             labels[3].text = orderedClothing[index]
             labels[3].isHidden = false

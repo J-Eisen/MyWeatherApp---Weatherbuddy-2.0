@@ -18,6 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D63-aD-GpY">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="WeatherBuddy" id="GXq-Cx-6YP">
+                                        <barButtonItem key="rightBarButtonItem" title="Settings" id="Q26-f3-OEF">
+                                            <connections>
+                                                <segue destination="lCQ-qk-Lmf" kind="show" id="DDa-Zk-f2q"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WeatherBuddy says..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhD-uh-o5l">
                                 <rect key="frame" x="104" y="192" width="167" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -54,18 +66,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D63-aD-GpY">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="WeatherBuddy" id="GXq-Cx-6YP">
-                                        <barButtonItem key="rightBarButtonItem" title="Settings" id="Q26-f3-OEF">
-                                            <connections>
-                                                <segue destination="lCQ-qk-Lmf" kind="show" id="DDa-Zk-f2q"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" restorationIdentifier="loadingIndicator" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="u67-pM-dsQ">
+                                <rect key="frame" x="147.5" y="322" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="iqr-Y9-3I8"/>
+                                    <constraint firstAttribute="width" constant="80" id="sEt-Lh-wJI"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -74,28 +81,40 @@
                             <constraint firstItem="a6h-9W-RYy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5lf-p6-CIZ"/>
                             <constraint firstItem="D63-aD-GpY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="BaC-Xy-MGN"/>
                             <constraint firstItem="SvW-g4-pqv" firstAttribute="top" secondItem="uhD-uh-o5l" secondAttribute="bottom" constant="8" id="GMU-Yn-sC0"/>
+                            <constraint firstItem="u67-pM-dsQ" firstAttribute="top" secondItem="SvW-g4-pqv" secondAttribute="bottom" constant="80" id="HUl-Qz-oxI"/>
                             <constraint firstItem="svw-IL-twG" firstAttribute="top" secondItem="EoE-zQ-qfL" secondAttribute="bottom" constant="32" id="TrA-h5-Dqd"/>
                             <constraint firstItem="uhD-uh-o5l" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Uc8-6o-xIT"/>
                             <constraint firstItem="EoE-zQ-qfL" firstAttribute="top" secondItem="qOl-xU-2Kw" secondAttribute="bottom" constant="32" id="W99-uZ-MmJ"/>
                             <constraint firstItem="qOl-xU-2Kw" firstAttribute="top" secondItem="a6h-9W-RYy" secondAttribute="bottom" constant="32" id="YYQ-l7-9ph"/>
                             <constraint firstItem="a6h-9W-RYy" firstAttribute="top" secondItem="SvW-g4-pqv" secondAttribute="bottom" constant="56" id="brW-V5-HZD"/>
+                            <constraint firstItem="D63-aD-GpY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ckH-jZ-hC0"/>
                             <constraint firstItem="D63-aD-GpY" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gsa-jA-LPa"/>
-                            <constraint firstItem="D63-aD-GpY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="hkJ-xG-DIX"/>
                             <constraint firstItem="uhD-uh-o5l" firstAttribute="top" secondItem="D63-aD-GpY" secondAttribute="bottom" constant="128" id="nIg-JO-xLv"/>
                             <constraint firstItem="EoE-zQ-qfL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qUa-et-i6s"/>
                             <constraint firstItem="qOl-xU-2Kw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="r0U-jx-2oN"/>
+                            <constraint firstItem="u67-pM-dsQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tgu-s2-jZp"/>
                             <constraint firstItem="SvW-g4-pqv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zD8-NC-yAe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="dNY-Fp-WQo" appends="YES" id="1Nz-UH-iY1"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="bootsLabel" destination="svw-IL-twG" id="4ZB-Al-hh2"/>
+                        <outlet property="loadingIndicator" destination="u67-pM-dsQ" id="jmc-FF-rkk"/>
                         <outlet property="outfitLabel" destination="a6h-9W-RYy" id="arM-rE-uqH"/>
                         <outlet property="sunglassesLabel" destination="qOl-xU-2Kw" id="0ba-dR-7nx"/>
                         <outlet property="umbrellaLabel" destination="EoE-zQ-qfL" id="ROZ-OV-YW5"/>
+                        <outlet property="weatherBuddySaysLabel" destination="uhD-uh-o5l" id="2u1-Wg-Yqw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="dNY-Fp-WQo">
+                    <connections>
+                        <action selector="panHandler:" destination="BYZ-38-t0r" id="kMv-0y-R9G"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1724" y="59"/>
         </scene>
@@ -114,9 +133,14 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Settings" id="fQa-nS-PHy">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="save" id="QBU-Er-qKc">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="uUl-Zz-agU" userLabel="Cancel">
                                             <connections>
-                                                <segue destination="BYZ-38-t0r" kind="show" id="cs8-36-cZA"/>
+                                                <segue destination="BYZ-38-t0r" kind="show" identifier="cancelToMain" id="Fg7-aO-MVn"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="QBU-Er-qKc">
+                                            <connections>
+                                                <segue destination="BYZ-38-t0r" kind="show" identifier="saveToMain" id="cs8-36-cZA"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -410,4 +434,7 @@
             <point key="canvasLocation" x="2628" y="58.920539730134934"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="cs8-36-cZA"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -11,6 +11,7 @@ import CoreLocation
 
 class SettingsViewController: UIViewController {
     var settings: Settings!
+    var initialSettings: Settings!
     
     @IBOutlet weak var maxTempLabel: UILabel!
     @IBOutlet weak var minTempLabel: UILabel!
@@ -93,9 +94,13 @@ class SettingsViewController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is MainViewController {
-            saveSettings(settings: settings)
             let vc = segue.destination as! MainViewController
-            vc.tempSettings = settings
+            if segue.identifier == "saveToMain" {
+                saveSettings(settings: settings)
+                vc.tempSettings = settings
+            } else {
+                vc.tempSettings = initialSettings
+            }
         }
     }
 
