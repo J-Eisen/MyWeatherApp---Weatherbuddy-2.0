@@ -72,3 +72,28 @@ func updateBuddyLabels(buddy: Buddy, labels: [UILabel]) -> [UILabel] {
     print(buddy.clothing)
     return labels
 }
+
+// Creating Strings to call the Proper Image
+// All image names and string should be formatted as follows:
+// [BuddyName]_[OutfitName]_[Umbrella]_[Sunscreen]_[Boots]
+// (Last 3 are optional)
+
+func imageBuilder(buddy: Buddy) -> UIImage {
+    var image = "\(buddy.settings.buddyType)"
+    for clothes in orderedClothing {
+        if buddy.clothing[clothes] ?? false {
+            image.append("_\(clothes)")
+        }
+    }
+    if image == buddy.settings.buddyType {
+        image.append("_Thinking")
+    }
+    print("Image Called: \(image)")
+    return UIImage.init(named: image)!
+}
+
+func imageBuilder(buddyName: String) -> UIImage {
+    let image = "\(buddyName)_Background"
+    print("Image Called: \(image)")
+    return UIImage.init(named: image)!
+}

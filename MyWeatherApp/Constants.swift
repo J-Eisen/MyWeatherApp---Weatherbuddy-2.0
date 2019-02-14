@@ -10,15 +10,15 @@ import Foundation
 
 let staticClothing = ["Sunscreen": false,
                  "Umbrella": false,
-                 "Heavy Coat": false,
-                 "Light Coat": false,
-                 "Medium Outfit": false,
-                 "Hot Outfit": false,
+                 "HeavyCoat": false,
+                 "LightCoat": false,
+                 "MediumOutfit": false,
+                 "HotOutfit": false,
                  "Rainboots": false,
                  "Snowboots":false]
 
-let orderedClothing = ["Heavy Coat",
-                       "Light Coat",
-                       "Medium Outfit",
-                       "Hot Outfit", "Umbrella", "Sunscreen",
+let orderedClothing = ["HeavyCoat",
+                       "LightCoat",
+                       "MediumOutfit",
+                       "HotOutfit", "Umbrella", "Sunscreen",
                        "Rainboots", "Snowboots"]

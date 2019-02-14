@@ -56,6 +56,7 @@ func saveSettings(settings: Settings){
     settingsSave.setValue(settings.uvIndex, forKeyPath: "uvIndex")
     settingsSave.setValue(settings.dayStart, forKeyPath: "dStart")
     settingsSave.setValue(settings.dayEnd, forKeyPath: "dEnd")
+    settingsSave.setValue(settings.buddyType, forKeyPath: "buddyType")
     
     appDelegate.saveContext()
     print("Save Complete!")
@@ -109,7 +110,8 @@ func loadSettings() -> Settings {
         systemType: fetchedSettings.value(forKey: "system") as? Int ?? 0,
         tempType: fetchedSettings.value(forKey: "temperature") as? Int ?? 0,
         dayStart: fetchedSettings.value(forKey: "dEnd") as? Int ?? 8,
-        dayEnd: fetchedSettings.value(forKey: "dStart") as? Int ?? 19)
+        dayEnd: fetchedSettings.value(forKey: "dStart") as? Int ?? 19,
+        buddy: fetchedSettings.value(forKey: "buddyType") as? String ?? "CircleBuddy")
     
     print("Load Complete!")
     return loadedSettings

@@ -148,14 +148,14 @@ extension Buddy {
             clothing[item.key] = false
         }
         if rawData.english.lowTemp >= settings.english.highTemp {
-            clothing["Hot Outfit"] = true
+            clothing["HotOutfit"] = true
         } else if rawData.english.highTemp <= settings.english.highTemp
             && rawData.english.lowTemp >= settings.english.lowTemp {
-            clothing["Medium Outfit"] = true
+            clothing["MediumOutfit"] = true
         } else if rawData.english.highTemp <= settings.english.lowTemp {
-            clothing["Heavy Coat"] = true
+            clothing["HeavyCoat"] = true
         } else if rawData.english.lowTemp <= settings.english.lowTemp {
-            clothing["Light Coat"] = true
+            clothing["LightCoat"] = true
         }
         if rawData.uvIndex >= settings.uvIndex {
             clothing["Sunglasses"] = true

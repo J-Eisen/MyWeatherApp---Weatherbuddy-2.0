@@ -136,10 +136,8 @@
 		14364E9921F10F6A002F6647 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				14C014F221E3C94F00826B79 /* MainViewController.swift */,
-				14D6E2B322112346003FA17C /* CurrentWeatherViewController.swift */,
+				14EDEA6022136FFD0085551C /* MainView */,
 				14364E9A21F11020002F6647 /* SettingsViewController.swift */,
-				14D6E2B5221125F1003FA17C /* RootViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -215,6 +213,16 @@
 				14C0152521E3CC7F00826B79 /* JSON Struct.swift */,
 			);
 			path = "Data Structures";
+			sourceTree = "<group>";
+		};
+		14EDEA6022136FFD0085551C /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				14D6E2B5221125F1003FA17C /* RootViewController.swift */,
+				14C014F221E3C94F00826B79 /* MainViewController.swift */,
+				14D6E2B322112346003FA17C /* CurrentWeatherViewController.swift */,
+			);
+			path = MainView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

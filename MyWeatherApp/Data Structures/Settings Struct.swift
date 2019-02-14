@@ -23,6 +23,7 @@ struct Settings {
     var locationPreferences: [Bool] = [true, true]
     var systemType = 0  // 0: Imperial/English | 1: Metric
     var tempType = 0    // 0: ºF | 1: ºC
+    var buddyType: String = "CircleBuddy"
     
     struct WeatherData {
         var highTemp: Float
@@ -40,7 +41,7 @@ struct Settings {
 }
 
 extension Settings {
-    init(highTemp: Float, lowTemp: Float, rain: Float, snow: Float, precipitation: Float, uvIndex: Float, zipcode: Double, locationAuth: Int, gpsSwitch: Bool, zipcodeSwitch: Bool, systemType: Int, tempType: Int, dayStart: Int, dayEnd: Int){
+    init(highTemp: Float, lowTemp: Float, rain: Float, snow: Float, precipitation: Float, uvIndex: Float, zipcode: Double, locationAuth: Int, gpsSwitch: Bool, zipcodeSwitch: Bool, systemType: Int, tempType: Int, dayStart: Int, dayEnd: Int, buddy: String){
         self.english = WeatherData.init(
             highTemp: highTemp,
             lowTemp: lowTemp,
@@ -61,5 +62,6 @@ extension Settings {
         self.dayEnd = dayEnd
         self.locationPreferences[0] = gpsSwitch
         self.locationPreferences[1] = zipcodeSwitch
+        self.buddyType = buddy
     }
 }
