@@ -10,7 +10,7 @@ import UIKit
 
 class CurrentWeatherViewController: UIViewController {
     @IBOutlet weak var backgroundImage: UIImageView!
-    
+    @IBOutlet weak var currentWeatherView: UIView!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var precipitationLabel: UILabel!
     @IBOutlet weak var waterfallLabel: UILabel!
@@ -18,25 +18,19 @@ class CurrentWeatherViewController: UIViewController {
     
     var buddy: Buddy!
     var weatherArray: [Weather]!
-    let formatter = DateComponentsFormatter()
+    var currentWeatherViewIntialLocation: CGPoint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentWeatherViewIntialLocation = self.currentWeatherView.center
         backgroundImage.image = imageBuilder(buddyName: buddy.settings.buddyType)
         updateWeatherLabels()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        backgroundImage.image = imageBuilder(buddyName: buddy.settings.buddyType)
+        updateWeatherLabels()
     }
-    */
-
 }
 
 extension CurrentWeatherViewController {

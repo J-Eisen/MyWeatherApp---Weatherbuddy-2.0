@@ -19,16 +19,6 @@
                     </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MYr-v8-lkS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="cnN-pj-XQ2">
-                    <connections>
-                        <action selector="panGesture:" destination="16a-KS-iYz" id="2BW-c9-Ldq"/>
-                    </connections>
-                </panGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="u6x-ID-pUL">
-                    <connections>
-                        <action selector="longpressGesture:" destination="16a-KS-iYz" id="Cah-2x-2Ts"/>
-                    </connections>
-                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1060" y="59"/>
         </scene>
@@ -42,15 +32,16 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9mQ-Nk-DJz" userLabel="BackgroundView">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <gestureRecognizers/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zr5-63-Jjl" userLabel="BuddyView">
-                                <rect key="frame" x="56" y="276" width="263" height="263"/>
+                                <rect key="frame" x="32" y="276" width="311" height="263"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="256" id="O5v-gB-iVa"/>
-                                    <constraint firstAttribute="width" secondItem="zr5-63-Jjl" secondAttribute="height" multiplier="1:1" id="blV-dp-8Za"/>
+                                    <constraint firstAttribute="width" secondItem="zr5-63-Jjl" secondAttribute="height" multiplier="1:1" id="MiA-4f-mRU"/>
                                 </constraints>
                             </imageView>
                         </subviews>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="zr5-63-Jjl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gbp-9l-gU6" secondAttribute="top" constant="256" id="7O7-wY-gGD"/>
                             <constraint firstItem="gbp-9l-gU6" firstAttribute="trailing" secondItem="9mQ-Nk-DJz" secondAttribute="trailing" id="8pH-hV-opg"/>
@@ -58,7 +49,9 @@
                             <constraint firstItem="zr5-63-Jjl" firstAttribute="centerX" secondItem="EGt-j8-KU3" secondAttribute="centerX" id="Pi0-gt-qNG"/>
                             <constraint firstItem="9mQ-Nk-DJz" firstAttribute="leading" secondItem="gbp-9l-gU6" secondAttribute="leading" id="Tat-vR-GuU"/>
                             <constraint firstItem="gbp-9l-gU6" firstAttribute="bottom" secondItem="9mQ-Nk-DJz" secondAttribute="bottom" id="VFy-Dv-K94"/>
+                            <constraint firstItem="zr5-63-Jjl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gbp-9l-gU6" secondAttribute="leading" constant="32" id="YLZ-fQ-Y2N"/>
                             <constraint firstItem="9mQ-Nk-DJz" firstAttribute="top" secondItem="gbp-9l-gU6" secondAttribute="top" id="dSf-gb-qaH"/>
+                            <constraint firstItem="gbp-9l-gU6" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zr5-63-Jjl" secondAttribute="trailing" constant="32" id="gji-l2-TuO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gbp-9l-gU6"/>
                     </view>
@@ -81,8 +74,9 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="backgroundView" translatesAutoresizingMaskIntoConstraints="NO" id="BGI-nj-MyS" userLabel="BackgroundView">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <gestureRecognizers/>
                             </imageView>
-                            <view opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RfB-AP-uDP">
+                            <view opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" restorationIdentifier="currentWeatherView" translatesAutoresizingMaskIntoConstraints="NO" id="RfB-AP-uDP" userLabel="Current Weather View">
                                 <rect key="frame" x="80" y="190.5" width="215" height="286"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Weather is:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YKl-kk-t9U" userLabel="Current Weather is:">
@@ -140,6 +134,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="BGI-nj-MyS" firstAttribute="leading" secondItem="UVV-AF-i69" secondAttribute="leading" id="8cD-nN-NQw"/>
                             <constraint firstItem="RfB-AP-uDP" firstAttribute="leading" secondItem="UVV-AF-i69" secondAttribute="leading" constant="80" id="Ec8-w7-WSa"/>
@@ -154,6 +149,7 @@
                     </view>
                     <connections>
                         <outlet property="backgroundImage" destination="BGI-nj-MyS" id="MsX-rf-SPk"/>
+                        <outlet property="currentWeatherView" destination="RfB-AP-uDP" id="Cpb-WT-EHI"/>
                         <outlet property="precipitationLabel" destination="udH-Gn-i1A" id="ooe-G4-W0d"/>
                         <outlet property="tempLabel" destination="JgE-0f-7sj" id="Zgk-WP-ZHP"/>
                         <outlet property="waterfallLabel" destination="YHl-bM-fbD" id="Zin-ov-uSe"/>
@@ -163,6 +159,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dCH-cR-vq8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1481" y="758"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="QSQ-ld-YMZ">
+            <objects>
+                <viewController id="Jei-wT-f9x" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hCf-64-1Cb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cPe-bb-cbQ">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kUw-Mv-nMs">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5X1-dR-HBY">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Emn-Ew-Fkq">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Buddy Select" id="ZaJ-kb-2vm"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cPe-bb-cbQ" firstAttribute="leading" secondItem="v8V-Db-Fsa" secondAttribute="leading" id="Biq-oA-Gqe"/>
+                            <constraint firstItem="v8V-Db-Fsa" firstAttribute="bottom" secondItem="cPe-bb-cbQ" secondAttribute="bottom" id="PV4-y9-fFC"/>
+                            <constraint firstItem="Emn-Ew-Fkq" firstAttribute="trailing" secondItem="v8V-Db-Fsa" secondAttribute="trailing" id="Q7A-dT-E8f"/>
+                            <constraint firstItem="cPe-bb-cbQ" firstAttribute="top" secondItem="Emn-Ew-Fkq" secondAttribute="bottom" id="Rmc-tv-eKq"/>
+                            <constraint firstItem="Emn-Ew-Fkq" firstAttribute="leading" secondItem="v8V-Db-Fsa" secondAttribute="leading" id="WJd-zA-CBq"/>
+                            <constraint firstItem="Emn-Ew-Fkq" firstAttribute="top" secondItem="v8V-Db-Fsa" secondAttribute="top" id="ZhM-Ff-ebz"/>
+                            <constraint firstItem="v8V-Db-Fsa" firstAttribute="trailing" secondItem="cPe-bb-cbQ" secondAttribute="trailing" id="z9m-Dk-JFT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="v8V-Db-Fsa"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RUK-4I-4x9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2661" y="764"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="kSm-wb-Mla">

@@ -81,7 +81,9 @@ func updateBuddyLabels(buddy: Buddy, labels: [UILabel]) -> [UILabel] {
 func imageBuilder(buddy: Buddy) -> UIImage {
     var image = "\(buddy.settings.buddyType)"
     for clothes in orderedClothing {
-        if buddy.clothing[clothes] ?? false {
+        // Skip Rainboots if both rainboots = true && snowboots = true
+        if clothes == "Rainboots" && buddy.clothing["Snowboots"]! &&  buddy.clothing["Rainboots"]! { }
+        else if buddy.clothing[clothes] ?? false {
             image.append("_\(clothes)")
         }
     }

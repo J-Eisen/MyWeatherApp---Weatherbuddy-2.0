@@ -51,10 +51,10 @@ class RootViewController: UIPageViewController {
                                animated: true,
                                completion: nil)
         }
-        dataSource = self
-        self.delegate = delegate
-        configurePageControl() //FIXME: dots don't work
-        configureNavBar()   //FIXME: nav bar is too low
+        self.dataSource = self
+        self.delegate = self
+        configurePageControl()
+        configureNavBar()   //FIXME: nav bar is off center
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,15 +71,12 @@ class RootViewController: UIPageViewController {
             vc.initialSettings = buddy.settings
         }
     }
-    @IBAction func longpressGesture(_ sender: UILongPressGestureRecognizer) {
-    }
-    @IBAction func panGesture(_ sender: UIPanGestureRecognizer) {
-    }
 }
 
 //MARK:- UIPageViewControllerDataSource
 
 extension RootViewController: UIPageViewControllerDataSource {
+    // ToViewBefore
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
             return nil
@@ -99,7 +96,7 @@ extension RootViewController: UIPageViewControllerDataSource {
         return orderedViewControllers[previousIndex]
     }
     
-    
+    // ToViewAfter
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
             return nil
@@ -129,9 +126,9 @@ extension RootViewController: UIPageViewControllerDelegate {
 
 //MARK:- Functions
 extension RootViewController {
-    //MARK: Config Functions
+    //MARK: Config Element Functions
     func configurePageControl(){
-        pageControl = UIPageControl(frame: CGRect(x: (UIScreen.main.bounds.width/2) - 25, y: UIScreen.main.bounds.maxY - 50, width: 50, height: 50))
+        pageControl = UIPageControl(frame: CGRect(x: (UIScreen.main.bounds.width/2) - 25, y: UIScreen.main.bounds.maxY - 75, width: 50, height: 50))
         self.pageControl.numberOfPages = orderedViewControllers.count
         self.pageControl.currentPage = 0
         self.pageControl.tintColor = UIColor.black
@@ -141,20 +138,30 @@ extension RootViewController {
     }
     
     func configureNavBar(){
-        navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 50, width: UIScreen.main.bounds.width, height: 50))
+        let navYPosition = UIApplication.shared.statusBarFrame.height
+        let navWidth = UIApplication.shared.statusBarFrame.width
+        navigationBar = UINavigationBar(frame: CGRect(x: 0, y: navYPosition, width: navWidth, height: navYPosition))
+        
         self.view.addSubview(navigationBar)
+        print(navigationBar.frame)
         
         var titleString: String
         titleString = "WeatherBuddy"
         let navItem = UINavigationItem(title: titleString)
         let settingsButton = UIBarButtonItem(image: UIImage(named: "Settings_Default"), style: .plain, target: nil, action: #selector(self.settingsButtonTapped(_:)))
+        let storeButton = UIBarButtonItem(image: UIImage(named: "NewBuddy_\(buddy.settings.buddyType)"), style: .plain, target: nil, action: #selector(self.storeButtonTapped(_:)))
         
         navItem.rightBarButtonItem = settingsButton
+        navItem.leftBarButtonItem = storeButton
         navigationBar.setItems([navItem], animated: false)
     }
     
     @objc func settingsButtonTapped(_ sender: UIBarButtonItem!){
         self.performSegue(withIdentifier: "rootToSettings", sender: nil)
+    }
+    
+    @objc func storeButtonTapped(_ sender: UIBarButtonItem){
+        print("StoreButtonTapped")
     }
     
     //MARK: Update Child Functions
@@ -164,6 +171,7 @@ extension RootViewController {
             mainVC.buddyImage.image = imageBuilder(buddy: buddy)
         } else if viewController is CurrentWeatherViewController {
             weatherVC.weatherArray = weather
+            weatherVC.buddy = buddy
         }
     }
     
