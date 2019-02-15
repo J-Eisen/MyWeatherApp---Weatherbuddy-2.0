@@ -46,4 +46,4 @@ Any event and calendar information is deleted as soon as possible.
 
 [weatherbuddyiconlink]: https://www.dropbox.com/s/2jx2iddtyx6th66/IconforWeb.png?raw=true
 [WeatherBuddy]: https://github.com/J-Eisen/WeatherBuddy-iOS
-[circlebuddylink]: https://www.dropbox.com/s/zroecov9wxwj0bc/CircleBuddyDefault_256px_1x.png?raw=true
+[circlebuddylink]: https://www.dropbox.com/s/fi5oqvyaahx6yrh/CircleBuddyforWeb.png?raw=true
