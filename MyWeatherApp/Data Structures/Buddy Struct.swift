@@ -149,25 +149,21 @@ extension Buddy {
         }
         if rawData.english.lowTemp >= settings.english.highTemp {
             clothing["HotOutfit"] = true
-        } else if rawData.english.highTemp <= settings.english.highTemp
-            && rawData.english.lowTemp >= settings.english.lowTemp {
-            clothing["MediumOutfit"] = true
         } else if rawData.english.highTemp <= settings.english.lowTemp {
             clothing["HeavyCoat"] = true
-        } else if rawData.english.lowTemp <= settings.english.lowTemp {
+        } else if rawData.english.highTemp > settings.english.lowTemp && rawData.english.lowTemp <= settings.english.lowTemp {
             clothing["LightCoat"] = true
-        }
-        if rawData.uvIndex >= settings.uvIndex {
-            clothing["Sunglasses"] = true
+        } else {
+            clothing["MediumOutfit"] = true
         }
         if rawData.precip >= settings.precip {
             clothing["Umbrella"] = true
         }
-        if rawData.english.rain >= settings.english.rain {
-            clothing["Rainboots"] = true
-        }
         if rawData.english.snow >= settings.english.snow {
             clothing["Snowboots"] = true
+        }
+        else if rawData.english.rain >= settings.english.rain {
+            clothing["Rainboots"] = true
         }
         print("Clothing Update Complete")
         print(self.clothing)
