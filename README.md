@@ -34,6 +34,7 @@ Any event and calendar information is deleted as soon as possible.
   - allowing users to choose which calendars they use for their location
 - raw weather information
   - add ability to see *why* certain articles of clothing are suggested
+  - allow user to prefer hot or cold outfits, giving the buddy an appropriate bias
 - improve user interface
   - add animation to the Buddies
   - add multiple Buddies
