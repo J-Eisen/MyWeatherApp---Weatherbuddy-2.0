@@ -22,6 +22,7 @@ Any event and calendar information is deleted as soon as possible.
 - Location Features
   - GPS and zipcode functionality
   - GPS preferred when both are enabled
+  - Defaults to proper measurement systems based on location (But only on first relocation)
 
 ## Next Feature
 - *uninteresting* more unit tests to prep for wider testing
