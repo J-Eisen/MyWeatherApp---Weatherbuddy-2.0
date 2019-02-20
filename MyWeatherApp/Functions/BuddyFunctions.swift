@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+/*
 // Buddy Screen Tap Checks
 func tapCheck(tap: CGPoint, target: CGRect) -> Bool {
     var result = false
@@ -49,6 +49,7 @@ func tapCheck(tap: CGPoint, targetY1: CGRect, targetY2: CGRect) -> Bool {
         && tap.y > minPoint.y && tap.y < maxPoint.y { result = true }
     return result
 }
+ */
 
 // Creating Strings to call the Proper Image
 // All image names and string should be formatted as follows:
@@ -56,7 +57,31 @@ func tapCheck(tap: CGPoint, targetY1: CGRect, targetY2: CGRect) -> Bool {
 // (Last 3 are optional)
 
 func imageBuilder(buddy: Buddy) -> UIImage {
-    var image = "\(buddy.settings.buddyType)"
+    let imageString: String!
+    if buddy.settings.buddyType == "TestBuddy" {
+        imageString = "TestImage"
+    } else {
+        imageString = makeImage(buddy: buddy)
+    }
+    return UIImage.init(named: imageString)!
+}
+
+func imageBuilder(buddyName: String) -> UIImage {
+    let imageString: String!
+    if buddyName == "TestBuddy" {
+        imageString = "TestImage"
+    } else {
+        imageString = makeImage(buddyName: buddyName)
+    }
+    return UIImage.init(named: imageString)!
+}
+
+func makeImage(buddyName: String) -> String {
+    return "\(buddyName)_Background"
+}
+
+func makeImage(buddy: Buddy) -> String {
+    var image = "\(buddy.settings.buddyType)" as String
     for clothes in orderedClothing {
         // Skip Rainboots if both rainboots = true && snowboots = true
         if clothes == "Rainboots" && buddy.clothing["Snowboots"]! &&  buddy.clothing["Rainboots"]! { }
@@ -67,12 +92,5 @@ func imageBuilder(buddy: Buddy) -> UIImage {
     if image == buddy.settings.buddyType {
         image.append("_Thinking")
     }
-    print("Image Called: \(image)")
-    return UIImage.init(named: image)!
-}
-
-func imageBuilder(buddyName: String) -> UIImage {
-    let image = "\(buddyName)_Background"
-    print("Image Called: \(image)")
-    return UIImage.init(named: image)!
+    return image
 }

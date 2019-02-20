@@ -27,7 +27,6 @@ class SettingsTests: XCTestCase {
         testSettings = nil
         testSlider = nil
         testSegmentedControl = nil
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
     func test_setSlider_helper_function(){
@@ -172,10 +171,6 @@ class SettingsTests: XCTestCase {
             XCTAssertEqual(celsiusResult, celsiusExpected[index], "Failure at \(testData[index])")
         }
     }
-        
-//        let testStringForCelsiusDisplay = "20.5 ºC"
-//        let resultsStringForCelsiusDisplay = settingsViewController.celsiusDisplay(20.514285)
-//        XCTAssertEqual(testStringForCelsiusDisplay, resultsStringForCelsiusDisplay, "Celsius Display Mismatch")
     
     func test_slider_updateSliderHelper(){
         let expectedLabelArray = ["20 %", "40 %"]
@@ -276,25 +271,28 @@ class SettingsTests: XCTestCase {
     }
     
     func test_picker_updates(){
-        
+//        let picker = UIPickerView.init()
     }
     
     func test_measure_system_change(){
+        let imperialSystem = 0
+        let metricSystem = 1
+        let expectedResults: [Float] =
+            [1.1, 2.8,
+             0.4, 1.0,
+             0.0, 0.0]
+        let testArray: [Float] = [1.1, 1.0, 0.0]
+        for testNumber in testArray {
+            
+        }
         
+        testSettings.systemType = imperialSystem
+//        XCTAssertEqual(<#T##expression1: Equatable##Equatable#>, <#T##expression2: Equatable##Equatable#>)
     }
     
     func test_temperature_system_change(){
         
     }
-    
-    /* Multiple Views have not been linked yet
-    func test_recieve_data_from_main(){
-        
-    }
-    
-    func test_pass_data_to_main(){
-        
-    }*/
     
     /* CoreData has not been implemented yet
     

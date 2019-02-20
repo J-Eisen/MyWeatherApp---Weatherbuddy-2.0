@@ -9,26 +9,44 @@
 import XCTest
 
 class MainViewUITests: XCTestCase {
-
+    var app: XCUIApplication!
+    var center: XCUICoordinate!
+    var left: XCUICoordinate!
+    var right: XCUICoordinate!
+    var bottom: XCUICoordinate!
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
 
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
+        
+        app = XCUIApplication()
+        app.launchArguments.append("--uitesting")
+        app.launch()
 
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        XCUIApplication().launch()
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        center = app.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
+        left = app.coordinate(withNormalizedOffset: CGVector(dx: -5, dy: 0))
+        right = app.coordinate(withNormalizedOffset: CGVector(dx: 5, dy: 0))
+        bottom = app.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 5))
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+    
+    func test_scrollThroughPageViews(){
+        app.swipeLeft()
+        app.swipeLeft()
+        app.swipeRight()
+        app.swipeRight()
+    }
 
-    func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func test_reload_buddy() {
+        app.swipeDown()
+    }
+    
+    func test_reload_currentWeather(){
+        app.swipeLeft()
+        app.swipeDown()
     }
 
 }

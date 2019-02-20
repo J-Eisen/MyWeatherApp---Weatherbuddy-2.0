@@ -8,6 +8,12 @@
 
 import Foundation
 
+// Segue Strings
+let rootToSettings = "rootToSettings"
+let settingsToRootSave = "settingsToRootSave"
+let settingsToRootCancel = "settingsToRootCancel"
+
+// Default Locations
 var defaultLocation = (Double(defaultZipcode), 0.0)
 var defaultZipcode = 90210
 var defaultCoordinates = (-37.8, 175.8) // "Hobbiton" Matamata, NZ

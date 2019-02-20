@@ -13,8 +13,8 @@ class SettingsViewController: UIViewController {
     var settings: Settings!
     var initialSettings: Settings!
     
-    @IBOutlet weak var maxTempLabel: UILabel!
-    @IBOutlet weak var minTempLabel: UILabel!
+    @IBOutlet weak var highTempLabel: UILabel!
+    @IBOutlet weak var lowTempLabel: UILabel!
     
     @IBOutlet weak var precipLabel: UILabel!
     
@@ -38,6 +38,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Settings View Loaded")
         initView()
         if settings == nil {
             settings = loadSettings()
@@ -61,18 +62,18 @@ class SettingsViewController: UIViewController {
         settings = updateResult.0
         
         if sender.restorationIdentifier == "lowTempSlider" {
-            minTempLabel.text = updateResult.1
-            let tempCheckResult = tempCheck(senderSlider: sender, highSlider: highTempSlider, highLabel: maxTempLabel, settings: settings)
+            lowTempLabel.text = updateResult.1
+            let tempCheckResult = tempCheck(senderSlider: sender, highSlider: highTempSlider, highLabel: highTempLabel, settings: settings)
             if tempCheckResult.0 != nil { settings = tempCheckResult.0! }
             if tempCheckResult.1 != nil { highTempSlider = tempCheckResult.1 }
-            if tempCheckResult.2 != nil { maxTempLabel = tempCheckResult.2 }
+            if tempCheckResult.2 != nil { highTempLabel = tempCheckResult.2 }
         } else if sender.restorationIdentifier == "highTempSlider" {
-            maxTempLabel.text = updateResult.1
-            let tempCheckResult = tempCheck(senderSlider: sender, lowSlider: lowTempSlider, lowLabel: minTempLabel, settings: settings)
+            highTempLabel.text = updateResult.1
+            let tempCheckResult = tempCheck(senderSlider: sender, lowSlider: lowTempSlider, lowLabel: lowTempLabel, settings: settings)
             if tempCheckResult.0 != nil { settings = tempCheckResult.0! }
             if tempCheckResult.1 != nil { lowTempSlider = tempCheckResult.1 }
-            if tempCheckResult.2 != nil { minTempLabel = tempCheckResult.2 }
-        } else {
+            if tempCheckResult.2 != nil { lowTempLabel = tempCheckResult.2 }
+        } else if sender.restorationIdentifier == "precipitationSlider" {
             precipLabel.text = updateResult.1
         }
     }
@@ -145,11 +146,11 @@ extension SettingsViewController {
 extension SettingsViewController {
     func updateLables(){
         if settings.tempType == 0 {
-            maxTempLabel.text = "\(Int(settings.english.highTemp)) ºF"
-            minTempLabel.text = "\(Int(settings.english.lowTemp)) ºF"
+            highTempLabel.text = "\(Int(settings.english.highTemp)) ºF"
+            lowTempLabel.text = "\(Int(settings.english.lowTemp)) ºF"
         } else {
-            maxTempLabel.text = celsiusDisplay(value: settings.metric.highTemp)
-            minTempLabel.text = celsiusDisplay(value: settings.metric.lowTemp)
+            highTempLabel.text = celsiusDisplay(value: settings.metric.highTemp)
+            lowTempLabel.text = celsiusDisplay(value: settings.metric.lowTemp)
         }
         precipLabel.text = "\(Int(settings.precip)) %"
     }

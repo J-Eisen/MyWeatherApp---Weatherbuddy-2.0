@@ -50,7 +50,6 @@ extension CurrentWeatherViewController {
                     currentWeather = weather
                 }
             }
-        print("currentWeather: \(currentWeather)")
         if (Int(currentWeather.rainEnglish) ?? 0) > 0 {
             waterfallTitleLabel.text = "Rain"
             waterfallTitleLabel.isHidden = false

@@ -29,9 +29,14 @@ class GeneralUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func test_viewSwitching() {
-        app.navigationBars["Title"].buttons["Settings"].tap()
-        app.navigationBars["Title"].buttons["Save"].tap()
+    func test_viewSwitching_toSettings() {
+        app.navigationBars["WeatherBuddy"].buttons["Settings Default"].tap()
+        app.navigationBars["Settings"].buttons["Save"].tap()
+        app.navigationBars["WeatherBuddy"].buttons["Settings Default"].tap()
+        app.navigationBars["Settings"].buttons["Cancel"].tap()
     }
-
+    
+    func test_viewSwitching_toNewBuddy() {
+        app.navigationBars["WeatherBuddy"].buttons["NewBuddy CircleBuddy"].tap()
+    }
 }
