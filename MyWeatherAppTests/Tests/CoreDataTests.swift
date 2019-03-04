@@ -13,13 +13,23 @@ import CoreData
 class CoreDataTests: XCTestCase {
     
     override func setUp() {
-        
+        testMode = true
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        testMode = false
     }
 
+    func test_getManagedContext(){
+        let resultMC = getManagedContext()
+        let expectedMC = NSManagedObjectContext.init(concurrencyType: <#T##NSManagedObjectContextConcurrencyType#>)
+        XCTAssertEqual(expectedMC, resultMC)
+    }
+    
+    func test_saveData(){
+        
+    }
+    
     func test_fetchData() {
         let fetchResults = fetchData(entityString: "SettingsSave")
         XCTAssertNotNil(fetchResults)

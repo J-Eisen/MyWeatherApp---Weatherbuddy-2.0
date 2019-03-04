@@ -22,3 +22,6 @@ let orderedClothing = ["HeavyCoat",
                        "MediumOutfit",
                        "HotOutfit", "Umbrella", "Sunscreen",
                        "Rainboots", "Snowboots"]
+
+// Set timeInterval to 10:32:45 7/31/87 EST/GMT-4:00 (2:32:45 GMT)
+let timeInterval = 554740365

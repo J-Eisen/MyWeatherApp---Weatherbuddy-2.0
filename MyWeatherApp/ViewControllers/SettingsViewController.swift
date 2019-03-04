@@ -155,7 +155,7 @@ extension SettingsViewController {
         precipLabel.text = "\(Int(settings.precip)) %"
     }
     
-    func resetSettings() -> Settings{
+    func resetSettings() -> Settings {
         return Settings.init()
     }
 }

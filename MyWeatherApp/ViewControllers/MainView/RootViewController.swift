@@ -16,36 +16,17 @@ class RootViewController: UIPageViewController {
     var tempSettings: Settings!
     var weather: [Weather] = []
     var pageControl = UIPageControl()
-    var navigationBar = UINavigationBar()
+    var navBarDelegate = NavBar()
     let locationManager = CLLocationManager()
-    var mainVC: MainViewController!
-    var weatherVC: CurrentWeatherViewController!
-    
-    private func newViewController(name: String, buddy: Buddy) -> UIViewController {
-        var newVC = UIStoryboard.init(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "\(name)ViewController")
-        if newVC is MainViewController {
-            mainVC = newVC as? MainViewController
-            mainVC.buddy = buddy
-            newVC = mainVC
-        } else if newVC is CurrentWeatherViewController {
-            weatherVC = newVC as? CurrentWeatherViewController
-            weatherVC.buddy = buddy
-            newVC = weatherVC
-        }
-        return newVC
-    }
-    
-    private(set) lazy var orderedViewControllers: [UIViewController] = {
-        return [newViewController(name: "Main", buddy: buddy), newViewController(name: "CurrentWeather", buddy: buddy)]
-    }()
+    let childrenDelegate = RootViewChildren()
+    let newChildNameArray = ["Main", "CurrentWeather"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Getting user location")
         buddy = loadBuddy()
+        childrenDelegate.initializeChildren(names: newChildNameArray, buddy: buddy)
         reloadViewAfterFetch()
-        if let firstViewController = orderedViewControllers.first {
+        if let firstViewController = childrenDelegate.childViewControllers.first {
             setViewControllers([firstViewController],
                                direction: .forward,
                                animated: true,
@@ -54,7 +35,7 @@ class RootViewController: UIPageViewController {
         self.dataSource = self
         self.delegate = self
         configurePageControl()
-        configureNavBar()   //FIXME: nav bar is off center
+        navBarDelegate.setUp(buddy: buddy, parentViewController: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,119 +59,97 @@ class RootViewController: UIPageViewController {
 extension RootViewController: UIPageViewControllerDataSource {
     // ToViewBefore
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
+        guard let viewControllerIndex = childrenDelegate.childViewControllers.firstIndex(of: viewController) else {
             return nil
         }
         let previousIndex = viewControllerIndex - 1
         
         guard previousIndex >= 0 else {
-            updateChildViewController(viewController: orderedViewControllers.last!)
-            return orderedViewControllers.last
+            let childToUpdate = childrenDelegate.childViewControllers.last
+            if childToUpdate is CurrentWeatherViewController {
+            childrenDelegate.updateChild(child: childToUpdate!, buddy: buddy, weather: weather)
+            } else {
+             childrenDelegate.updateChild(child: childToUpdate!, buddy: buddy, weather: nil)
+            }
+            return childrenDelegate.childViewControllers.last
         }
         
-        guard orderedViewControllers.count > previousIndex else {
+        guard childrenDelegate.childViewControllers.count > previousIndex else {
             return nil
         }
         
-        updateChildViewController(viewController: orderedViewControllers[previousIndex])
-        return orderedViewControllers[previousIndex]
+        let childToUpdate = childrenDelegate.childViewControllers[previousIndex]
+        if childToUpdate is CurrentWeatherViewController {
+            childrenDelegate.updateChild(child: childToUpdate, buddy: buddy, weather: weather)
+        } else {
+            childrenDelegate.updateChild(child: childToUpdate, buddy: buddy, weather: nil)
+        }
+        return childrenDelegate.childViewControllers[previousIndex]
     }
     
     // ToViewAfter
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
+        guard let viewControllerIndex = childrenDelegate.childViewControllers.firstIndex(of: viewController) else {
             return nil
         }
         
         let nextIndex = viewControllerIndex + 1
 
-        guard orderedViewControllers.count != nextIndex else {
-            updateChildViewController(viewController: orderedViewControllers.first!)
-            return orderedViewControllers.first
+        guard childrenDelegate.childViewControllers.count != nextIndex else {
+            let childToUpdate = childrenDelegate.childViewControllers.first!
+            if childToUpdate is CurrentWeatherViewController {
+                childrenDelegate.updateChild(child: childToUpdate, buddy: buddy, weather: weather)
+            } else {
+                childrenDelegate.updateChild(child: childrenDelegate.childViewControllers[nextIndex], buddy: buddy, weather: nil)
+            }
+            
+            return childrenDelegate.childViewControllers.first!
         }
         
-        guard orderedViewControllers.count > nextIndex else {
+        guard childrenDelegate.childViewControllers.count > nextIndex else {
             return nil
         }
-        updateChildViewController(viewController: orderedViewControllers[nextIndex])
-        return orderedViewControllers[nextIndex]
+        let childToUpdate = childrenDelegate.childViewControllers[nextIndex]
+        if childToUpdate is CurrentWeatherViewController {
+            childrenDelegate.updateChild(child: childrenDelegate.childViewControllers[nextIndex], buddy: buddy, weather: weather)
+        } else {
+            childrenDelegate.updateChild(child: childrenDelegate.childViewControllers[nextIndex], buddy: buddy, weather: nil)
+        }
+        return childrenDelegate.childViewControllers[nextIndex]
     }
 }
 
 extension RootViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        let pageContentViewController = pageViewController.viewControllers![0]
-        self.pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
+        let pageContentViewController = pageViewController.children[0]
+        self.pageControl.currentPage = childrenDelegate.childViewControllers.index(of: pageContentViewController)!
     }
 }
 
 //MARK:- Functions
 extension RootViewController {
+    
     //MARK: Config Element Functions
     func configurePageControl(){
         pageControl = UIPageControl(frame: CGRect(x: (UIScreen.main.bounds.width/2) - 25, y: UIScreen.main.bounds.maxY - 75, width: 50, height: 50))
-        self.pageControl.numberOfPages = orderedViewControllers.count
+        self.pageControl.numberOfPages = childrenDelegate.childViewControllers.count
         self.pageControl.currentPage = 0
         self.pageControl.tintColor = UIColor.black
         self.pageControl.pageIndicatorTintColor = UIColor.white
         self.pageControl.currentPageIndicatorTintColor = UIColor.black
         self.view.addSubview(pageControl)
     }
-    
-    func configureNavBar(){
-        let navYPosition = UIApplication.shared.statusBarFrame.height
-        let navWidth = UIApplication.shared.statusBarFrame.width
-        navigationBar = UINavigationBar(frame: CGRect(x: 0, y: navYPosition, width: navWidth, height: navYPosition))
-        
-        self.view.addSubview(navigationBar)
-        print(navigationBar.frame)
-        
-        var titleString: String
-        titleString = "WeatherBuddy"
-        let navItem = UINavigationItem(title: titleString)
-        let settingsButton = UIBarButtonItem(image: UIImage(named: "Settings_Default"), style: .plain, target: nil, action: #selector(self.settingsButtonTapped(_:)))
-        let storeButton = UIBarButtonItem(image: UIImage(named: "NewBuddy_\(buddy.settings.buddyType)"), style: .plain, target: nil, action: #selector(self.storeButtonTapped(_:)))
-        
-        navItem.rightBarButtonItem = settingsButton
-        navItem.leftBarButtonItem = storeButton
-        navigationBar.setItems([navItem], animated: false)
-    }
-    
-    @objc func settingsButtonTapped(_ sender: UIBarButtonItem!){
-        self.performSegue(withIdentifier: "rootToSettings", sender: nil)
-    }
-    
-    @objc func storeButtonTapped(_ sender: UIBarButtonItem){
-        print("StoreButtonTapped")
-    }
-    
-    //MARK: Update Child Functions
-    func updateChildViewController(viewController: UIViewController){
-        if viewController is MainViewController {
-            mainVC.buddy = buddy
-            mainVC.buddyImage.image = imageBuilder(buddy: buddy)
-        } else if viewController is CurrentWeatherViewController {
-            weatherVC.weatherArray = weather
-            weatherVC.buddy = buddy
-        }
-    }
-    
-    func updateAllChildren(viewControllers: [UIViewController]){
-        for vc in viewControllers {
-            updateChildViewController(viewController: vc)
-        }
-    }
 
     //MARK: Reload after fetch
     func reloadViewAfterFetch(){
         print("fetching...")
         weather = []
-        fetch(location: buddy.location, testMode: testMode) {
+        fetch(location: buddy.location) {
             newWeather in
             self.weather.append(contentsOf: newWeather!)
             DispatchQueue.main.async {
                 self.buddy.updateBuddy(newWeatherArray: self.weather)
-                self.updateAllChildren(viewControllers: self.viewControllers!)
+                self.childrenDelegate.updateAllChildren(buddy: self.buddy, weather: self.weather)
             }
         }
         print("fetch complete!")

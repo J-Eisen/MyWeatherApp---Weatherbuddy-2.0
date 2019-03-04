@@ -14,10 +14,9 @@ let settingsEntityString = "SettingsSave"
 
 func saveBuddy(buddy: Buddy){
     print("Saving Buddy...")
-    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        else { return }
     
-    let managedContext = appDelegate.persistentContainer.viewContext
+    guard let managedContext = getManagedContext() else { return }
+    
     let entity = NSEntityDescription.entity(forEntityName: buddyEntityString, in: managedContext)!
     let savedBuddy = NSManagedObject(entity: entity, insertInto: managedContext)
     savedBuddy.setValue(buddy.location.0, forKeyPath: "latitude")
@@ -30,15 +29,14 @@ func saveBuddy(buddy: Buddy){
     
     saveSettings(settings: buddy.settings)
     
-    appDelegate.saveContext()
+    saveData()
 }
 
 func saveSettings(settings: Settings){
     print("Saving Settings...")
-    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        else { return }
     
-    let managedContext = appDelegate.persistentContainer.viewContext
+    guard let managedContext = getManagedContext() else { return }
+    
     let entity = NSEntityDescription.entity(forEntityName: settingsEntityString, in: managedContext)!
     let settingsSave = NSManagedObject(entity: entity, insertInto: managedContext)
     
@@ -58,7 +56,8 @@ func saveSettings(settings: Settings){
     settingsSave.setValue(settings.dayEnd, forKeyPath: "dEnd")
     settingsSave.setValue(settings.buddyType, forKeyPath: "buddyType")
     
-    appDelegate.saveContext()
+    saveData()
+    
     print("Save Complete!")
 }
 
@@ -120,16 +119,45 @@ func loadSettings() -> Settings {
 func fetchData(entityString: String) -> [NSManagedObject]? {
     print("Fetching CoreData...")
     var fetchedData: [NSManagedObject] = []
-    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        else { return nil }
     
-    let managedContext = appDelegate.persistentContainer.viewContext
+    let managedContext = getManagedContext()
     let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityString)
     do {
-        fetchedData = try managedContext.fetch(fetchRequest)
+        fetchedData = try managedContext!.fetch(fetchRequest)
     } catch let error as NSError {
         print("Fetching Error. \(error), \(error.userInfo)")
     }
     print("CoreData Fetch Complete!")
     return fetchedData
+}
+
+func getManagedContext() -> NSManagedObjectContext! {
+    guard testMode == true else {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            else { return nil }
+        return appDelegate.persistentContainer.viewContext
+    }
+    return nil
+}
+
+func saveData(){
+    if testMode != true {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            else { return }
+        appDelegate.saveContext()
+    } else {/*
+        func saveContext () {
+            let context = persistentContainer.viewContext
+            if context.hasChanges {
+                do {
+                    try context.save()
+                } catch {
+                    // Replace this implementation with code to handle the error appropriately.
+                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    let nserror = error as NSError
+                    fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                }
+            }
+        }*/
+    }
 }

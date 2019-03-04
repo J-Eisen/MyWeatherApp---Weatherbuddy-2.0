@@ -18,12 +18,14 @@ class SettingsTests: XCTestCase {
     let testNumArray: [Float] = [1.73498751, 1.091579, 5.34549415, 9.999999]
     
     override func setUp() {
+        testMode = true
         testSettings = Settings.init()
         testSlider = UISlider.init()
         testSegmentedControl = UISegmentedControl.init(items: ["One","Two"])
     }
 
     override func tearDown() {
+        testMode = false
         testSettings = nil
         testSlider = nil
         testSegmentedControl = nil

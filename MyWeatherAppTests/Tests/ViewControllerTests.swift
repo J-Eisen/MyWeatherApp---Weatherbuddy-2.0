@@ -19,6 +19,7 @@ class ViewControllerTests: XCTestCase {
     var testSettings: Settings!
     
     override func setUp() {
+        testMode = true
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         rootVC = storyboard.instantiateViewController(withIdentifier: "RootViewController") as? RootViewController
         currentWeatherVC = storyboard.instantiateViewController(withIdentifier: "CurrentWeatherViewController") as? CurrentWeatherViewController
@@ -36,6 +37,7 @@ class ViewControllerTests: XCTestCase {
     }
 
     override func tearDown() {
+        testMode = false
         rootVC = nil
         currentWeatherVC = nil
         mainVC = nil

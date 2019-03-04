@@ -17,18 +17,18 @@ class MainTests: XCTestCase {
     override func setUp() {
         super.setUp()
         testMode = true
-        fetch(location: defaultLocation, testMode: true){
+        fetch(location: defaultLocation){
             returnedData in
             self.preFetchedWeatherData.append(contentsOf: returnedData!)
         }
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        testMode = false
     }
 
     func test_FetchJSON_AND_ParseJSON() {
-        fetch(location: defaultLocation, testMode: testMode) {
+        fetch(location: defaultLocation) {
         testWeather in
         XCTAssertNotNil(testWeather)
             XCTAssertEqual(testWeather!.count, targetWeather.count)
@@ -44,9 +44,8 @@ class MainTests: XCTestCase {
 
     func test_FetchJSON_AND_ParseJSON_WithDownload_Performance() {
         self.measure {
-            testMode = false
             var weather: [Weather] = []
-            fetch(location: defaultLocation, testMode: testMode){
+            fetch(location: defaultLocation){
                 returnedWeather in
                 weather.append(contentsOf: returnedWeather!)
             }

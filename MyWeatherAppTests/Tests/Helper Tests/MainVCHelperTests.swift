@@ -20,12 +20,14 @@ class MainVCTests: XCTestCase {
         testBuddy = Buddy.init(latitude: defaultLocation.0, longitude: defaultLocation.1, highTemp: 70, lowTemp: 40, rain: 1, snow: 1, precip: 50, uvIndex: 2, settings: Settings.init())
         testBuddy.settings.buddyType = buddyName
         expectedImage = UIImage.init(named: "TestImage")
+        testMode = true
     }
 
     override func tearDown() {
         testBuddy = nil
         expectedImage = nil
         expectedImageString = nil
+        testMode = false
     }
 
     func test_imageBuilder_background() {

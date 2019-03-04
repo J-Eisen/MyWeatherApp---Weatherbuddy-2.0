@@ -34,12 +34,6 @@ class CurrentWeatherViewController: UIViewController {
 }
 
 extension CurrentWeatherViewController {
-    func getCurrentHour() -> Int {
-        let currentDate = Date.init()
-        let calendar = NSCalendar.autoupdatingCurrent
-        return calendar.component(Calendar.Component.hour, from: currentDate)
-    }
-    
     func updateWeatherLabels(){
         var currentWeather: Weather!
         guard weatherArray.first != nil else { return }

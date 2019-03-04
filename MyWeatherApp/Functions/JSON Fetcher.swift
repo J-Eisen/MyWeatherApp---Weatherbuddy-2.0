@@ -13,7 +13,7 @@ let testString = "://MyWeatherApp/MyWeatherAppTests/MockJSON.JSON"
 var testMode = false
 var urlString = "https://api.wunderground.com/api/"
 
-func fetch(location: (Double, Double), testMode: Bool, completionHandler: @escaping ([Weather]?) -> Void) {
+func fetch(location: (Double, Double), completionHandler: @escaping ([Weather]?) -> Void) {
     var weatherData: WeatherContainer?
     if testMode == true {
         urlString = testString

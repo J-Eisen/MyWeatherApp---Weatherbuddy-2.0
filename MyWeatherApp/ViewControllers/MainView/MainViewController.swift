@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  MyWeatherApp
 //
 //  Created by Jonah Eisenstock on 1/7/19.
@@ -15,7 +15,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var buddyImage: UIImageView!
     
     var location = defaultLocation
-    var testMode = false
     var buddy: Buddy!
     var buddyImageInitalLocation: CGPoint!
     
