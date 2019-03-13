@@ -10,10 +10,16 @@ import UIKit
 
 class RootViewChildren: PageViewChildrenDelegate {
     var childViewControllers: [UIViewController] = []
+    var childCount: Int = 0
+    lazy var functionCalled: String = ""
     
     func initializeChildren(names: [String], buddy: Buddy) {
         for name in names {
-            addNewChild(name: name, buddy: buddy)
+            if !testMode {
+                addNewChild(name: name, buddy: buddy)
+            } else {
+                childCount += 1
+            }
         }
     }
     
@@ -34,19 +40,32 @@ class RootViewChildren: PageViewChildrenDelegate {
     
     func updateChild(child: UIViewController, buddy: Buddy, weather: [Weather]?) {
         if child is MainViewController {
-            let mainVC = child as! MainViewController
-            mainVC.buddy = buddy
-            mainVC.buddyImage.image = imageBuilder(buddy: buddy)
+            if !testMode {
+                let mainVC = child as! MainViewController
+                mainVC.buddy = buddy
+                mainVC.buddyImage.image = imageBuilder(buddy: buddy)
+            } else {
+                functionCalled = "updateChild_MainViewController"
+            }
         } else if child is CurrentWeatherViewController {
-            let weatherVC = child as! CurrentWeatherViewController
-            weatherVC.weatherArray = weather
-            weatherVC.buddy = buddy
+            if !testMode {
+                let weatherVC = child as! CurrentWeatherViewController
+                weatherVC.weatherArray = weather
+                weatherVC.buddy = buddy
+            } else {
+                functionCalled = "updateChild_CurrentWeatherViewController"
+            }
         }
     }
     
     func updateAllChildren(buddy: Buddy, weather: [Weather]) {
         for child in childViewControllers {
-            updateChild(child: child, buddy: buddy, weather: weather)
+            if !testMode {
+                updateChild(child: child, buddy: buddy, weather: weather)
+            }
+            else {
+                childCount += 1
+            }
         }
     }
 }

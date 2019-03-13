@@ -295,12 +295,6 @@ class SettingsTests: XCTestCase {
     func test_temperature_system_change(){
         
     }
-    
-    /* CoreData has not been implemented yet
-    
-    func test_save_settings_to_coreData(){
-        
-    }*/
 
     func testPerformanceExample() {
         // This is an example of a performance test case.

@@ -1,5 +1,5 @@
 //
-//  Conversion Functions.swift
+//  ConversionFunctions.swift
 //  MyWeatherApp
 //
 //  Created by Jonah Eisenstock on 1/16/19.
@@ -17,9 +17,9 @@ func fahrenheitToCelsius(fromF: Float) -> (Float) {
 }
 
 func inchToCm(inch: Float) -> (Float) {
-    return (inch/2.54)
+    return ((inch*2.54*1000).rounded())/1000
 }
 
 func cmToInch(cm: Float) -> (Float) {
-    return (cm*2.54)
+    return ((cm/2.54*1000).rounded())/1000
 }

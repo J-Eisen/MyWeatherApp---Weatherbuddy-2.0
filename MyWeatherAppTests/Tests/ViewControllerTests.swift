@@ -26,11 +26,11 @@ class ViewControllerTests: XCTestCase {
         mainVC = storyboard.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
         settingsVC = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController
         
-        /*currentWeatherVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CurrentWeatherViewController") as? CurrentWeatherViewController
+        currentWeatherVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CurrentWeatherViewController") as? CurrentWeatherViewController
         
         mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
         
-        settingsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController*/
+        settingsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController
         
         testSettings = Settings.init()
         testBuddy = Buddy.init(latitude: defaultCoordinates.0, longitude: defaultCoordinates.1, highTemp: 80, lowTemp: 40, rain: 1, snow: 1, precip: 40, uvIndex: 2, settings: testSettings)
@@ -50,8 +50,8 @@ class ViewControllerTests: XCTestCase {
         rootVC.buddy = testBuddy
         rootVC.performSegue(withIdentifier: rootToSettings, sender: rootVC)
         XCTAssertNotNil(settingsVC)
-        let resultsSettings = settingsVC.settings
-        XCTAssertNotNil(resultsSettings)
+//        let resultsSettings = settingsVC.settings
+        XCTAssertNotNil(settingsVC.settings)
 //        checkSettings(expected: testSettings, results: resultsSettings!)
      }
      

@@ -16,8 +16,8 @@ struct Settings {
         rain: (inchToCm(inch: 1.0)*10).rounded()/10, snow: (inchToCm(inch: 1.0)*10).rounded()/10)
     var precip: Float = 40
     var uvIndex: Float = 4
-    var dayEnd: Int = 8
-    var dayStart: Int = 19
+    var dayStart: Int = 8
+    var dayEnd: Int = 19
     var zipcode: Double = defaultLocation
     var locationAuthorization: Int = 0
     var locationPreferences: [Bool] = [true, true]

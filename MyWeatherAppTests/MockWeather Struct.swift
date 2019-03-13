@@ -1,5 +1,5 @@
 //
-//  Mock Weather Struct.swift
+//  MockWeather Struct.swift
 //  MyWeatherApp
 //
 //  Created by Jonah Eisenstock on 1/15/19.

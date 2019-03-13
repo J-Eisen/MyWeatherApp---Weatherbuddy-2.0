@@ -11,6 +11,8 @@ import CoreData
 
 let buddyEntityString = "BuddySave"
 let settingsEntityString = "SettingsSave"
+var saveDataCalled = false
+var managedContextChanged = false
 
 func saveBuddy(buddy: Buddy){
     print("Saving Buddy...")
@@ -27,7 +29,9 @@ func saveBuddy(buddy: Buddy){
     savedBuddy.setValue(buddy.rawData.english.snow, forKeyPath: "eSnow")
     savedBuddy.setValue(buddy.rawData.precip, forKeyPath: "precipitation")
     
-    saveSettings(settings: buddy.settings)
+    if !testMode {
+        saveSettings(settings: buddy.settings)
+    }
     
     saveData()
 }
@@ -137,7 +141,13 @@ func getManagedContext() -> NSManagedObjectContext! {
             else { return nil }
         return appDelegate.persistentContainer.viewContext
     }
-    return nil
+    guard let managedObjectModel = NSManagedObjectModel.mergedModel(from: nil)
+        else { return nil }
+    let storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
+//    let store = storeCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
+    let managedObjectContext = NSManagedObjectContext.init(concurrencyType: .mainQueueConcurrencyType)
+    managedObjectContext.persistentStoreCoordinator = storeCoordinator
+    return managedObjectContext
 }
 
 func saveData(){
@@ -145,19 +155,19 @@ func saveData(){
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
             else { return }
         appDelegate.saveContext()
-    } else {/*
-        func saveContext () {
-            let context = persistentContainer.viewContext
-            if context.hasChanges {
-                do {
-                    try context.save()
-                } catch {
-                    // Replace this implementation with code to handle the error appropriately.
-                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    let nserror = error as NSError
-                    fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-                }
+    } else {
+        guard let managedContext = getManagedContext()
+            else { print("Error creating mock context")
+                return }
+        managedContextChanged = managedContext.hasChanges
+        if managedContext.hasChanges {
+            do {
+                try managedContext.save()
+            } catch {
+                let error = error as NSError
+                print("Saving error \(error)")
             }
-        }*/
+        }
+        saveDataCalled = true
     }
 }
