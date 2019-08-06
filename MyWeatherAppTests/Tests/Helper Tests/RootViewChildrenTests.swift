@@ -35,20 +35,18 @@ class RootViewChildrenTests: XCTestCase {
     }
     
     func test_addNewChild(){
-        let mainName = "Main", weatherName = "CurrentWeather"
-        var testName: String!
-        for index in 0...1{
-            if index == 0 {
-                testName = mainName
-            } else {
-                testName = weatherName
-            }
+        let testNames = ["Main", "CurrentWeather"]
+        let resultNames = ["MainViewController", "CurrentWeatherViewController"]
+        for testName in testNames {
             testChildDelegate.addNewChild(name: testName, buddy: testBuddy)
-            XCTAssertEqual(testChildDelegate.childViewControllers.count, index+1, "Not all controllers initalized")
+        }
+        XCTAssertEqual(testChildDelegate.testChildViewControllers.count, testNames.count, "Not all controllers initalized")
+        for index in 0...testNames.count-1 {
+            XCTAssertEqual(testChildDelegate.testChildViewControllers[index], resultNames[index], "View Controllers incorrectly set up")
         }
     }
 
-    func test_updateChild(){
+    /*func test_updateChild(){
         //TODO: Create mock view controllers
         let testViews: [UIViewController] = []
         let expectedResult = ["updateChild_MainViewController", "updateChild_CurrentWeatherViewController"]
@@ -56,13 +54,9 @@ class RootViewChildrenTests: XCTestCase {
         testChildDelegate.updateChild(child: testViews[index], buddy: testBuddy, weather: nil)
             XCTAssertEqual(testChildDelegate.functionCalled, expectedResult[index])
         }
-    }
+    }*/
     
     func test_updateAllChildren(){
-        //FIXME: Make this NOT reliant on addNewChild()
-        
-        testChildDelegate.addNewChild(name: "Main", buddy: testBuddy)
-        testChildDelegate.addNewChild(name: "CurrentWeather", buddy: testBuddy)
         testChildDelegate.updateAllChildren(buddy: testBuddy, weather: testWeather)
         XCTAssertEqual(testChildDelegate.childCount, 2)
     }

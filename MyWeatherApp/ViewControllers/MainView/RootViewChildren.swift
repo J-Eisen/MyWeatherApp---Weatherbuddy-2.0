@@ -10,7 +10,8 @@ import UIKit
 
 class RootViewChildren: PageViewChildrenDelegate {
     var childViewControllers: [UIViewController] = []
-    var childCount: Int = 0
+    lazy var testChildViewControllers: [String] = []
+    lazy var childCount: Int = 0
     lazy var functionCalled: String = ""
     
     func initializeChildren(names: [String], buddy: Buddy) {
@@ -24,18 +25,22 @@ class RootViewChildren: PageViewChildrenDelegate {
     }
     
     func addNewChild(name: String, buddy: Buddy) {
-        var newVC = UIStoryboard.init(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "\(name)ViewController")
-        if newVC is MainViewController {
-            let mainVC = newVC as! MainViewController
-            mainVC.buddy = buddy
-            newVC = mainVC
-        } else if newVC is CurrentWeatherViewController {
-            let weatherVC = newVC as! CurrentWeatherViewController
-            weatherVC.buddy = buddy
-            newVC = weatherVC
+        if !testMode {
+            var newVC = UIStoryboard.init(name: "Main", bundle: nil)
+                .instantiateViewController(withIdentifier: "\(name)ViewController")
+            if newVC is MainViewController {
+                let mainVC = newVC as! MainViewController
+                mainVC.buddy = buddy
+                newVC = mainVC
+            } else if newVC is CurrentWeatherViewController {
+                let weatherVC = newVC as! CurrentWeatherViewController
+                weatherVC.buddy = buddy
+                newVC = weatherVC
+            }
+            childViewControllers.append(newVC)
+        } else {
+            testChildViewControllers.append("\(name)ViewController")
         }
-        childViewControllers.append(newVC)
     }
     
     func updateChild(child: UIViewController, buddy: Buddy, weather: [Weather]?) {
@@ -59,13 +64,15 @@ class RootViewChildren: PageViewChildrenDelegate {
     }
     
     func updateAllChildren(buddy: Buddy, weather: [Weather]) {
-        for child in childViewControllers {
-            if !testMode {
+        if !testMode {
+            for child in childViewControllers {
                 updateChild(child: child, buddy: buddy, weather: weather)
             }
-            else {
-                childCount += 1
-            }
+        }
+        else {
+            testChildViewControllers.append("View1")
+            testChildViewControllers.append("View2")
+            childCount = testChildViewControllers.count
         }
     }
 }

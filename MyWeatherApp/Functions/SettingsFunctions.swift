@@ -10,12 +10,9 @@ import UIKit
 import Foundation
 
 let pickerDataSource = [[0,1,2,3,4,5,6,7,8,9,10],[0,1,2,3,4,5,6,7,8,9]]
+//MARK: - Initialization Helpers
 
-////////////////////////////////
-///  Initialization Helpers  ///
-////////////////////////////////
-
-/////  Sliders  /////
+//MARK: Sliders
 
 func initSliderHelper(slider: UISlider, settings: Settings) -> UISlider {
     var initializedSlider: UISlider
@@ -53,7 +50,7 @@ func setSlider(max: Float, min: Float, value: Float, slider: UISlider) -> UISlid
     return slider
 }
 
-/////  Pickers  /////
+//MARK: Pickers
 
 func initPickerHelper(picker: UIPickerView, settings: Settings) -> UIPickerView {
     let row: (Int, Int)

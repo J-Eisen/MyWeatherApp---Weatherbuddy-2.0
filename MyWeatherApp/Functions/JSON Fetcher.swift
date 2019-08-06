@@ -9,8 +9,7 @@
 import Foundation
 
 let apiKeyString = "fb2d4e978c2c2a11"
-let testString = "://MyWeatherApp/MyWeatherAppTests/MockJSON.JSON"
-var testMode = false
+let testString = "/MyWeatherAppTests/MockJSON.JSON"
 var urlString = "https://api.wunderground.com/api/"
 
 func fetch(location: (Double, Double), completionHandler: @escaping ([Weather]?) -> Void) {

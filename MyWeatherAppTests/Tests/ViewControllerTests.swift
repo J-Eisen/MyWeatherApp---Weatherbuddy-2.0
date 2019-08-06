@@ -38,6 +38,7 @@ class ViewControllerTests: XCTestCase {
 
     override func tearDown() {
         testMode = false
+        segueString = nil
         rootVC = nil
         currentWeatherVC = nil
         mainVC = nil
@@ -50,9 +51,7 @@ class ViewControllerTests: XCTestCase {
         rootVC.buddy = testBuddy
         rootVC.performSegue(withIdentifier: rootToSettings, sender: rootVC)
         XCTAssertNotNil(settingsVC)
-//        let resultsSettings = settingsVC.settings
-        XCTAssertNotNil(settingsVC.settings)
-//        checkSettings(expected: testSettings, results: resultsSettings!)
+        XCTAssertEqual(segueString, "Root To Settings")
      }
      
      func test_pass_data_settings_to_root_saving(){
@@ -61,9 +60,11 @@ class ViewControllerTests: XCTestCase {
         testSettings.tempType = 1
         testSettings.precip = 80
         settingsVC.settings = testSettings!
+        XCTAssertNotNil(settingsVC.settings)
         settingsVC.performSegue(withIdentifier: settingsToRootSave, sender: nil)
         let resultsSettings = rootVC.buddy.settings
-        checkSettings(expected: testSettings, results: resultsSettings)
+        checkSettings(expected: testSettings, results: resultsSettings, testName: "Data Pass: SettingsToRoot Saving")
+        XCTAssertEqual(segueString, "Saving")
      }
     
     func test_pass_data_settings_to_root_cancel(){
@@ -73,9 +74,10 @@ class ViewControllerTests: XCTestCase {
         testSettings.precip = 80
         settingsVC.settings = testSettings!
         settingsVC.performSegue(withIdentifier: settingsToRootCancel, sender: nil)
+        XCTAssertEqual(segueString, "Canceling")
         let resultsSettings = rootVC.buddy.settings
         testSettings = Settings.init()
-        checkSettings(expected: testSettings, results: resultsSettings)
+        checkSettings(expected: testSettings, results: resultsSettings, testName: "Data Pass: SettingsToRoot Cancel")
     }
 
     func testPerformanceExample() {
@@ -87,15 +89,15 @@ class ViewControllerTests: XCTestCase {
 }
 
 extension ViewControllerTests {
-    func checkSettings(expected: Settings, results: Settings){
-        XCTAssertEqual(expected.buddyType, results.buddyType)
-        XCTAssertEqual(expected.systemType, results.systemType)
-        XCTAssertEqual(expected.tempType, results.tempType)
-        XCTAssertEqual(expected.precip, results.precip)
-        XCTAssertEqual(expected.english.highTemp, results.english.highTemp)
-        XCTAssertEqual(expected.english.lowTemp, results.english.lowTemp)
-        XCTAssertEqual(expected.english.rain, results.english.rain)
-        XCTAssertEqual(expected.english.snow, results.english.snow)
-        XCTAssertEqual(expected.uvIndex, results.uvIndex)
+    func checkSettings(expected: Settings, results: Settings, testName: String){
+        XCTAssertEqual(expected.buddyType, results.buddyType, "BuddyType Mismatch. Failed in \(testName) test")
+        XCTAssertEqual(expected.systemType, results.systemType, "SystemType Mismatch. Failed in \(testName) test")
+        XCTAssertEqual(expected.tempType, results.tempType, "TempType Mismatch. Failed in \(testName) test")
+        XCTAssertEqual(expected.precip, results.precip, "Precipitation Mismatch. Failed in \(testName) test")
+        XCTAssertEqual(expected.english.highTemp, results.english.highTemp, "HighTemp Mismatch. Failed in \(testName) test")
+        XCTAssertEqual(expected.english.lowTemp, results.english.lowTemp, "LowTemp Mismatch. Failed in \(testName) test")
+        XCTAssertEqual(expected.english.rain, results.english.rain, "English.Rain Mismatch. Failed in \(testName) test")
+        XCTAssertEqual(expected.english.snow, results.english.snow, "English.Snow Mismatch. Failed in \(testName) test")
+        XCTAssertEqual(expected.uvIndex, results.uvIndex, "UVIndex Mismatch. Failed in \(testName) test")
     }
 }

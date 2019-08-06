@@ -14,6 +14,8 @@ let settingsEntityString = "SettingsSave"
 var saveDataCalled = false
 var managedContextChanged = false
 
+//MARK: - Save Functions
+
 func saveBuddy(buddy: Buddy){
     print("Saving Buddy...")
     
@@ -65,9 +67,11 @@ func saveSettings(settings: Settings){
     print("Save Complete!")
 }
 
+//MARK: - Load Functions
+
 func loadBuddy() -> Buddy {
     print("Loading Buddy...")
-    var loadedBuddy = Buddy.init(location: defaultLocation)
+    var loadedBuddy = Buddy.init(location: defaultLocation.0)
     let loadedSettings = loadSettings()
     
     guard let fetchedBuddies = fetchData(entityString: buddyEntityString)
@@ -77,17 +81,18 @@ func loadBuddy() -> Buddy {
         else { return loadedBuddy }
     
     let fetchedBuddy = fetchedBuddies.last!
-    
-    loadedBuddy = Buddy.init(
-        latitude: fetchedBuddy.value(forKey: "latitude") as? Double ?? 10017,
-        longitude: fetchedBuddy.value(forKey: "longitude") as? Double ?? 0,
-        highTemp: fetchedBuddy.value(forKey: "eHighTemp") as? Float ?? 0,
-        lowTemp: fetchedBuddy.value(forKey: "eLowTemp") as? Float ?? 100,
-        rain: fetchedBuddy.value(forKey: "eRain") as? Float ?? 0,
-        snow: fetchedBuddy.value(forKey: "eSnow") as? Float ?? 0,
-        precip: fetchedBuddy.value(forKey: "precipitation") as? Float ?? 0,
-        uvIndex: fetchedBuddy.value(forKey: "uvIndex") as? Float ?? 0,
-        settings: loadedSettings)
+    if !testMode {
+        loadedBuddy = Buddy.init(
+            latitude: fetchedBuddy.value(forKey: "latitude") as? Double ?? defaultLocation.0,
+            longitude: fetchedBuddy.value(forKey: "longitude") as? Double ?? defaultLocation.1,
+            highTemp: fetchedBuddy.value(forKey: "eHighTemp") as? Float ?? defaultValues[0],
+            lowTemp: fetchedBuddy.value(forKey: "eLowTemp") as? Float ?? defaultValues[1],
+            rain: fetchedBuddy.value(forKey: "eRain") as? Float ?? defaultValues[2],
+            snow: fetchedBuddy.value(forKey: "eSnow") as? Float ?? defaultValues[3],
+            precip: fetchedBuddy.value(forKey: "precipitation") as? Float ?? defaultValues[4],
+            uvIndex: fetchedBuddy.value(forKey: "uvIndex") as? Float ?? defaultValues[5],
+            settings: loadedSettings)
+    }
     
     print("Load Complete!")
     return loadedBuddy
@@ -96,30 +101,37 @@ func loadBuddy() -> Buddy {
 func loadSettings() -> Settings {
     print("Loading Settings...")
     let loadedSettings: Settings!
+    
     guard let fetchedSettings = fetchData(entityString: settingsEntityString)?.last
-        else { return Settings.init() }
+        else {
+            print("Fetch Error: Default Settings Used")
+            return Settings.init()
+        }
     
     loadedSettings = Settings.init(
-        highTemp: fetchedSettings.value(forKey: "eHighTemp") as? Float ?? 80,
-        lowTemp: fetchedSettings.value(forKey: "eLowTemp") as? Float ?? 60,
-        rain: fetchedSettings.value(forKey: "eRain") as? Float ?? 1.0,
-        snow: fetchedSettings.value(forKey: "eSnow") as? Float ?? 1.0,
-        precipitation: fetchedSettings.value(forKey: "precipitation") as? Float ?? 40,
-        uvIndex: fetchedSettings.value(forKey: "uvIndex") as? Float ?? 2,
-        zipcode: fetchedSettings.value(forKey: "zipcode") as? Double ?? 10007,
-        locationAuth: fetchedSettings.value(forKey: "authorization") as? Int ?? 0,
-        gpsSwitch: fetchedSettings.value(forKey: "swGPS") as? Bool ?? true,
-        zipcodeSwitch: fetchedSettings.value(forKey: "swZipcode") as? Bool ?? true,
-        systemType: fetchedSettings.value(forKey: "system") as? Int ?? 0,
-        tempType: fetchedSettings.value(forKey: "temperature") as? Int ?? 0,
-        dayStart: fetchedSettings.value(forKey: "dEnd") as? Int ?? 8,
-        dayEnd: fetchedSettings.value(forKey: "dStart") as? Int ?? 19,
-        buddy: fetchedSettings.value(forKey: "buddyType") as? String ?? "CircleBuddy")
+        highTemp: fetchedSettings.value(forKey: "eHighTemp") as? Float ?? defaultSettingsFloats[0],
+        lowTemp: fetchedSettings.value(forKey: "eLowTemp") as? Float ?? defaultSettingsFloats[1],
+        rain: fetchedSettings.value(forKey: "eRain") as? Float ?? defaultSettingsFloats[2],
+        snow: fetchedSettings.value(forKey: "eSnow") as? Float ?? defaultSettingsFloats[3],
+        precipitation: fetchedSettings.value(forKey: "precipitation") as? Float ?? defaultSettingsFloats[4],
+        uvIndex: fetchedSettings.value(forKey: "uvIndex") as? Float ?? defaultSettingsFloats[5],
+        zipcode: fetchedSettings.value(forKey: "zipcode") as? Double ?? defaultLocation.0,
+        locationAuth: fetchedSettings.value(forKey: "authorization") as? Int ?? defaultSettingsInts[0],
+        gpsSwitch: fetchedSettings.value(forKey: "swGPS") as? Bool ?? defaultSettingsBools[0],
+        zipcodeSwitch: fetchedSettings.value(forKey: "swZipcode") as? Bool ?? defaultSettingsBools[1],
+        systemType: fetchedSettings.value(forKey: "system") as? Int ?? defaultSettingsInts[1],
+        tempType: fetchedSettings.value(forKey: "temperature") as? Int ?? defaultSettingsInts[2],
+        dayStart: fetchedSettings.value(forKey: "dEnd") as? Int ?? defaultSettingsInts[3],
+        dayEnd: fetchedSettings.value(forKey: "dStart") as? Int ?? defaultSettingsInts[4],
+        buddy: fetchedSettings.value(forKey: "buddyType") as? String ?? defaultBuddyType)
     
     print("Load Complete!")
     return loadedSettings
 }
 
+//MARK: - Helper Functions
+
+// Fetching
 func fetchData(entityString: String) -> [NSManagedObject]? {
     print("Fetching CoreData...")
     var fetchedData: [NSManagedObject] = []
@@ -135,6 +147,7 @@ func fetchData(entityString: String) -> [NSManagedObject]? {
     return fetchedData
 }
 
+// Getting Context
 func getManagedContext() -> NSManagedObjectContext! {
     guard testMode == true else {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -150,6 +163,7 @@ func getManagedContext() -> NSManagedObjectContext! {
     return managedObjectContext
 }
 
+// Save Data
 func saveData(){
     if testMode != true {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -160,12 +174,14 @@ func saveData(){
             else { print("Error creating mock context")
                 return }
         managedContextChanged = managedContext.hasChanges
-        if managedContext.hasChanges {
-            do {
-                try managedContext.save()
-            } catch {
-                let error = error as NSError
-                print("Saving error \(error)")
+        if !testMode {
+            if managedContext.hasChanges {
+                do {
+                    try managedContext.save()
+                } catch {
+                    let error = error as NSError
+                    print("Saving error \(error)")
+                }
             }
         }
         saveDataCalled = true

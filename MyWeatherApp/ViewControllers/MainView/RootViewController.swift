@@ -9,8 +9,6 @@
 import UIKit
 import CoreLocation
 
-let defaultLocation: Double = 11221
-
 class RootViewController: UIPageViewController {
     var buddy: Buddy!
     var tempSettings: Settings!
@@ -46,11 +44,15 @@ class RootViewController: UIPageViewController {
     
     // MARK:- Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is SettingsViewController {
-            let vc = segue.destination as! SettingsViewController
-            vc.settings = buddy.settings
-            vc.initialSettings = buddy.settings
-        }
+            if segue.destination is SettingsViewController {
+                if !testMode {
+                    let vc = segue.destination as! SettingsViewController
+                    vc.settings = buddy.settings
+                    vc.initialSettings = buddy.settings
+                } else {
+                    segueString = "Root To Settings"
+                }
+            }
     }
 }
 
@@ -64,6 +66,10 @@ extension RootViewController: UIPageViewControllerDataSource {
         }
         let previousIndex = viewControllerIndex - 1
         
+        guard childrenDelegate.childViewControllers.count > previousIndex else {
+            return nil
+        }
+        
         guard previousIndex >= 0 else {
             let childToUpdate = childrenDelegate.childViewControllers.last
             if childToUpdate is CurrentWeatherViewController {
@@ -72,10 +78,6 @@ extension RootViewController: UIPageViewControllerDataSource {
              childrenDelegate.updateChild(child: childToUpdate!, buddy: buddy, weather: nil)
             }
             return childrenDelegate.childViewControllers.last
-        }
-        
-        guard childrenDelegate.childViewControllers.count > previousIndex else {
-            return nil
         }
         
         let childToUpdate = childrenDelegate.childViewControllers[previousIndex]
@@ -94,7 +96,11 @@ extension RootViewController: UIPageViewControllerDataSource {
         }
         
         let nextIndex = viewControllerIndex + 1
-
+        
+        guard childrenDelegate.childViewControllers.count > nextIndex else {
+            return nil
+        }
+        
         guard childrenDelegate.childViewControllers.count != nextIndex else {
             let childToUpdate = childrenDelegate.childViewControllers.first!
             if childToUpdate is CurrentWeatherViewController {
@@ -106,9 +112,6 @@ extension RootViewController: UIPageViewControllerDataSource {
             return childrenDelegate.childViewControllers.first!
         }
         
-        guard childrenDelegate.childViewControllers.count > nextIndex else {
-            return nil
-        }
         let childToUpdate = childrenDelegate.childViewControllers[nextIndex]
         if childToUpdate is CurrentWeatherViewController {
             childrenDelegate.updateChild(child: childrenDelegate.childViewControllers[nextIndex], buddy: buddy, weather: weather)
@@ -122,7 +125,7 @@ extension RootViewController: UIPageViewControllerDataSource {
 extension RootViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         let pageContentViewController = pageViewController.children[0]
-        self.pageControl.currentPage = childrenDelegate.childViewControllers.index(of: pageContentViewController)!
+        self.pageControl.currentPage = childrenDelegate.childViewControllers.firstIndex(of: pageContentViewController)!
     }
 }
 

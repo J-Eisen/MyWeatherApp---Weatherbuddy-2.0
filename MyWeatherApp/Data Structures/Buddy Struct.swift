@@ -55,10 +55,10 @@ struct Buddy {
             var snow: Float
             
             init() {
-                self.highTemp = 0.0
-                self.lowTemp = 100.0
-                self.rain = 0.0
-                self.snow = 0.0
+                self.highTemp = defaultValues[0]
+                self.lowTemp = defaultValues[1]
+                self.rain = defaultValues[2]
+                self.snow = defaultValues[3]
             }
             
             init(highTemp: Float, lowTemp: Float, rain: Float, snow: Float) {
@@ -74,7 +74,7 @@ struct Buddy {
 extension Buddy {
     init(location: Double) {
         self.location = (location, 0)
-        self.rawData = RawData.init(highTemp: 0, lowTemp: 100, rain: 0, snow: 0, precip: 0, uvIndex: 0)
+        self.rawData = RawData.init(highTemp: defaultValues[0], lowTemp: defaultValues[1], rain: defaultValues[2], snow: defaultValues[3], precip: defaultValues[4], uvIndex: defaultValues[5])
         self.settings = Settings.init()
         self.clothing = staticClothing
         print("Buddy Init Complete!")

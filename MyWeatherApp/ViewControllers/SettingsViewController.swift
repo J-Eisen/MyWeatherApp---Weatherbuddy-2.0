@@ -94,17 +94,26 @@ class SettingsViewController: UIViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is RootViewController {
-            let vc = segue.destination as! RootViewController
-            if segue.identifier == "settingsToRootSave" {
-                saveSettings(settings: settings)
-                vc.tempSettings = settings
-            } else {
-                vc.tempSettings = initialSettings
+        if !testMode {
+            if segue.destination is RootViewController {
+                let vc = segue.destination as! RootViewController
+                if segue.identifier == "settingsToRootSave" {
+                    saveSettings(settings: settings)
+                    vc.tempSettings = settings
+                } else {
+                    vc.tempSettings = initialSettings
+                }
+            }
+        } else {
+            if segue.destination is RootViewController {
+                if segue.identifier == "settingsToRootSave" {
+                    segueString = "Saving"
+                } else {
+                    segueString = "Canceling"
+                }
             }
         }
     }
-
 }
 
 extension SettingsViewController {

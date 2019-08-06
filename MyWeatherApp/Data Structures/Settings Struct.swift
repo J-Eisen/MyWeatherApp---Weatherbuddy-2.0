@@ -9,21 +9,21 @@
 import Foundation
 
 struct Settings {
-    var english: WeatherData = WeatherData.init(highTemp: 80, lowTemp: 40, rain: 2.0, snow: 1.0)
+    var english: WeatherData = WeatherData.init(highTemp: defaultSettingsFloats[0], lowTemp: defaultSettingsFloats[1], rain: defaultSettingsFloats[2], snow: defaultSettingsFloats[3])
     var metric: WeatherData = WeatherData.init(
-        highTemp: fahrenheitToCelsius(fromF: 80),
-        lowTemp: fahrenheitToCelsius(fromF: 40),
-        rain: (inchToCm(inch: 1.0)*10).rounded()/10, snow: (inchToCm(inch: 1.0)*10).rounded()/10)
-    var precip: Float = 40
-    var uvIndex: Float = 4
-    var dayStart: Int = 8
-    var dayEnd: Int = 19
-    var zipcode: Double = defaultLocation
-    var locationAuthorization: Int = 0
-    var locationPreferences: [Bool] = [true, true]
-    var systemType = 0  // 0: Imperial/English | 1: Metric
-    var tempType = 0    // 0: ºF | 1: ºC
-    var buddyType: String = "CircleBuddy"
+        highTemp: fahrenheitToCelsius(fromF: defaultSettingsFloats[0]),
+        lowTemp: fahrenheitToCelsius(fromF: defaultSettingsFloats[1]),
+        rain: (inchToCm(inch: defaultSettingsFloats[2])*10).rounded()/10, snow: (inchToCm(inch: defaultSettingsFloats[3])*10).rounded()/10)
+    var precip: Float = defaultSettingsFloats[4]
+    var uvIndex: Float = defaultSettingsFloats[5]
+    var dayStart: Int = defaultSettingsInts[3]
+    var dayEnd: Int = defaultSettingsInts[4]
+    var zipcode: Double = defaultZipcode
+    var locationAuthorization: Int = defaultSettingsInts[0]
+    var locationPreferences: [Bool] = defaultSettingsBools
+    var systemType = defaultSettingsInts[1]  // 0: Imperial/English | 1: Metric
+    var tempType = defaultSettingsInts[2]    // 0: ºF | 1: ºC
+    var buddyType: String = defaultBuddyType
     
     struct WeatherData {
         var highTemp: Float
