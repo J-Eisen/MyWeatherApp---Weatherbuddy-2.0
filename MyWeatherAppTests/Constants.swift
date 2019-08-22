@@ -14,7 +14,7 @@ let settingsToRootSave = "settingsToRootSave"
 let settingsToRootCancel = "settingsToRootCancel"
 
 // Default Locations
-var defaultTestLocation = (Double(defaultZipcode), 0.0)
+var defaultTestLocation = (Double(defaultTestZipcode), 0.0)
 var defaultTestZipcode = 90272
 var defaultTestCoordinates = (-37.8, 175.8) // "Hobbiton" Matamata, NZ
 

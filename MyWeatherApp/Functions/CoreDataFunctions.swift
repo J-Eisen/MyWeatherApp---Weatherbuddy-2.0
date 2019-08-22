@@ -11,8 +11,10 @@ import CoreData
 
 let buddyEntityString = "BuddySave"
 let settingsEntityString = "SettingsSave"
-var saveDataCalled = false
+var functionCalled = false
 var managedContextChanged = false
+var testEntity: NSEntityDescription!
+var testManagedObject: NSManagedObject!
 
 //MARK: - Save Functions
 
@@ -21,21 +23,24 @@ func saveBuddy(buddy: Buddy){
     
     guard let managedContext = getManagedContext() else { return }
     
-    let entity = NSEntityDescription.entity(forEntityName: buddyEntityString, in: managedContext)!
-    let savedBuddy = NSManagedObject(entity: entity, insertInto: managedContext)
-    savedBuddy.setValue(buddy.location.0, forKeyPath: "latitude")
-    savedBuddy.setValue(buddy.location.1, forKeyPath: "longitude")
-    savedBuddy.setValue(buddy.rawData.english.highTemp, forKeyPath: "eHighTemp")
-    savedBuddy.setValue(buddy.rawData.english.lowTemp, forKeyPath: "eLowTemp")
-    savedBuddy.setValue(buddy.rawData.english.rain, forKeyPath: "eRain")
-    savedBuddy.setValue(buddy.rawData.english.snow, forKeyPath: "eSnow")
-    savedBuddy.setValue(buddy.rawData.precip, forKeyPath: "precipitation")
-    
     if !testMode {
+        let entity = NSEntityDescription.entity(forEntityName: buddyEntityString, in: managedContext)!
+        let savedBuddy = NSManagedObject(entity: entity, insertInto: managedContext)
+        savedBuddy.setValue(buddy.location.0, forKeyPath: "latitude")
+        savedBuddy.setValue(buddy.location.1, forKeyPath: "longitude")
+        savedBuddy.setValue(buddy.rawData.english.highTemp, forKeyPath: "eHighTemp")
+        savedBuddy.setValue(buddy.rawData.english.lowTemp, forKeyPath: "eLowTemp")
+        savedBuddy.setValue(buddy.rawData.english.rain, forKeyPath: "eRain")
+        savedBuddy.setValue(buddy.rawData.english.snow, forKeyPath: "eSnow")
+        savedBuddy.setValue(buddy.rawData.precip, forKeyPath: "precipitation")
+        
         saveSettings(settings: buddy.settings)
+        saveData()
+    } else {
+        functionCalled = true
+        testEntity = NSEntityDescription.entity(forEntityName: buddyEntityString, in: managedContext)
+        testManagedObject = NSManagedObject(entity: testEntity, insertInto: managedContext)
     }
-    
-    saveData()
 }
 
 func saveSettings(settings: Settings){
@@ -43,27 +48,34 @@ func saveSettings(settings: Settings){
     
     guard let managedContext = getManagedContext() else { return }
     
-    let entity = NSEntityDescription.entity(forEntityName: settingsEntityString, in: managedContext)!
-    let settingsSave = NSManagedObject(entity: entity, insertInto: managedContext)
-    
-    settingsSave.setValue(settings.locationAuthorization, forKeyPath: "authorization")
-    settingsSave.setValue(settings.locationPreferences[0], forKeyPath: "swGPS")
-    settingsSave.setValue(settings.locationPreferences[1], forKeyPath: "swZipcode")
-    settingsSave.setValue(settings.zipcode, forKeyPath: "zipcode")
-    settingsSave.setValue(settings.systemType, forKeyPath: "system")
-    settingsSave.setValue(settings.tempType, forKeyPath: "temperature")
-    settingsSave.setValue(settings.english.highTemp, forKeyPath: "eHighTemp")
-    settingsSave.setValue(settings.english.lowTemp, forKeyPath: "eLowTemp")
-    settingsSave.setValue(settings.english.rain, forKeyPath: "eRain")
-    settingsSave.setValue(settings.english.snow, forKeyPath: "eSnow")
-    settingsSave.setValue(settings.precip, forKeyPath: "precipitation")
-    settingsSave.setValue(settings.uvIndex, forKeyPath: "uvIndex")
-    settingsSave.setValue(settings.dayStart, forKeyPath: "dStart")
-    settingsSave.setValue(settings.dayEnd, forKeyPath: "dEnd")
-    settingsSave.setValue(settings.buddyType, forKeyPath: "buddyType")
-    
-    saveData()
-    
+    if !testMode {
+        let entity = NSEntityDescription.entity(forEntityName: settingsEntityString, in: managedContext)!
+        let settingsSave = NSManagedObject(entity: entity, insertInto: managedContext)
+        
+        settingsSave.setValue(settings.locationAuthorization, forKeyPath: "authorization")
+        settingsSave.setValue(settings.locationPreferences[0], forKeyPath: "swGPS")
+        settingsSave.setValue(settings.locationPreferences[1], forKeyPath: "swZipcode")
+        settingsSave.setValue(settings.zipcode, forKeyPath: "zipcode")
+        settingsSave.setValue(settings.systemType, forKeyPath: "system")
+        settingsSave.setValue(settings.tempType, forKeyPath: "temperature")
+        settingsSave.setValue(settings.english.highTemp, forKeyPath: "eHighTemp")
+        settingsSave.setValue(settings.english.lowTemp, forKeyPath: "eLowTemp")
+        settingsSave.setValue(settings.english.rain, forKeyPath: "eRain")
+        settingsSave.setValue(settings.english.snow, forKeyPath: "eSnow")
+        settingsSave.setValue(settings.precip, forKeyPath: "precipitation")
+        settingsSave.setValue(settings.uvIndex, forKeyPath: "uvIndex")
+        settingsSave.setValue(settings.dayStart, forKeyPath: "dStart")
+        settingsSave.setValue(settings.dayEnd, forKeyPath: "dEnd")
+        settingsSave.setValue(settings.buddyType, forKeyPath: "buddyType")
+        
+        saveData()
+    } else {
+        functionCalled = true
+        print(functionCalled)
+        testEntity = NSEntityDescription.entity(forEntityName: settingsEntityString, in: managedContext)
+        testManagedObject = NSManagedObject(entity: testEntity, insertInto: managedContext)
+        managedContextChanged = managedContext.hasChanges
+    }
     print("Save Complete!")
 }
 
@@ -173,6 +185,7 @@ func saveData(){
         guard let managedContext = getManagedContext()
             else { print("Error creating mock context")
                 return }
+        print("ManagedContext: \(managedContext.hasChanges)")
         managedContextChanged = managedContext.hasChanges
         if !testMode {
             if managedContext.hasChanges {
@@ -184,6 +197,6 @@ func saveData(){
                 }
             }
         }
-        saveDataCalled = true
+        functionCalled = true
     }
 }

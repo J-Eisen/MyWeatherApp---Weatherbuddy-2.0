@@ -23,14 +23,14 @@ class CoreDataTests: XCTestCase {
         mockEnglishWeatherData = Settings.WeatherData(highTemp: defaultWeatherData[0][0], lowTemp: defaultWeatherData[0][1], rain: defaultWeatherData[0][2], snow: defaultWeatherData[0][3])
         mockMetricWeatherData = Settings.WeatherData(highTemp: defaultWeatherData[1][0], lowTemp: defaultWeatherData[1][1], rain: defaultWeatherData[1][2], snow: defaultWeatherData[1][3])
         mockSettings = Settings.init(english: mockEnglishWeatherData, metric: mockMetricWeatherData, precip: defaultPrecipitation, uvIndex: defaultUVIndex, dayStart: defaultDay.0, dayEnd: defaultDay.1, zipcode: Double(defaultTestZipcode), locationAuthorization: defaultLocationAuthorization, locationPreferences: defaultLocationPreferences, systemType: defaultTypes.0, tempType: defaultTypes.1, buddyType: defaultBuddyName)
-        mockBuddy = Buddy.init(latitude: defaultCoordinates.0, longitude: defaultCoordinates.1, highTemp: defaultBuddyData[0], lowTemp: defaultBuddyData[1], rain: defaultBuddyData[2], snow: defaultBuddyData[3], precip: defaultBuddyData[4], uvIndex: defaultBuddyData[5], settings: mockSettings)
+        mockBuddy = Buddy.init(latitude: defaultTestCoordinates.0, longitude: defaultTestCoordinates.1, highTemp: defaultBuddyData[0], lowTemp: defaultBuddyData[1], rain: defaultBuddyData[2], snow: defaultBuddyData[3], precip: defaultBuddyData[4], uvIndex: defaultBuddyData[5], settings: mockSettings)
     }
 
     override func tearDown() {
         testMode = false
         mockSettings = nil
         mockBuddy = nil
-        saveDataCalled = false
+        functionCalled = false
         managedContextChanged = false
         mockEnglishWeatherData = nil
         mockMetricWeatherData = nil
@@ -59,22 +59,42 @@ class CoreDataTests: XCTestCase {
     }
     
     func test_saveBuddy(){
-        mockBuddy.location = defaultCoordinates
         saveBuddy(buddy: mockBuddy)
-        mockManagedContext = getManagedContext()
-        XCTAssertTrue(saveDataCalled, "saveBuddy() never called saveData()")
-        XCTAssertTrue(managedContextChanged, "managedContext never changed")
-//        managedContext?.fetch(<#T##request: NSFetchRequest<NSFetchRequestResult>##NSFetchRequest<NSFetchRequestResult>#>)
+        XCTAssertTrue(functionCalled, "funciton did not finish")
+        XCTAssertNotNil(testEntity, "saveBuddy entity never created")
+        XCTAssertEqual(testEntity.name, buddyEntityString, "saveBuddy entity incorrectly created")
+        XCTAssertNotNil(testManagedObject, "saveBuddy managedObject never created")
+        XCTAssertEqual(buddyEntityString, testManagedObject.entity.name, "saveBuddy entity incorrectly created")
+//        XCTAssertTrue(testManagedObject.hasChanges)
+        // TODO: Add an XCTAssert to test that testManagedObject was inserted into context)
     }
     
     func test_saveBuddy_noChange(){
-        
+        var expectedChanges = false
+        let testLocationSettings = [false, true]
+        for index in 0...1 {
+            if index == 1 {
+                expectedChanges = true
+                mockBuddy.location = (defaultZipcode, 0)
+                mockBuddy.settings.locationPreferences = testLocationSettings
+            }
+            saveBuddy(buddy: mockBuddy)
+            XCTAssertTrue(functionCalled, "funciton did not finish")
+            XCTAssertNotNil(testEntity, "saveBuddy entity never created")
+            XCTAssertEqual(testEntity.name, buddyEntityString, "saveBuddy entity incorrectly created")
+            XCTAssertNotNil(testManagedObject, "saveBuddy managedObject never created")
+            XCTAssertEqual(buddyEntityString, testManagedObject.entity.name, "saveBuddy entity incorrectly created")
+            managedContext
+//            XCTAssertEqual(expectedChanges, testManagedObject.hasChanges)
+        }
     }
     
     func test_saveSettings(){
         saveSettings(settings: mockSettings)
-        XCTAssertTrue(saveDataCalled, "saveSettings() never called saveData()")
-        XCTAssertTrue(managedContextChanged, "managedContext never changed")
+        XCTAssertTrue(functionCalled, "function did not finish")
+        XCTAssertNotNil(testEntity, "saveSettings entity never created")
+        XCTAssertEqual(testEntity.name, settingsEntityString, "saveSettings entity incorrectly created")
+        XCTAssertNotNil(testManagedObject, "saveSettings managedObject never created")
     }
     
     func test_loadBuddy() {

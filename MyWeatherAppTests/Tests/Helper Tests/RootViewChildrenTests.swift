@@ -19,7 +19,7 @@ class RootViewChildrenTests: XCTestCase {
     override func setUp() {
         testChildDelegate = RootViewChildren()
         testChildDelegate.childCount = 0
-        testBuddy = Buddy.init(location: defaultLocation.0)
+        testBuddy = Buddy.init(location: defaultTestLocation.0)
         testMode = true
     }
 

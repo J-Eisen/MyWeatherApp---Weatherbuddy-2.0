@@ -33,7 +33,7 @@ class ViewControllerTests: XCTestCase {
         settingsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController
         
         testSettings = Settings.init()
-        testBuddy = Buddy.init(latitude: defaultCoordinates.0, longitude: defaultCoordinates.1, highTemp: 80, lowTemp: 40, rain: 1, snow: 1, precip: 40, uvIndex: 2, settings: testSettings)
+        testBuddy = Buddy.init(latitude: defaultTestCoordinates.0, longitude: defaultTestCoordinates.1, highTemp: 80, lowTemp: 40, rain: 1, snow: 1, precip: 40, uvIndex: 2, settings: testSettings)
     }
 
     override func tearDown() {
