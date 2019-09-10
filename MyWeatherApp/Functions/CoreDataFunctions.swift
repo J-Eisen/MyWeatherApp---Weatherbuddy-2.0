@@ -12,7 +12,8 @@ import CoreData
 let buddyEntityString = "BuddySave"
 let settingsEntityString = "SettingsSave"
 var functionCalled = false
-var managedContextChanged = false
+var managedObjectChanged = false
+var managedContextCount: Int = 0
 var testEntity: NSEntityDescription!
 var testManagedObject: NSManagedObject!
 
@@ -35,7 +36,7 @@ func saveBuddy(buddy: Buddy){
         savedBuddy.setValue(buddy.rawData.precip, forKeyPath: "precipitation")
         
         saveSettings(settings: buddy.settings)
-        saveData()
+        saveData(managedContext: managedContext)
     } else {
         functionCalled = true
         testEntity = NSEntityDescription.entity(forEntityName: buddyEntityString, in: managedContext)
@@ -68,13 +69,13 @@ func saveSettings(settings: Settings){
         settingsSave.setValue(settings.dayEnd, forKeyPath: "dEnd")
         settingsSave.setValue(settings.buddyType, forKeyPath: "buddyType")
         
-        saveData()
+        saveData(managedContext: managedContext)
     } else {
         functionCalled = true
-        print(functionCalled)
         testEntity = NSEntityDescription.entity(forEntityName: settingsEntityString, in: managedContext)
         testManagedObject = NSManagedObject(entity: testEntity, insertInto: managedContext)
-        managedContextChanged = managedContext.hasChanges
+        managedContextCount = managedContext.insertedObjects.count
+        managedObjectChanged = testManagedObject.hasChanges
     }
     print("Save Complete!")
 }
@@ -176,25 +177,27 @@ func getManagedContext() -> NSManagedObjectContext! {
 }
 
 // Save Data
-func saveData(){
+func saveData(managedContext: NSManagedObjectContext?){
     if testMode != true {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
             else { return }
         appDelegate.saveContext()
-    } else {
-        guard let managedContext = getManagedContext()
-            else { print("Error creating mock context")
-                return }
-        print("ManagedContext: \(managedContext.hasChanges)")
-        managedContextChanged = managedContext.hasChanges
+    } else if managedContext != nil {
+        print("ManagedContext: \(managedContext!.hasChanges)")
         if !testMode {
-            if managedContext.hasChanges {
+            if managedContext!.hasChanges {
                 do {
-                    try managedContext.save()
+                    try managedContext!.save()
                 } catch {
                     let error = error as NSError
                     print("Saving error \(error)")
                 }
+            }
+        } else {
+            if managedContext!.hasChanges {
+                managedObjectChanged = true
+            } else {
+                managedObjectChanged = false
             }
         }
         functionCalled = true

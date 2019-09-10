@@ -56,28 +56,17 @@ class ViewControllerTests: XCTestCase {
      
      func test_pass_data_settings_to_root_saving(){
         rootVC.buddy = testBuddy
-        testSettings.systemType = 1
-        testSettings.tempType = 1
-        testSettings.precip = 80
         settingsVC.settings = testSettings!
         XCTAssertNotNil(settingsVC.settings)
         settingsVC.performSegue(withIdentifier: settingsToRootSave, sender: nil)
-        let resultsSettings = rootVC.buddy.settings
-        checkSettings(expected: testSettings, results: resultsSettings, testName: "Data Pass: SettingsToRoot Saving")
         XCTAssertEqual(segueString, "Saving")
      }
     
     func test_pass_data_settings_to_root_cancel(){
         rootVC.buddy = testBuddy
-        testSettings.systemType = 1
-        testSettings.tempType = 1
-        testSettings.precip = 80
         settingsVC.settings = testSettings!
         settingsVC.performSegue(withIdentifier: settingsToRootCancel, sender: nil)
         XCTAssertEqual(segueString, "Canceling")
-        let resultsSettings = rootVC.buddy.settings
-        testSettings = Settings.init()
-        checkSettings(expected: testSettings, results: resultsSettings, testName: "Data Pass: SettingsToRoot Cancel")
     }
 
     func testPerformanceExample() {
