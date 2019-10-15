@@ -45,17 +45,23 @@ class CoreDataTests: XCTestCase {
     
     func test_saveData(){
         var hasChanges = false
-        var failText: String = "Managed Object hasChanges "
-        for index in 0...1 {
-            if index > 0 {
-                let mockObject: NSManagedObject = NSManagedObject.init()
-                mockManagedContext.insert(mockObject)
-                hasChanges = true
-            }
+        for index in 0...2 {
             mockManagedContext = getManagedContext()
+            if index > 0 {
+                testEntity = NSEntityDescription.init()
+                hasChanges = true
+                if index == 1 {
+                    testEntity.name = "BuddySave"
+                } else if index == 2 {
+                    testEntity.name = "SettingsSave"
+                }
+                testManagedObject = NSManagedObject.init(entity: testEntity, insertInto: mockManagedContext)
+                mockManagedContext.insert(testManagedObject)
+            }
             saveData(managedContext: mockManagedContext)
             XCTAssertNotNil(mockManagedContext, "Mock Managed Context returned nil")
-            XCTAssertEqual(hasChanges, managedObjectChanged, "Managed Object hasChanges mismatch")
+            XCTAssertEqual(hasChanges, managedObjectChanged, "Managed Object hasChanges fail. Expected \(hasChanges)")
+            mockManagedContext.delete(testManagedObject)
         }
     }
     
@@ -68,19 +74,6 @@ class CoreDataTests: XCTestCase {
         }
     }
     
-    /*func test_saveBuddy(){
-        saveBuddy(buddy: mockBuddy)
-        XCTAssertTrue(functionCalled, "funciton did not finish")
-        XCTAssertNotNil(testEntity, "saveBuddy entity never created")
-        XCTAssertEqual(testEntity.name, buddyEntityString, "saveBuddy entity incorrectly created")
-        XCTAssertNotNil(testManagedObject, "saveBuddy managedObject never created")
-        XCTAssertEqual(buddyEntityString, testManagedObject.entity.name, "saveBuddy entity incorrectly created")
-        XCTAssertTrue(managedObjectChanged, "")
-//        XCTAssertTrue(managedContextCount > 0, "Managed Context Not Inserted")
-//        XCTAssertTrue(testManagedObject.hasChanges)
-        // TODO: Add an XCTAssert to test that testManagedObject was inserted into context)
-    }*/
-    
     func test_saveBuddy(){
         saveBuddy(buddy: mockBuddy)
         XCTAssertTrue(functionCalled, "funciton did not finish")
@@ -88,7 +81,6 @@ class CoreDataTests: XCTestCase {
         XCTAssertEqual(testEntity.name, buddyEntityString, "saveBuddy entity incorrectly created")
         XCTAssertNotNil(testManagedObject, "saveBuddy managedObject never created")
         XCTAssertEqual(buddyEntityString, testManagedObject.entity.name, "saveBuddy entity incorrectly created")
-//        XCTAssertEqual(expectedChanges, testManagedObject.hasChanges)
     }
     
     func test_saveSettings(){

@@ -44,21 +44,24 @@ class RootViewChildren: PageViewChildrenDelegate {
     }
     
     func updateChild(child: UIViewController, buddy: Buddy, weather: [Weather]?) {
-        if child is MainViewController {
-            if !testMode {
-                let mainVC = child as! MainViewController
-                mainVC.buddy = buddy
-                mainVC.buddyImage.image = imageBuilder(buddy: buddy)
-            } else {
-                functionCalled = "updateChild_MainViewController"
-            }
-        } else if child is CurrentWeatherViewController {
-            if !testMode {
+        if !testMode {
+            if child is CurrentWeatherViewController {
                 let weatherVC = child as! CurrentWeatherViewController
                 weatherVC.weatherArray = weather
                 weatherVC.buddy = buddy
             } else {
+                // Default Case
+                let mainVC = child as! MainViewController
+                mainVC.buddy = buddy
+                mainVC.buddyImage.image = imageBuilder(buddy: buddy)
+            }
+        } else {
+            if child is MainViewController {
+                functionCalled = "updateChild_MainViewController"
+            } else if child is CurrentWeatherViewController {
                 functionCalled = "updateChild_CurrentWeatherViewController"
+            } else {
+                functionCalled = "out of bounds"
             }
         }
     }

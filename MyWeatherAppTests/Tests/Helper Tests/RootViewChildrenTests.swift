@@ -46,15 +46,15 @@ class RootViewChildrenTests: XCTestCase {
         }
     }
 
-    /*func test_updateChild(){
-        //TODO: Create mock view controllers
-        let testViews: [UIViewController] = []
-        let expectedResult = ["updateChild_MainViewController", "updateChild_CurrentWeatherViewController"]
-        for index in 0...1 {
-        testChildDelegate.updateChild(child: testViews[index], buddy: testBuddy, weather: nil)
-            XCTAssertEqual(testChildDelegate.functionCalled, expectedResult[index])
+    func test_updateChild(){
+        let mockViews: [UIViewController] = [MainViewController(), CurrentWeatherViewController(), UIViewController()]
+        let expectedResult = ["updateChild_MainViewController", "updateChild_CurrentWeatherViewController", "out of bounds"]
+        let failText = ["Main", "CurrentWeather", "Exception"]
+        for index in 0...2 {
+            testChildDelegate.updateChild(child: mockViews[index], buddy: testBuddy, weather: testWeather)
+            XCTAssertEqual(testChildDelegate.functionCalled, expectedResult[index], "Test Failed - \(failText[index])")
         }
-    }*/
+    }
     
     func test_updateAllChildren(){
         testChildDelegate.updateAllChildren(buddy: testBuddy, weather: testWeather)

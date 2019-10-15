@@ -12,5 +12,5 @@ import UIKit
 protocol NavigationBarDelegate {
     var parentViewController: UIViewController? { get }
     func setUp(buddy: Buddy, parentViewController: UIViewController)
-    func buttonTapped(sender: UIBarButtonItem)
+//    func buttonTapped(sender: UIBarButtonItem)
 }

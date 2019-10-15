@@ -28,22 +28,27 @@ let timeInterval = 554740365
 
 // Variables for testing
 var testMode = false
+var functionCalled = false
 var segueString: String!
 
 // Defaults for Loading/Setting
 let defaultZipcode: Double = 11221
 let defaultLocation: (Double, Double) = (defaultZipcode, 0)
 
-let defaultSettingsFloats: [Float] = [80, 40, 2.0, 1.0, 40, 2]
 // [highTemp, lowTemp, rain, snow, precipitation, uvIndex]
+let defaultSettingsFloats: [Float] = [80, 40, 2.0, 1.0, 40, 2]
 
-let defaultSettingsInts: [Int] = [0, 0, 0, 8, 19]
 // [locationAuth, systemType, tempType, dayStart, dayEnd]
+let defaultSettingsInts: [Int] = [0, 0, 0, 8, 19]
 
 // defaultSettingsInts[1] 0: Imperial/English | 1: Metric
 // defaultSettingsInts[2] 0: ºF | 1: ºC
 
 let defaultSettingsBools: [Bool] = [true, true]
 let defaultBuddyType = "CircleBuddy"
-let defaultValues: [Float] = [0, 100, 0, 0, 0, 0]
 // [highTemp, lowTemp, rain, snow, precip, uvIndex]
+let defaultValues: [Float] = [0, 100, 0, 0, 0, 0]
+
+// navigationButton Constraints
+// Min Size, Max Size
+let navButtonDimensions: (Int, Int) = (16, 64)

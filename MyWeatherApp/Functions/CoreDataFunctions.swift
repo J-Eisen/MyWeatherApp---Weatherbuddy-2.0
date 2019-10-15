@@ -11,7 +11,6 @@ import CoreData
 
 let buddyEntityString = "BuddySave"
 let settingsEntityString = "SettingsSave"
-var functionCalled = false
 var managedObjectChanged = false
 var managedContextCount: Int = 0
 var testEntity: NSEntityDescription!
@@ -178,28 +177,20 @@ func getManagedContext() -> NSManagedObjectContext! {
 
 // Save Data
 func saveData(managedContext: NSManagedObjectContext?){
-    if testMode != true {
+    if !testMode {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
             else { return }
         appDelegate.saveContext()
-    } else if managedContext != nil {
-        print("ManagedContext: \(managedContext!.hasChanges)")
-        if !testMode {
-            if managedContext!.hasChanges {
-                do {
-                    try managedContext!.save()
-                } catch {
-                    let error = error as NSError
-                    print("Saving error \(error)")
-                }
-            }
-        } else {
-            if managedContext!.hasChanges {
-                managedObjectChanged = true
-            } else {
-                managedObjectChanged = false
-            }
-        }
-        functionCalled = true
     }
+    // Testing
+    else {
+        guard managedContext != nil
+            else { return }
+        if managedContext!.hasChanges {
+            managedObjectChanged = true
+        } else {
+            managedObjectChanged = false
+        }
+    }
+    functionCalled = true
 }

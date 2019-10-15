@@ -15,6 +15,7 @@
 		142C996C21FA5F9000476759 /* SettingsFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142C996B21FA5F9000476759 /* SettingsFunctions.swift */; };
 		14364E9821F0DF58002F6647 /* Settings Struct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14364E9721F0DF58002F6647 /* Settings Struct.swift */; };
 		14364E9B21F11020002F6647 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14364E9A21F11020002F6647 /* SettingsViewController.swift */; };
+		143D81FA23439235003620F2 /* NavigationBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143D81F923439235003620F2 /* NavigationBarTests.swift */; };
 		144441F021EE60A900A8DD0F /* MockJSON.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 144441EF21EE60A900A8DD0F /* MockJSON.JSON */; };
 		144441F121EE60A900A8DD0F /* MockJSON.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 144441EF21EE60A900A8DD0F /* MockJSON.JSON */; };
 		144441F321EE666800A8DD0F /* MockWeather Struct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144441F221EE666800A8DD0F /* MockWeather Struct.swift */; };
@@ -42,6 +43,7 @@
 		14C0151421E3C95300826B79 /* GeneralUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C0151321E3C95300826B79 /* GeneralUITests.swift */; };
 		14C0152421E3CC6F00826B79 /* JSON Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C0152321E3CC6F00826B79 /* JSON Fetcher.swift */; };
 		14C0152621E3CC7F00826B79 /* JSON Struct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C0152521E3CC7F00826B79 /* JSON Struct.swift */; };
+		14D09AF5233A61D600DA9F72 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D09AF4233A61D600DA9F72 /* NavigationBar.swift */; };
 		14D6E2B422112346003FA17C /* CurrentWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6E2B322112346003FA17C /* CurrentWeatherViewController.swift */; };
 		14D6E2B6221125F1003FA17C /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D6E2B5221125F1003FA17C /* RootViewController.swift */; };
 		14E4933A221DB82D00ED9BFC /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E49339221DB82D00ED9BFC /* NavBar.swift */; };
@@ -77,6 +79,7 @@
 		142C996B21FA5F9000476759 /* SettingsFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFunctions.swift; sourceTree = "<group>"; };
 		14364E9721F0DF58002F6647 /* Settings Struct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings Struct.swift"; sourceTree = "<group>"; };
 		14364E9A21F11020002F6647 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		143D81F923439235003620F2 /* NavigationBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarTests.swift; sourceTree = "<group>"; };
 		144441EF21EE60A900A8DD0F /* MockJSON.JSON */ = {isa = PBXFileReference; explicitFileType = text.json; fileEncoding = 4; path = MockJSON.JSON; sourceTree = "<group>"; };
 		144441F221EE666800A8DD0F /* MockWeather Struct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MockWeather Struct.swift"; sourceTree = "<group>"; };
 		144441F721EE709300A8DD0F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -108,6 +111,7 @@
 		14C0151521E3C95300826B79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14C0152321E3CC6F00826B79 /* JSON Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSON Fetcher.swift"; sourceTree = "<group>"; };
 		14C0152521E3CC7F00826B79 /* JSON Struct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSON Struct.swift"; sourceTree = "<group>"; };
+		14D09AF4233A61D600DA9F72 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		14D6E2B322112346003FA17C /* CurrentWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherViewController.swift; sourceTree = "<group>"; };
 		14D6E2B5221125F1003FA17C /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		14E49339221DB82D00ED9BFC /* NavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBar.swift; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 				149939BD2208D9A100B9AB0F /* CoreLocationTests.swift */,
 				14C0150821E3C95300826B79 /* DataStructureTests.swift */,
 				142BA5B1221B55B000A78F11 /* ViewControllerTests.swift */,
+				143D81F923439235003620F2 /* NavigationBarTests.swift */,
 				148176FE2224422400F5AEDA /* Helper Tests */,
 			);
 			path = Tests;
@@ -265,6 +270,7 @@
 				14D6E2B5221125F1003FA17C /* RootViewController.swift */,
 				14C014F221E3C94F00826B79 /* MainViewController.swift */,
 				14D6E2B322112346003FA17C /* CurrentWeatherViewController.swift */,
+				14D09AF4233A61D600DA9F72 /* NavigationBar.swift */,
 				14E49339221DB82D00ED9BFC /* NavBar.swift */,
 				14E4933B221DB93200ED9BFC /* NavigationBarDelegate.swift */,
 				14E4933F221DC06400ED9BFC /* RootViewChildren.swift */,
@@ -416,6 +422,7 @@
 				14C014F321E3C94F00826B79 /* MainViewController.swift in Sources */,
 				14364E9B21F11020002F6647 /* SettingsViewController.swift in Sources */,
 				14E4933A221DB82D00ED9BFC /* NavBar.swift in Sources */,
+				14D09AF5233A61D600DA9F72 /* NavigationBar.swift in Sources */,
 				147E667A21EEFE9B0054FF5E /* ConversionFunctions.swift in Sources */,
 				14D6E2B6221125F1003FA17C /* RootViewController.swift in Sources */,
 				14E4933C221DB93200ED9BFC /* NavigationBarDelegate.swift in Sources */,
@@ -442,6 +449,7 @@
 				14C0150921E3C95300826B79 /* DataStructureTests.swift in Sources */,
 				144441F321EE666800A8DD0F /* MockWeather Struct.swift in Sources */,
 				14BAEEFF221A3686006D5421 /* MainVCHelperTests.swift in Sources */,
+				143D81FA23439235003620F2 /* NavigationBarTests.swift in Sources */,
 				149939C02208D9B100B9AB0F /* CoreDataTests.swift in Sources */,
 				142C996921FA18F100476759 /* SettingsVCHelperTests.swift in Sources */,
 				149939BE2208D9A100B9AB0F /* CoreLocationTests.swift in Sources */,

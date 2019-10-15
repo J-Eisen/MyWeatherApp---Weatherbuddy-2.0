@@ -14,10 +14,12 @@ class RootViewController: UIPageViewController {
     var tempSettings: Settings!
     var weather: [Weather] = []
     var pageControl = UIPageControl()
-    var navBarDelegate = NavBar()
+//    var navBarDelegate = NavBar()
+    var navBarDelegate = NavigationBar()
     let locationManager = CLLocationManager()
     let childrenDelegate = RootViewChildren()
     let newChildNameArray = ["Main", "CurrentWeather"]
+    var pageViewIndex: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,15 +46,15 @@ class RootViewController: UIPageViewController {
     
     // MARK:- Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.destination is SettingsViewController {
-                if !testMode {
-                    let vc = segue.destination as! SettingsViewController
-                    vc.settings = buddy.settings
-                    vc.initialSettings = buddy.settings
-                } else {
-                    segueString = "Root To Settings"
-                }
+        if segue.destination is SettingsViewController {
+            if !testMode {
+                let vc = segue.destination as! SettingsViewController
+                vc.settings = buddy.settings
+                vc.initialSettings = buddy.settings
+            } else {
+                segueString = "Root To Settings"
             }
+        }
     }
 }
 
@@ -61,64 +63,69 @@ class RootViewController: UIPageViewController {
 extension RootViewController: UIPageViewControllerDataSource {
     // ToViewBefore
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = childrenDelegate.childViewControllers.firstIndex(of: viewController) else {
-            return nil
-        }
-        let previousIndex = viewControllerIndex - 1
         
-        guard childrenDelegate.childViewControllers.count > previousIndex else {
+        guard childrenDelegate.childViewControllers.firstIndex(of: viewController) != nil else {
             return nil
         }
         
-        guard previousIndex >= 0 else {
-            let childToUpdate = childrenDelegate.childViewControllers.last
+        pageViewIndex = childrenDelegate.childViewControllers.firstIndex(of: viewController)! - 1
+        
+//        guard childrenDelegate.childViewControllers.count > pageViewIndex else {
+//            return nil
+//        }
+        
+        guard pageViewIndex != -1 else {
+            let childToUpdate = childrenDelegate.childViewControllers.first
             if childToUpdate is CurrentWeatherViewController {
             childrenDelegate.updateChild(child: childToUpdate!, buddy: buddy, weather: weather)
             } else {
              childrenDelegate.updateChild(child: childToUpdate!, buddy: buddy, weather: nil)
             }
-            return childrenDelegate.childViewControllers.last
+            pageViewIndex = 0
+            return childrenDelegate.childViewControllers.first
         }
         
-        let childToUpdate = childrenDelegate.childViewControllers[previousIndex]
+        let childToUpdate = childrenDelegate.childViewControllers[pageViewIndex]
         if childToUpdate is CurrentWeatherViewController {
             childrenDelegate.updateChild(child: childToUpdate, buddy: buddy, weather: weather)
         } else {
             childrenDelegate.updateChild(child: childToUpdate, buddy: buddy, weather: nil)
         }
-        return childrenDelegate.childViewControllers[previousIndex]
+        return childrenDelegate.childViewControllers[pageViewIndex]
     }
     
     // ToViewAfter
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = childrenDelegate.childViewControllers.firstIndex(of: viewController) else {
+        
+        guard childrenDelegate.childViewControllers.firstIndex(of: viewController) != nil else {
             return nil
         }
         
-        let nextIndex = viewControllerIndex + 1
+        pageViewIndex = childrenDelegate.childViewControllers.firstIndex(of: viewController)! + 1
         
-        guard childrenDelegate.childViewControllers.count > nextIndex else {
-            return nil
-        }
+//        guard childrenDelegate.childViewControllers.count > pageViewIndex else {
+//            pageViewIndex -= 1
+//                   return nil
+//        }
         
-        guard childrenDelegate.childViewControllers.count != nextIndex else {
-            let childToUpdate = childrenDelegate.childViewControllers.first!
+        guard childrenDelegate.childViewControllers.count != pageViewIndex else {
+            let childToUpdate = childrenDelegate.childViewControllers.last!
+            pageViewIndex = childrenDelegate.childViewControllers.count - 1
             if childToUpdate is CurrentWeatherViewController {
                 childrenDelegate.updateChild(child: childToUpdate, buddy: buddy, weather: weather)
             } else {
-                childrenDelegate.updateChild(child: childrenDelegate.childViewControllers[nextIndex], buddy: buddy, weather: nil)
+                childrenDelegate.updateChild(child: childToUpdate, buddy: buddy, weather: nil)
             }
-            
             return childrenDelegate.childViewControllers.first!
         }
         
-        let childToUpdate = childrenDelegate.childViewControllers[nextIndex]
+        let childToUpdate = childrenDelegate.childViewControllers[pageViewIndex]
         if childToUpdate is CurrentWeatherViewController {
-            childrenDelegate.updateChild(child: childrenDelegate.childViewControllers[nextIndex], buddy: buddy, weather: weather)
+            childrenDelegate.updateChild(child: childrenDelegate.childViewControllers[pageViewIndex], buddy: buddy, weather: weather)
         } else {
-            childrenDelegate.updateChild(child: childrenDelegate.childViewControllers[nextIndex], buddy: buddy, weather: nil)
+            childrenDelegate.updateChild(child: childrenDelegate.childViewControllers[pageViewIndex], buddy: buddy, weather: nil)
         }
-        return childrenDelegate.childViewControllers[nextIndex]
+        return childrenDelegate.childViewControllers[pageViewIndex]
     }
 }
 
@@ -136,11 +143,15 @@ extension RootViewController {
     func configurePageControl(){
         pageControl = UIPageControl(frame: CGRect(x: (UIScreen.main.bounds.width/2) - 25, y: UIScreen.main.bounds.maxY - 75, width: 50, height: 50))
         self.pageControl.numberOfPages = childrenDelegate.childViewControllers.count
-        self.pageControl.currentPage = 0
+        self.pageControl.currentPage = pageViewIndex
         self.pageControl.tintColor = UIColor.black
         self.pageControl.pageIndicatorTintColor = UIColor.white
         self.pageControl.currentPageIndicatorTintColor = UIColor.black
         self.view.addSubview(pageControl)
+    }
+    
+    func updatePAgeControl(){
+        self.pageControl.currentPage = pageViewIndex
     }
 
     //MARK: Reload after fetch
@@ -215,5 +226,11 @@ extension RootViewController: CLLocationManagerDelegate {
         } else {
             print("Other Error:", error.localizedDescription)
         }
+    }
+}
+
+extension RootViewController {
+    func navigationSetUp(buddy: Buddy){
+        navBarDelegate.setUp(buddy: buddy, parentViewController: self)
     }
 }

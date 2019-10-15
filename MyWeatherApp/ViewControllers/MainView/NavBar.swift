@@ -5,7 +5,7 @@
 //  Created by Jonah Eisenstock on 2/20/19.
 //  Copyright © 2019 JonahEisenstock. All rights reserved.
 //
-
+/*
 import Foundation
 import UIKit
 
@@ -39,3 +39,4 @@ class NavBar: NavigationBarDelegate {
         }
     }
 }
+ */

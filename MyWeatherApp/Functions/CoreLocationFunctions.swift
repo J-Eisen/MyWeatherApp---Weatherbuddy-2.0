@@ -5,7 +5,7 @@
 //  Created by Jonah Eisenstock on 1/31/19.
 //  Copyright © 2019 JonahEisenstock. All rights reserved.
 //
-/*
+
 import CoreLocation
 import UIKit
 
@@ -13,28 +13,38 @@ let locationManager = CLLocationManager()
 var location: CLLocation?
 
 func getUserLocation(viewController: UIViewController) -> CLLocation? {
-    let locManager = locationManagerSetup(viewController: viewController)
-    guard locManager != nil else { return nil }
-    locManager!.requestLocation()
-    guard location != nil else { return nil }
-    return location
+    if !testMode {
+        let locManager = locationManagerSetup(viewController: viewController)
+        guard locManager != nil else { return nil }
+        locManager!.requestLocation()
+        guard location != nil else { return nil }
+        return location
+    } else {
+        let locManager = locationManagerSetup(viewController: viewController)
+        return nil
+    }
 }
 
 func checkAuthoriztion(locationManager: CLLocationManager) -> Bool {
     var authorization: Bool = false
-    repeat {
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedAlways, .authorizedWhenInUse:
-            authorization = true
-            break
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-            break
-        default:
-            authorization = false
-        }
-    }while(CLLocationManager.authorizationStatus() == .notDetermined)
-    return authorization
+    if !testMode {
+        repeat {
+            switch CLLocationManager.authorizationStatus() {
+            case .authorizedAlways, .authorizedWhenInUse:
+                authorization = true
+                break
+            case .notDetermined:
+                locationManager.requestWhenInUseAuthorization()
+                break
+            default:
+                authorization = false
+            }
+        }while(CLLocationManager.authorizationStatus() == .notDetermined)
+        return authorization
+    } else {
+        functionCalled = true
+        return true
+    }
 }
 
 func checkAuthorization(settings: Settings) -> Settings {
@@ -48,15 +58,24 @@ func loadAuthorization(settings: Settings) {
 }
 
 func locationManagerSetup(viewController: UIViewController) -> CLLocationManager? {
-    guard !checkAuthoriztion(locationManager: locationManager) else { return nil }
-    locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-    locationManager.distanceFilter = 1000.0
-    locationManager.delegate = viewController as? CLLocationManagerDelegate
-    return locationManager
+    if !testMode {
+        guard checkAuthoriztion(locationManager: locationManager) else { return nil }
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+        locationManager.distanceFilter = 1000.0
+        locationManager.delegate = viewController as? CLLocationManagerDelegate
+        return locationManager
+    } else {
+        functionCalled = true
+        return nil
+    }
 }
 
 func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    location = locations.last
+    if !testMode {
+        location = locations.last
+    } else {
+        functionCalled = true
+    }
 }
 
 func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -73,4 +92,4 @@ func locationManager(_ manager: CLLocationManager, didFailWithError error: Error
         print("Other Error:", error.localizedDescription)
     }
 }
-*/
+
