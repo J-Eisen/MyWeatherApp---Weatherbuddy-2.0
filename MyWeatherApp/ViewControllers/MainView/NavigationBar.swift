@@ -24,14 +24,12 @@ class NavigationBar: NavigationBarDelegate {
     func buttonTapped(sender: UIButton) {
         
     }
-    
 }
 
 extension NavigationBar {
     func buttonConstructor(buddy: Buddy, parentViewController: UIViewController, buttonType: Int) -> UIButton {
         
         var newButton = UIButton.init(type: .custom)
-        
         
         //MARK: Testing
         guard !testMode else {
@@ -53,7 +51,7 @@ extension NavigationBar {
             newButton.setImage(UIImage.init(named: "settings_\(buddy.settings.buddyType)"), for: .disabled)
         }
         
-//        newButton = buttonConstructorConstraints(newButton: newButton, buttonType: buttonType, parentViewController: parentViewController)
+        newButton = buttonConstructorConstraints(newButton: newButton, buttonType: buttonType, parentViewController: parentViewController.children[pageViewIndex])
         
         return newButton
     }

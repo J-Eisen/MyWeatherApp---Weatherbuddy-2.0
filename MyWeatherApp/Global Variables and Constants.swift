@@ -52,3 +52,6 @@ let defaultValues: [Float] = [0, 100, 0, 0, 0, 0]
 // navigationButton Constraints
 // Min Size, Max Size
 let navButtonDimensions: (Int, Int) = (16, 64)
+
+// PageViewIndex
+var pageViewIndex: Int = 0

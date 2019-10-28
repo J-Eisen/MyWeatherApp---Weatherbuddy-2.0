@@ -14,6 +14,7 @@ class MainViewUITests: XCTestCase {
     var left: XCUICoordinate!
     var right: XCUICoordinate!
     var bottom: XCUICoordinate!
+    let expectedPageViewIndex = [0, 1, 1, 0, 0]
     
     override func setUp() {
 
@@ -34,10 +35,13 @@ class MainViewUITests: XCTestCase {
     }
     
     func test_scrollThroughPageViews(){
-        app.swipeLeft()
-        app.swipeLeft()
-        app.swipeRight()
-        app.swipeRight()
+        for index in 0...4 {
+            if index < 2 {
+                app.swipeLeft()
+            } else {
+                app.swipeRight()
+            }
+        }
     }
 
     func test_reload_buddy() {
